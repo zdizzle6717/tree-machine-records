@@ -1,0 +1,26 @@
+.content-wrapper-landing {
+    top: 0px;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 0 15px 15px 15px;
+    background: black;
+    z-index: 10;
+}
+
+.vertical-center-landing {
+    color: white;
+    height: 100%;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+    justify-content: center;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+
+	align-items: center;
+}

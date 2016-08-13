@@ -1,0 +1,87 @@
+<div class="small-12 medium-4 large-3 columns text-center">
+    <div>
+        <img src="/images/logo_transparent.png" class="hover" ui-sref="landing"/>
+    </div>
+
+    <aside>
+
+        <div class="row small-up-3 push-top-20px">
+            <p class="lead">{{Artist.currentArtist.artistName}}'s Links</p>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.facebook}}" target="_blank">
+                <i class="facebook"></i>
+                <h6>1,419</h6>
+                <p><small>FACEBOOK</small></p>
+                <br>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.soundcloud}}" target="_blank">
+                <i class="soundcloud"></i>
+                <h6>188</h6>
+                <p><small>SOUNDCLOUD</small></p>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.instagram}}" target="_blank">
+                <i class="instagram"></i>
+                <h6>1,197</h6>
+                <p><small>INSTAGRAM</small></p>
+                <br>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.homepage}}" target="_blank">
+                <i class="home"></i>
+                <h6>11</h6>
+                <p><small>HOME</small></p>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.twitter}}" target="_blank">
+                <i class="twitter"></i>
+                <h6>6,569</h6>
+                <p><small>TWITTER</small></p>
+                <br>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.videos.link}}" target="_blank" ng-if="Artist.currentArtist.socialLinks.videos.site === 'spotify' || !Artist.currentArtist.socialLinks.videos.site">
+                <i class="spotify"></i>
+                <h6>11</h6>
+                <p><small>SPOTIFY</small></p>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.videos.link}}" target="_blank" target="_blank" ng-if="Artist.currentArtist.socialLinks.videos.site === 'vimeo'">
+                <i class="vimeo"></i>
+                <h6>11</h6>
+                <p><small>Vimeo</small></p>
+            </a>
+
+            <a class="column text-center social-button-alt" ng-href="{{Artist.currentArtist.socialLinks.videos.link}}" target="_blank" target="_blank" ng-if="Artist.currentArtist.socialLinks.videos.site === 'youtube'">
+                <i class="youtube"></i>
+                <h6>11</h6>
+                <p><small>Youtube</small></p>
+            </a>
+
+        </div>
+
+        <br>
+
+        <div class="row column push-top-20px" ng-if="Artist.currentArtist.photos.length > 1">
+            <p class="lead">Photography</p>
+            <div class="media-object">
+                <div class="large-12">
+                    <img class="thumbnail hover shadow photos-link-image" ng-src="{{Artist.currentArtist.photos[0].url}}" ui-sref="artistPhotos({ artistParam: Artist.currentArtist.artistParam })">
+                </div>
+            </div>
+        </div>
+
+        <div class="row column push-top-20px">
+            <p class="lead">Band Contact</p>
+            <h5 class="contact"><a ng-href="mailto:{{Artist.currentArtist.contact.bandEmail}}"><span class="fa fa-envelope"></span> {{Artist.currentArtist.contact.bandEmail}}</a></h5>
+        </div>
+
+        <div class="row column push-top-20px" ng-if="Artist.currentArtist.contact.managerEmail">
+            <p class="lead">Manager Contact</p>
+            <h5 class="contact"><a ng-href="mailto:{{Artist.currentArtist.contact.managerEmail}}"><span class="fa fa-envelope"></span> {{Artist.currentArtist.contact.managerEmail}}</a></h5>
+        </div>
+
+    </aside>
+
+</div>

@@ -1,0 +1,56 @@
+footer {
+    margin-top: 1rem;
+
+    .menu>li>a {
+        color: black;
+    }
+
+    .copyright {
+        margin-right: 40px;    
+    }
+}
+
+.callout {
+    margin: 0 0 1rem;
+    padding: .25rem;
+    border: 1px solid hsla(0,0%,4%,.25);
+    border-radius: 0;
+    position: relative;
+    color: #0a0a0a;
+    background-color: #fff;
+
+    &.secondary {
+        background-color: #CECECE;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    footer {
+        .menu>li>a {
+            font-size: 1.2em;
+        }
+
+        &:hover {
+
+            &::before, &::after {
+               display: none;
+            }
+       }
+    }
+}
+
+ @media screen and (max-width: 700px) {
+     footer {
+         .menu>li>a {
+             font-size: .7em;
+
+             &:hover {
+
+                 &::before, &::after {
+                    display: none;
+                 }
+            }
+
+         }
+     }
+ }

@@ -1,0 +1,36 @@
+<div class="site">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="small-12 medium-8 large-9 columns">
+
+                <article>
+
+                    <div class="row" dir-paginate="disc in Home.discography | itemsPerPage: 5">
+                        <div class="large-5 columns">
+                            <p ng-if="disc.albumCover.large"><img ng-src="{{disc.albumCover.large}}" alt="{{disc.albumTitle}}" class="hover shadow" ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})"></p>
+                            <p ng-if="!disc.albumCover.large"><img src="/images/artists/artwork-missing.jpg" class="hover" ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})"></p>
+                        </div>
+                        <div class="large-7 columns">
+                            <h5><a ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})">{{disc.artist.name}} | <i>{{disc.albumTitle}}</i></a></h5>
+                            <p>
+                                <span class="fi-torso">Release Date:</span>
+                                <span><i class="fi-calendar"> {{disc.releaseDate}} &nbsp;&nbsp;</i></span>
+                            </p>
+                            <p>{{disc.text | limitTo:1500}} <a ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})">...</a></p>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <dir-pagination-controls boundary-links="true" on-page-change="Home.goTop()"></dir-pagination-controls>
+
+                </article>
+
+            </div>
+
+            <div side-bar></div>
+        </div>
+
+        <div footer></div>
+        <div scroll-top></div>
+    </div>
+</div>

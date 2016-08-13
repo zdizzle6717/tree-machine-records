@@ -1,0 +1,37 @@
+<div class="site">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="small-12 medium-8 large-9 columns">
+                <h1>Current Playlist</h1>
+                <h2>Enjoy this rotation of free tracks from TM artists.</h2>
+                <h3>These songs are directly from the playlist above and are updated at random intervals.  Right click and choose 'save link as' to download an MP3.</h3>
+                <br/>
+                <table style="width:100%;text-align:center;">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Download</th>
+                    </tr>
+                    <tr ng-repeat="track in Home.playlist track by $index">
+                        <td>{{$index + 1}}</td>
+                        <td>{{track.title}}</td>
+                        <td>{{track.artist}}</td>
+                        <td><a ng-href="{{track.url}}" target="_blank">Download Now</a></td>
+                    </tr>
+                </table>
+                <p style="visibility:hidden">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt
+                    magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet,magni facilis ullam. Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni
+                    facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae,
+                    ipsum delectus aperiam nesciunt magni facilis ullam.
+                </p>
+            </div>
+
+            <div side-bar></div>
+        </div>
+
+        <div footer></div>
+    </div>
+</div>

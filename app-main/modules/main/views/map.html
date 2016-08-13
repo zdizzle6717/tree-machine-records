@@ -1,0 +1,25 @@
+<div class="site">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="maps">
+                <div class="country hover" ui-sref="mapSelect({countryParam: 'US'})" ng-style="usaStyle" ng-init="usaStyle={'background': 'url(\'/images/countries/united-states-of-america.png\')'}" ng-mouseover="usaStyle={'background': 'url(\'/images/countries/united-states-of-america-fill.png\')'}" ng-mouseleave="usaStyle={'background': 'url(\'/images/countries/united-states-of-america.png\')'}">
+                    <img ng-src="/images/countries/united-states-of-america.png"/>
+                </div>
+                <div class="country hover" ui-sref="mapSelect({countryParam: 'SA'})" ng-style="saStyle" ng-init="saStyle={'background': 'url(\'/images/countries/south-africa.png\')'}" ng-mouseover="saStyle={'background': 'url(\'/images/countries/south-africa-fill.png\')'}" ng-mouseleave="saStyle={'background': 'url(\'/images/countries/south-africa.png\')'}">
+                    <img ng-src="/images/countries/south-africa.png"/>
+                </div>
+                <div class="country hover" ui-sref="mapSelect({countryParam: 'CA'})" ng-style="caStyle" ng-init="caStyle={'background': 'url(\'/images/countries/canada.png\')'}" ng-mouseover="caStyle={'background': 'url(\'/images/countries/canada-fill.png\')'}" ng-mouseleave="caStyle={'background': 'url(\'/images/countries/canada.png\')'}">
+                    <img ng-src="/images/countries/canada.png"/>
+                </div>
+                <div class="country hover" ui-sref="mapSelect({countryParam: 'KR'})" ng-style="krStyle" ng-init="krStyle={'background': 'url(\'/images/countries/south-korea.png\')'}" ng-mouseover="krStyle={'background': 'url(\'/images/countries/south-korea-fill.png\')'}" ng-mouseleave="krStyle={'background': 'url(\'/images/countries/south-korea.png\')'}">
+                    <img ng-src="/images/countries/south-korea.png"/>
+                </div>
+                <div class="country hover" ui-sref="mapSelect({countryParam: 'FR'})" ng-style="frStyle" ng-init="frStyle={'background': 'url(\'/images/countries/france.png\')'}" ng-mouseover="frStyle={'background': 'url(\'/images/countries/france-fill.png\')'}" ng-mouseleave="frStyle={'background': 'url(\'/images/countries/france.png\')'}">
+                    <img ng-src="/images/countries/france.png"/>
+                </div>
+            </div>
+        </div>
+
+        <div footer></div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+/* DELETE ME WHEN STARTING THINGS */
+#main-wrapper {
+	align-items: center;
+}
+
+.intro {
+	.booger-text	{
+		margin-bottom: 1.5rem;
+		font-size: 5rem;
+	}
+}
+
+/* Code Styles */
+pre {
+	background: #282C34;
+	color: #ABB2BF;
+	font-family: 'Roboto Mono', Helvetica, sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	padding: 15px;
+	border-radius: 5px;
+	margin-bottom: 15px;
+
+	&:last-child {
+		margin: 0;
+	}
+}

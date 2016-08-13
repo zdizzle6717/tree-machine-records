@@ -1,0 +1,169 @@
+/* TABLE OF CONTENTS */
+/* 1. Main Styles */
+/* 2. Body and Container */
+
+/* 9. Helper Classes */
+/* 10. Media Query */
+
+
+
+/* 1. Main Styles */
+html, body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: .05rem;
+    text-shadow: 0px 0px 9px rgba(214,214,214,0.5);
+    color:black;
+    background: url('/images/background-spring.gif');
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: inherit;
+    text-rendering: optimizeLegibility;
+    margin-top: 0;
+    margin-bottom: .2rem;
+    line-height: 1.4;
+}
+h5 {
+    font-size: 1.38rem;
+    text-shadow: 0 1px 1px rgba(145, 136, 98, 0.6);
+}
+
+p {
+    font-size: 1.11em;
+    font-weight: bold;
+}
+
+a {
+    color: black;
+    text-decoration: underline;
+
+    &:focus, &:hover {
+        color: black;
+        text-decoration: none;
+        text-shadow: none;
+    }
+}
+
+.logo {
+    max-width: 426px;
+    width: 100%;
+}
+
+hr {
+    max-width: 100%;
+    box-shadow: 0 1px 2px 1px #918862;
+    border-bottom: 1px solid rgba(16, 16, 13, 0.47);
+
+    &.top {
+        border-bottom: 2px solid rgba(16, 16, 13, 0.47);
+        box-shadow: 0 1px 2px 1px rgba(145, 136, 98, 0.6);
+    }
+}
+
+.row {
+    max-width: none;
+}
+
+.fi-torso, .fi-calendar {
+    font-weight: normal;
+}
+
+
+
+
+
+
+/* 2. Body and Containers */
+.view {
+    height: 100%;
+}
+.content-container {
+    height: 100%;
+}
+.site {
+    height: 100%;
+    display: table;
+}
+.content-wrapper {
+    height: auto;
+    width: auto;
+    display: table;
+    margin-top: 0;
+    padding: 15px;
+    transition: $side-transition;
+}
+
+article {
+    padding: 10px;
+}
+
+.shadow {
+    box-shadow: $standard-shadow;
+}
+
+
+
+/* 9. Helper Classes */
+.hover {
+    cursor: pointer;
+}
+
+.push-bottom {
+    margin-bottom: $push;
+}
+.push-bottom-2x {
+    margin-bottom: $push * 2;
+}
+
+.push-top-4x {
+    margin-top: 400px;
+}
+.push-top-20px {
+    margin-top: 20px;
+}
+.full-width {
+    width: 100%;
+}
+.no-underline {
+    text-decoration: none;
+
+    &.hover {
+        text-decoration: none;
+    }
+}
+.scroll-top {
+    background: #1680bc;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 7px;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+    &:active {
+        box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+
+
+/* 10. Media Queries */
+@media screen and (min-width: 430px) {
+    .slogan, h1 {
+        font-size: 3rem;
+        letter-spacing: .4rem;
+    }
+}
+// @media screen and (min-width: 640px) and (max-width: 950px) {
+//     .menu>li>a {
+//
+//     }
+// }

@@ -1,0 +1,14 @@
+<div class="site">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="large-12 columns">
+                <h1>Artist Photos</h1>
+            </div>
+            <div class="photo-select">
+                <img ng-repeat="artist in Artists.artists" ng-src="{{artist.featuredImage}}" ui-sref="artistPhotos({ artistParam: artist.artistParam })" class="photos-artist hover"/>
+            </div>
+        </div>
+
+        <div footer></div>
+    </div>
+</div>

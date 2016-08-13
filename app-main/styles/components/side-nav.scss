@@ -1,0 +1,64 @@
+.side-nav {
+    width: 50px;
+    min-height: 700px;
+    float: left;
+    margin-left: -49px;
+    position: relative;
+    transition: $side-transition;
+
+    .nav-controls {
+        display: none;
+        transition: $side-transition;
+    }
+
+    &:hover, &.active {
+        margin-left: 0px;
+        cursor: pointer;
+
+        .nav-controls {
+            height: 330px;
+            display: block;
+            color: black;
+            font-size: .92rem;
+            width: 50px;
+            float: left;
+            padding: 20px 0;
+            top: 32%;
+            bottom: auto;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-right: 1px solid rgba(16, 16, 13, 0.47);
+            box-shadow: 0 1px 2px 1px #918862;
+            position: fixed;
+
+            .fa {
+                transition: all 250ms;
+
+                &:hover {
+                    font-weight: bolder;
+                    font-size: 2.1rem;
+                }
+
+                &:active {
+                    font-weight: normal;
+                    font-size: 1.95rem;
+                }
+            }
+        }
+    }
+}
+
+.side-nav .row {
+    justify-content: center;
+    display: flex;
+    padding: 12px;
+}
+
+
+
+
+@media screen and (max-width: 500px) {
+    .side-nav {
+        display: none;
+    }
+}

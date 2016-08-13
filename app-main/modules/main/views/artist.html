@@ -1,0 +1,31 @@
+<div class="site">
+    <div class="content-wrapper">
+        <div class="row featured-track">
+            <div class="large-12 columns" ng-bind-html="Artist.sanitizeIframe(Artist.currentArtist.featuredTrack)"></div>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-8 large-9 columns">
+                <div class="row">
+                    <div class="large-12 columns push-bottom">
+                        <img ng-src="{{Artist.currentArtist.featuredImage}}" class="full-width artist-image shadow" ng-href="{{Artist.currentArtist.featuredImage}}"/>
+                        <h3>Locale: {{Artist.currentArtist.origin.stateProvince}} ({{Artist.currentArtist.origin.country}})</h3>
+                        <p ng-repeat="paragraph in Artist.currentArtist.bio">{{paragraph}}</p>
+                    </div>
+                </div>
+                <div class="row push-top-20px">
+                    <h3 class="text-center artist-disc-title">Discography</h3>
+                    <div class="large-12 columns"></div>
+                    <div artist-discography></div>
+                </div>
+
+                <div class="row push-top-20px" ng-if="Artist.currentArtist.media.length">
+                    <h3 class="text-center artist-disc-title">Media</h3>
+                    <div class="large-6 columns media-block" ng-repeat="media in Artist.currentArtist.media" ng-bind-html="Artist.sanitizeIframe(media.embed)"></div>
+                </div>
+
+            </div>
+            <div artist-side-bar></div>
+        </div>
+        <div footer></div>
+    </div>
+</div>

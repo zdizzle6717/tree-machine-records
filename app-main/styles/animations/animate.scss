@@ -1,0 +1,60 @@
+// Main view
+.view.ng-enter {
+  animation: 250ms fade-in;
+  z-index: 0;
+}
+
+.view.ng-leave {
+  animation: 250ms fade-out;
+  z-index: 0;
+}
+
+
+// Scroll Nav
+// .scroll-nav {
+//     .mini-logo {
+//         &.ng-enter {
+//             animation: 0ms fade-in;
+//             z-index: 0;
+//         }
+//
+//         &.ng-leave {
+//             animation: 0ms fade-out;
+//             z-index: 0;
+//         }
+//     }
+// }
+
+
+// Artist Tiles
+.artists-list {
+    margin-top: 10px;
+
+    .artist-tile {
+        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+        margin-bottom: 30px;
+
+        img.ng-enter {
+            animation: 250ms fade-in;
+            z-index: 0;
+        }
+
+        img.ng-leave {
+            display: none;
+            animation: 250ms fade-out;
+            z-index: 0;
+        }
+    }
+}
+
+
+// Animation
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}

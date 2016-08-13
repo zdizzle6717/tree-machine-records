@@ -1,0 +1,112 @@
+#toast-container {
+    position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 99;
+
+    .toast {
+        position: relative;
+        overflow: hidden;
+        background-color: $primary;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        color: #fff;
+
+        &:first-child {
+            border-top-color: transparent;
+        }
+
+        .toast-title {
+            position: relative;
+            display: inline-block;
+            background: rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            font-weight: 700;
+            color: #fff;
+
+			i {
+				font-size: 12px;
+			}
+
+            &:after {
+                position: absolute;
+                content: '';
+                top: 50%;
+                right: -10px;
+                margin-top: -8px;
+                width: 0;
+                height: 0;
+                border-left: 10px solid rgba(0,0,0,0.1);
+                border-top: 8px solid transparent;
+                border-bottom: 8px solid transparent;
+            }
+        }
+
+        .toast-message {
+            display: inline-block;
+            line-height: 1;
+            padding: 10px 15px;
+            margin-right: 30px;
+            color: #fff;
+            word-wrap: break-word;
+
+            a,
+            label {
+                color: #fff;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #ccc;
+            }
+        }
+
+        .close-button {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+            vertical-align: middle;
+            line-height: 1;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 1px 0 #fff;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.5s;
+            border: none;
+            padding: 10px 15px;
+            outline: none;
+
+            &:focus,
+            &:hover,
+            &:active {
+                text-decoration: none;
+                cursor: pointer;
+                opacity: 1;
+            }
+        }
+
+        /* Colors */
+        &.toast-success {
+            background-color: $success;
+        }
+
+        &.toast-error {
+            background-color: $alert;
+        }
+
+        &.toast-info {
+            background-color: $secondary;
+        }
+
+        &.toast-warning {
+            background-color: $warning;
+        }
+
+        &.toast-server {
+            background-color: #333;
+        }
+    }
+}

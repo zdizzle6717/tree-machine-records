@@ -1,0 +1,11 @@
+<div class="site">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="map-select">
+                <img ng-repeat="artist in Map.locationArtists" ng-src="{{artist.featuredImage}}" ui-sref="artist({ artistParam: artist.artistParam })" class="map-artist hover"/>
+            </div>
+        </div>
+
+        <div footer></div>
+    </div>
+</div>

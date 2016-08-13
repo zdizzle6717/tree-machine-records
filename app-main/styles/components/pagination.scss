@@ -1,0 +1,14 @@
+.pagination {
+    text-align: center;
+}
+
+.pagination li {
+    font-size: 1.2rem;
+
+    &.active {
+        a {
+            color: white;
+            background: black;
+        }
+    }
+}

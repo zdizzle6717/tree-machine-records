@@ -1,0 +1,77 @@
+<div class="small-12 medium-4 large-3 columns text-center">
+    <div>
+        <img src="/images/logo_transparent.png" class="hover" ui-sref="landing"/>
+    </div>
+
+    <aside>
+
+        <div class="row small-up-3 push-top-20px">
+
+            <a class="column text-center social-button-alt" href="https://facebook.com/fwirecords" target="_blank">
+                <i class="facebook"></i>
+                <h6>1,419</h6>
+                <p><small>FACEBOOK</small></p>
+                <br>
+            </a>
+
+            <a class="column text-center social-button-alt" href="https://soundcloud.com/treemachinerecords" target="_blank">
+                <i class="soundcloud"></i>
+                <h6>188</h6>
+                <p><small>SOUNDCLOUD</small></p>
+            </a>
+
+            <a class="column text-center social-button-alt" href="https://www.instagram.com/treemachinerecords/" target="_blank">
+                <i class="instagram"></i>
+                <h6>1,197</h6>
+                <p><small>INSTAGRAM</small></p>
+                <br>
+            </a>
+
+            <a class="column text-center social-button-alt" href="http://treemachinerecords.tumblr.com/" target="_blank">
+                <i class="tumblr"></i>
+                <h6>11</h6>
+                <p><small>TUMBLR</small></p>
+            </a>
+
+            <a class="column text-center social-button-alt" href="https://twitter.com/treemachinerex" target="_blank">
+                <i class="twitter"></i>
+                <h6>6,569</h6>
+                <p><small>TWITER</small></p>
+                <br>
+            </a>
+
+            <a class="column text-center social-button-alt" href="https://www.youtube.com/channel/UCdU2YXyNj77L_e9KVG5xpwA" target="_blank">
+                <i class="youtube"></i>
+                <h6>11</h6>
+                <p><small>YOUTUBE</small></p>
+            </a>
+
+        </div>
+
+        <br>
+
+        <div class="row column push-top-20px">
+            <p class="lead">Featured Photography</p>
+            <p><a href="/images/featured-image.jpg"><img src="/images/featured-image.jpg" alt="Featured Photography" class="hover shadow"></a></p>
+        </div>
+
+        <br>
+
+        <div class="row column push-top-20px">
+            <p class="lead">TMR SPOTLIGHT</p>
+
+            <div class="media-object" ng-repeat="disc in Home.discographySpotlight track by $index">
+                <div class="media-object-section">
+                    <img class="thumbnail hover shadow" ng-src="{{disc.albumCover.small}}" ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})">
+                </div>
+                <div class="media-object-section text-left">
+                    <h5>{{disc.caption}}</h5>
+                    <h6>{{disc.releaseDate}}</h6>
+                </div>
+            </div>
+
+        </div>
+
+    </aside>
+
+</div>
