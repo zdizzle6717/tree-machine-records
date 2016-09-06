@@ -49,6 +49,59 @@ let artists = [
     },
     {
         "id": "2",
+        "artistName": "Bartholin",
+        "artistParam": "bartholin",
+        "ngStyle": "bartholin",
+        "isCurrent": "true",
+        "countryCode": "US",
+        "origin": {
+            "city": "Provo",
+            "stateProvince": "Utah",
+            "country": "USA"
+        },
+        "contact": {
+            "bandEmail": "",
+            "bookingEmail": "drewdanburry@gmail.com",
+            "managerEmail": ""
+        },
+        "bio": [
+            "Bartholin is like a conversation between friends about sex.  Debuting their first album and collaboration with Tree Machine Records, the duo Drew Danburry and Cat Leavy take turns singing over carefully, compelling tunes on this self-titled EP.  Delving into the deep crevasse of the inner psyche and stirring the pot of what makes us tick as human animals. Bartholin is an exploration into the Freudian subconscious and the end result is eargasmic.  The melody is soothing and pleasantly taxing throughout, snagging various heartstrings and melting into a sort of cryptic symbiosis."
+        ],
+        "artistTileFront": "/images/artistTiles/bartholin.jpg",
+        "artistTileBack": "/images/artistTiles/bartholin2.jpg",
+        "featuredTrack": "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/280593019&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false\"></iframe>",
+        "featuredImage": "/images/artists/Bartholin/featured-image.jpg",
+        "discography": [],
+        "media": [],
+        "photos": [{
+            "url": "/images/artists/Bartholin/photos/chicks.jpg",
+            "id": "",
+            "alt": "Bartholin",
+            "credit": "",
+            "date": ""
+        },
+        {
+            "url": "/images/artists/Bartholin/photos/bartholin.jpg",
+            "id": "",
+            "alt": "Bartholin",
+            "credit": "",
+            "date": ""
+        }],
+        "merch": [],
+        "socialLinks": {
+            "facebook": "",
+            "twitter": "",
+            "instagram": "",
+            "soundcloud": "https://soundcloud.com/ddanburry",
+            "homepage": "",
+            "videos": {
+                "site": "spotify",
+                "link": ""
+            }
+        }
+    },
+    {
+        "id": "3",
         "artistName": "Blimp Rock",
         "artistParam": "blimp-rock",
         "ngStyle": "blimpRock",
@@ -138,7 +191,7 @@ let artists = [
         }
     },
     {
-        "id": "3",
+        "id": "4",
         "artistName": "EAZY",
         "artistParam": "EAZY",
         "ngStyle": "eazy",
@@ -239,7 +292,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "5",
         "artistName": "Jon Dice",
         "artistParam": "jon-dice",
         "ngStyle": "jonDice",
@@ -307,7 +360,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "6",
         "artistName": "Living Hour",
         "artistParam": "living-hour",
         "ngStyle": "livingHour",
@@ -376,7 +429,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "7",
         "artistName": "!mindparade",
         "artistParam": "mindparade",
         "ngStyle": "mindparade",
@@ -458,7 +511,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "8",
         "artistName": "Pony",
         "artistParam": "pony",
         "ngStyle": "pony",
@@ -540,7 +593,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "9",
         "artistName": "The Psychics",
         "artistParam": "the-psychics",
         "ngStyle": "thePsychics",
@@ -621,7 +674,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "10",
         "artistName": "Shorebilly",
         "artistParam": "shorebilly",
         "ngStyle": "shorebilly",
@@ -696,7 +749,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "11",
         "artistName": "Vows",
         "artistParam": "vows",
         "ngStyle": "vows",
@@ -764,7 +817,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "12",
         "artistName": "Wonderbitch",
         "artistParam": "wonderbitch",
         "ngStyle": "wonderbitch",
@@ -828,7 +881,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "13",
         "artistName": "WOOF.",
         "artistParam": "WOOF",
         "ngStyle": "woof",
@@ -908,7 +961,7 @@ let artists = [
         }
     },
     {
-        "id": "",
+        "id": "14",
         "artistName": "You Are Number Six",
         "artistParam": "you-are-number-six",
         "ngStyle": "you-are-number-six",

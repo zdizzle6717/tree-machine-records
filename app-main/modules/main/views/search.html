@@ -3,18 +3,22 @@
         <div class="row">
             <div class="small-12 medium-8 large-9 columns">
                 <h1>Search</h1>
+                <div class="small-12">
+                    <input type="text" ng-model="controller.searchParams" placeholder="Enter a search term..." ng-change="Search.updateResults(controller.searchParams)">
+                </div>
                 <article>
 
-                    <div class="row" ng-if="Search.discography.length <= 0">
+                    <div class="row" ng-if="Search.results.length <= 0">
                         <p style="visibility:hidden;">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
-                        <p>
-                            No search results with the current criteria.  Please enter a new search phrase.
-                        </p>
+                        <h4>
+                            No search results with the current criteria. Please enter a new search phrase.
+                        </h4>
                     </div>
 
-                    <div class="row" dir-paginate="disc in Search.discography | itemsPerPage: 5" ng-if="Search.discography.length > 0">
+                    <div class="row animate" dir-paginate="disc in Search.results | itemsPerPage: 5" ng-show="Search.discography.length > 0">
                         <div class="large-5 columns">
                             <p ng-if="disc.albumCover.large"><img ng-src="{{disc.albumCover.large}}" alt="{{disc.albumTitle}}" class="hover shadow" ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})"></p>
                             <p ng-if="!disc.albumCover.large"><img src="/images/artists/artwork-missing.jpg" class="hover" ui-sref="singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})"></p>

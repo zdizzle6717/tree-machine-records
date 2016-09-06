@@ -286,16 +286,22 @@ module.exports = MapController;
 },{}],10:[function(require,module,exports){
 'use strict';
 
-HomePageController.$inject = ['$anchorScroll', 'discographySchema', '$filter', 'playlistSchema'];
-function HomePageController($anchorScroll, discographySchema, $filter, playlistSchema) {
+HomePageController.$inject = ['$anchorScroll', 'discographySchema', '$filter'];
+function HomePageController($anchorScroll, discographySchema, $filter) {
     var controller = this;
-    controller.playlist = playlistSchema;
     controller.goTop = goTop;
+    controller.searchParams = '';
+    controller.discography = discographySchema;
+    controller.results = [];
 
-    controller.discography = [];
-    var filtered = $filter('filter')(controller.discography, { spotlight: true });
-    filtered = $filter('limitTo')(filtered, 5);
-    controller.discographySpotlight = filtered;
+    controller.updateResults = function (searchParams) {
+        if (searchParams === '') {
+            controller.results = [];
+        } else {
+            var filtered = $filter('filter')(discographySchema, searchParams);
+            controller.results = filtered;
+        }
+    };
 
     function goTop() {
         $anchorScroll();
@@ -596,6 +602,55 @@ var artists = [{
     }
 }, {
     "id": "2",
+    "artistName": "Bartholin",
+    "artistParam": "bartholin",
+    "ngStyle": "bartholin",
+    "isCurrent": "true",
+    "countryCode": "US",
+    "origin": {
+        "city": "Provo",
+        "stateProvince": "Utah",
+        "country": "USA"
+    },
+    "contact": {
+        "bandEmail": "",
+        "bookingEmail": "drewdanburry@gmail.com",
+        "managerEmail": ""
+    },
+    "bio": ["Bartholin is like a conversation between friends about sex.  Debuting their first album and collaboration with Tree Machine Records, the duo Drew Danburry and Cat Leavy take turns singing over carefully, compelling tunes on this self-titled EP.  Delving into the deep crevasse of the inner psyche and stirring the pot of what makes us tick as human animals. Bartholin is an exploration into the Freudian subconscious and the end result is eargasmic.  The melody is soothing and pleasantly taxing throughout, snagging various heartstrings and melting into a sort of cryptic symbiosis."],
+    "artistTileFront": "/images/artistTiles/bartholin.jpg",
+    "artistTileBack": "/images/artistTiles/bartholin2.jpg",
+    "featuredTrack": "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/280593019&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false\"></iframe>",
+    "featuredImage": "/images/artists/Bartholin/featured-image.jpg",
+    "discography": [],
+    "media": [],
+    "photos": [{
+        "url": "/images/artists/Bartholin/photos/chicks.jpg",
+        "id": "",
+        "alt": "Bartholin",
+        "credit": "",
+        "date": ""
+    }, {
+        "url": "/images/artists/Bartholin/photos/bartholin.jpg",
+        "id": "",
+        "alt": "Bartholin",
+        "credit": "",
+        "date": ""
+    }],
+    "merch": [],
+    "socialLinks": {
+        "facebook": "",
+        "twitter": "",
+        "instagram": "",
+        "soundcloud": "https://soundcloud.com/ddanburry",
+        "homepage": "",
+        "videos": {
+            "site": "spotify",
+            "link": ""
+        }
+    }
+}, {
+    "id": "3",
     "artistName": "Blimp Rock",
     "artistParam": "blimp-rock",
     "ngStyle": "blimpRock",
@@ -674,7 +729,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "3",
+    "id": "4",
     "artistName": "EAZY",
     "artistParam": "EAZY",
     "ngStyle": "eazy",
@@ -765,7 +820,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "5",
     "artistName": "Jon Dice",
     "artistParam": "jon-dice",
     "ngStyle": "jonDice",
@@ -826,7 +881,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "6",
     "artistName": "Living Hour",
     "artistParam": "living-hour",
     "ngStyle": "livingHour",
@@ -887,7 +942,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "7",
     "artistName": "!mindparade",
     "artistParam": "mindparade",
     "ngStyle": "mindparade",
@@ -960,7 +1015,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "8",
     "artistName": "Pony",
     "artistParam": "pony",
     "ngStyle": "pony",
@@ -1033,7 +1088,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "9",
     "artistName": "The Psychics",
     "artistParam": "the-psychics",
     "ngStyle": "thePsychics",
@@ -1106,7 +1161,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "10",
     "artistName": "Shorebilly",
     "artistParam": "shorebilly",
     "ngStyle": "shorebilly",
@@ -1173,7 +1228,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "11",
     "artistName": "Vows",
     "artistParam": "vows",
     "ngStyle": "vows",
@@ -1234,7 +1289,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "12",
     "artistName": "Wonderbitch",
     "artistParam": "wonderbitch",
     "ngStyle": "wonderbitch",
@@ -1289,7 +1344,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "13",
     "artistName": "WOOF.",
     "artistParam": "WOOF",
     "ngStyle": "woof",
@@ -1359,7 +1414,7 @@ var artists = [{
         }
     }
 }, {
-    "id": "",
+    "id": "14",
     "artistName": "You Are Number Six",
     "artistParam": "you-are-number-six",
     "ngStyle": "you-are-number-six",
@@ -1427,6 +1482,44 @@ module.exports = artists;
 'use strict';
 
 var discography = [{
+    "albumTitle": "Bartholin",
+    "discParam": "bartholin",
+    "artistParam": "bartholin",
+    "artist": {
+        "name": "Bartholin",
+        "param": "bartholin"
+    },
+    "catalogueNumber": "TMR0045",
+    "releaseYear": "",
+    "releaseDate": "09/29/16",
+    "albumCover": {
+        "small": "/images/artists/Bartholin/150-bartholin-cover.jpg",
+        "medium": "/images/artists/Bartholin/300-bartholin-cover.jpg",
+        "large": "/images/artists/Bartholin/700-bartholin-cover.jpg",
+        "full": "/images/artists/Bartholin/2400-bartholin-cover.jpg"
+    },
+    "caption": "A Conversation About Sex",
+    "text": "Bartholin is a conversation between friends about sex.  Debuting their first album and collaboration with Tree Machine Records, the duo Drew Danburry and Cat Leavy take turns singing over carefully, compelling tunes on this self-titled EP.  Delving into the deep crevasse of the inner psyche and stirring the pot of what makes us tick as human animals, 'Bartholin' is an exploration into the Freudian subconscious and the end result is eargasmic.  The melody is soothing and pleasantly taxing throughout, snagging various heartstrings and melting into a sort of cryptic symbiosis.",
+    "downloadLink": "",
+    "links": {
+        "spotify": "",
+        "iTunes": "",
+        "blog": []
+    },
+    "spotlight": "true",
+    "isProduct": {
+        "bool": "false",
+        "hasVinyl": "false",
+        "hasCd": "false",
+        "hasDigital": "true",
+        "hasCassette": "false"
+    },
+    "productDetails": {}
+},
+
+// EAZY - Slutty Saturdays
+
+{
     "albumTitle": "Treated",
     "discParam": "treated",
     "artistParam": "austin-bey",
@@ -1456,7 +1549,7 @@ var discography = [{
         "bool": "false",
         "hasVinyl": "false",
         "hasCd": "false",
-        "hasDigital": "false",
+        "hasDigital": "true",
         "hasCassette": "false"
     },
     "productDetails": {}
@@ -1495,7 +1588,7 @@ var discography = [{
             "text": "The first single taken from the EP was ‘Tropic of Love’, a track that is perhaps one of the most noteworthy on the release. It’s more upbeat than the previous tracks, its gliding melodies will no doubt leave you with stars in your eyes. But, for those who want something less busy and more bare, ‘Alice’ will feed your hunger. As one of the more human tracks on ‘VHS Dreams’, it will remind any listener that Théo isn’t just a master of the synthesizer but human too..."
         }]
     },
-    "spotlight": "true",
+    "spotlight": "false",
     "isProduct": {
         "bool": "false",
         "hasVinyl": "false",
@@ -3126,9 +3219,13 @@ module.exports = discography;
 "use strict";
 
 var artists = [{
-    "title": "'I Left A Voicemail'",
-    "artist": "Austin Bey",
-    "url": "/audio/Austin Bey - I Left A Voicemail.mp3"
+    "title": "'Paraphones'",
+    "artist": "Bartholin",
+    "url": "/audio/Bartholin - Paraphones.mp3"
+}, {
+    "title": "'Steady Glazed Eyes'",
+    "artist": "Living Hour",
+    "url": "/audio/Living Hour - Steady Glazed Eyes.mp3"
 }, {
     "title": "'Shorebilly'",
     "artist": "Shorebilly",
@@ -3138,9 +3235,9 @@ var artists = [{
     "artist": "WOOF.",
     "url": "/audio/WOOF - Runaway Jane.mp3"
 }, {
-    "title": "'Steady Glazed Eyes'",
-    "artist": "Living Hour",
-    "url": "/audio/Living Hour - Steady Glazed Eyes.mp3"
+    "title": "'I Left A Voicemail'",
+    "artist": "Austin Bey",
+    "url": "/audio/Austin Bey - I Left A Voicemail.mp3"
 }, {
     "title": "'Alice'",
     "artist": "You Are Number Six",
@@ -3214,10 +3311,10 @@ module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n   
 module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n        <div class=\"row\">\n            <ul class=\"small-block-grid-1 medium-block-grid-3 large-block-grid-4\">\n              <li ng-repeat=\"\">{{artist.name}}</li>\n            </ul>\n        </div>\n\n        <div footer></div>\n    </div>\n</div>\n";
 
 },{}],47:[function(require,module,exports){
-module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n        <div class=\"row\">\n            <div class=\"small-12 medium-8 large-9 columns\">\n                <h1>Search</h1>\n                <article>\n\n                    <div class=\"row\" ng-if=\"Search.discography.length <= 0\">\n                        <p style=\"visibility:hidden;\">\n                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                        </p>\n                        <p>\n                            No search results with the current criteria.  Please enter a new search phrase.\n                        </p>\n                    </div>\n\n                    <div class=\"row\" dir-paginate=\"disc in Search.discography | itemsPerPage: 5\" ng-if=\"Search.discography.length > 0\">\n                        <div class=\"large-5 columns\">\n                            <p ng-if=\"disc.albumCover.large\"><img ng-src=\"{{disc.albumCover.large}}\" alt=\"{{disc.albumTitle}}\" class=\"hover shadow\" ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\"></p>\n                            <p ng-if=\"!disc.albumCover.large\"><img src=\"/images/artists/artwork-missing.jpg\" class=\"hover\" ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\"></p>\n                        </div>\n                        <div class=\"large-7 columns\">\n                            <h5><a ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\">{{disc.artist.name}} | <i>{{disc.albumTitle}}</i></a></h5>\n                            <p>\n                                <span class=\"fi-torso\">Release Date:</span>\n                                <span><i class=\"fi-calendar\"> {{disc.releaseDate}} &nbsp;&nbsp;</i></span>\n                            </p>\n                            <p>{{disc.text | limitTo:1500}} <a ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\">...</a></p>\n                        </div>\n                        <hr>\n                    </div>\n\n                    <dir-pagination-controls boundary-links=\"true\" on-page-change=\"Search.goTop()\"></dir-pagination-controls>\n\n                </article>\n            </div>\n\n            <div side-bar></div>\n        </div>\n\n        <div footer></div>\n    </div>\n</div>\n";
+module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n        <div class=\"row\">\n            <div class=\"small-12 medium-8 large-9 columns\">\n                <h1>Search</h1>\n                <div class=\"small-12\">\n                    <input type=\"text\" ng-model=\"controller.searchParams\" placeholder=\"Enter a search term...\" ng-change=\"Search.updateResults(controller.searchParams)\">\n                </div>\n                <article>\n\n                    <div class=\"row\" ng-if=\"Search.results.length <= 0\">\n                        <p style=\"visibility:hidden;\">\n                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor\n                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                        </p>\n                        <h4>\n                            No search results with the current criteria. Please enter a new search phrase.\n                        </h4>\n                    </div>\n\n                    <div class=\"row animate\" dir-paginate=\"disc in Search.results | itemsPerPage: 5\" ng-show=\"Search.discography.length > 0\">\n                        <div class=\"large-5 columns\">\n                            <p ng-if=\"disc.albumCover.large\"><img ng-src=\"{{disc.albumCover.large}}\" alt=\"{{disc.albumTitle}}\" class=\"hover shadow\" ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\"></p>\n                            <p ng-if=\"!disc.albumCover.large\"><img src=\"/images/artists/artwork-missing.jpg\" class=\"hover\" ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\"></p>\n                        </div>\n                        <div class=\"large-7 columns\">\n                            <h5><a ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\">{{disc.artist.name}} | <i>{{disc.albumTitle}}</i></a></h5>\n                            <p>\n                                <span class=\"fi-torso\">Release Date:</span>\n                                <span><i class=\"fi-calendar\"> {{disc.releaseDate}} &nbsp;&nbsp;</i></span>\n                            </p>\n                            <p>{{disc.text | limitTo:1500}} <a ui-sref=\"singleDiscography({artistParam: disc.artist.param, discParam: disc.discParam})\">...</a></p>\n                        </div>\n                        <hr>\n                    </div>\n\n                    <dir-pagination-controls boundary-links=\"true\" on-page-change=\"Search.goTop()\"></dir-pagination-controls>\n\n                </article>\n            </div>\n\n            <div side-bar></div>\n        </div>\n\n        <div footer></div>\n    </div>\n</div>\n";
 
 },{}],48:[function(require,module,exports){
-module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n        <div class=\"row\">\n            <div class=\"small-12 medium-8 large-9 columns\">\n                <div class=\"row\">\n                    <div class=\"large-12 columns push-bottom\">\n                        <a ng-href=\"{{Disc.currentDiscography.albumCover.full}}\" ng-if=\"Disc.currentDiscography.albumCover.full\"><img ng-src=\"{{Disc.currentDiscography.albumCover.large}}\" class=\"full-width disc-album-cover shadow\"/></a>\n                        <img src=\"/images/artists/artwork-missing.jpg\" class=\"full-width disc-album-cover shadow\" ng-if=\"!Disc.currentDiscography.albumCover.full\"/>\n                        <h1>{{Disc.currentDiscography.albumTitle}}</h1>\n                        <h2>by {{Disc.currentDiscography.artist.name}}</h2>\n                        <h3>{{Disc.currentDiscography.releaseDate}}</h3>\n                        <div class=\"button-link-group\">\n                            <div class=\"small-12 large-6 columns button-group\" ng-if=\"Disc.currentDiscography.links.iTunes\">\n                                <a class=\"itunes-btn\" ng-href=\"{{Disc.currentDiscography.links.iTunes}}\" target=\"_blank\">\n                                    <span class=\"fa fa-apple\"></span> iTunes\n                                </a>\n                            </div>\n                            <div class=\"small-12 large-6 columns button-group\" ng-if=\"Disc.currentDiscography.links.spotify\">\n                                <a class=\"spotify-btn\" ng-href=\"{{Disc.currentDiscography.links.spotify}}\" target=\"_blank\">\n                                    <span class=\"fa fa-spotify\"></span> Spotify\n                                </a>\n                            </div>\n                        </div>\n                        <p>{{Disc.currentDiscography.text}}</p>\n                        <p ng-repeat=\"blog in Disc.currentDiscography.links.blog\">\n                            {{blog.text}} - <a ng-href=\"{{blog.url}}\">{{blog.name}}</a>\n                        </p>\n                        <p style=\"visibility:hidden;\" ng-if=\"!Disc.currentDiscography.text\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse semper purus eget felis consequat, molestie gravida tellus sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>\n                    </div>\n                </div>\n            </div>\n            <div artist-side-bar></div>\n        </div>\n        <div footer></div>\n    </div>\n</div>\n";
+module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n        <div class=\"row\">\n            <div class=\"small-12 medium-8 large-9 columns\">\n                <div class=\"row\">\n                    <div class=\"large-12 columns push-bottom\">\n                        <a ng-href=\"{{Disc.currentDiscography.albumCover.full}}\" ng-if=\"Disc.currentDiscography.albumCover.full\"><img ng-src=\"{{Disc.currentDiscography.albumCover.large}}\" class=\"full-width disc-album-cover shadow\"/></a>\n                        <img src=\"/images/artists/artwork-missing.jpg\" class=\"full-width disc-album-cover shadow\" ng-if=\"!Disc.currentDiscography.albumCover.full\"/>\n                        <h1>{{Disc.currentDiscography.albumTitle}}</h1>\n                        <h2>by {{Disc.currentDiscography.artist.name}}</h2>\n                        <h3>{{Disc.currentDiscography.releaseDate}} | {{Disc.currentDiscography.catalogueNumber}}</h3>\n                        <div class=\"button-link-group\">\n                            <div class=\"small-12 large-6 columns button-group\" ng-if=\"Disc.currentDiscography.links.iTunes\">\n                                <a class=\"itunes-btn\" ng-href=\"{{Disc.currentDiscography.links.iTunes}}\" target=\"_blank\">\n                                    <span class=\"fa fa-apple\"></span> iTunes\n                                </a>\n                            </div>\n                            <div class=\"small-12 large-6 columns button-group\" ng-if=\"Disc.currentDiscography.links.spotify\">\n                                <a class=\"spotify-btn\" ng-href=\"{{Disc.currentDiscography.links.spotify}}\" target=\"_blank\">\n                                    <span class=\"fa fa-spotify\"></span> Spotify\n                                </a>\n                            </div>\n                        </div>\n                        <p>{{Disc.currentDiscography.text}}</p>\n                        <p ng-repeat=\"blog in Disc.currentDiscography.links.blog\">\n                            {{blog.text}} - <a ng-href=\"{{blog.url}}\">{{blog.name}}</a>\n                        </p>\n                        <p style=\"visibility:hidden;\" ng-if=\"!Disc.currentDiscography.text\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse semper purus eget felis consequat, molestie gravida tellus sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>\n                    </div>\n                </div>\n            </div>\n            <div artist-side-bar></div>\n        </div>\n        <div footer></div>\n    </div>\n</div>\n";
 
 },{}],49:[function(require,module,exports){
 module.exports = "<div class=\"site\">\n    <div class=\"content-wrapper\">\n        <div class=\"row\">\n            <div class=\"small-12 medium-8 large-9 columns\">\n                <h1>Site Map</h1>\n                <h2>Soon to be updated...</h2>\n                <p style=\"visibility:hidden\">\n                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet,magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae impedit beatae, ipsum delectus aperiam nesciunt magni facilis ullam.\n                </p>\n            </div>\n\n            <div side-bar></div>\n        </div>\n\n        <div footer></div>\n    </div>\n</div>\n";

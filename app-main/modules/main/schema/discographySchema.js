@@ -1,6 +1,44 @@
 'use strict';
 
 let discography = [{
+        "albumTitle": "Bartholin",
+        "discParam": "bartholin",
+        "artistParam": "bartholin",
+        "artist": {
+            "name": "Bartholin",
+            "param": "bartholin"
+        },
+        "catalogueNumber": "TMR0045",
+        "releaseYear": "",
+        "releaseDate": "09/29/16",
+        "albumCover": {
+            "small": "/images/artists/Bartholin/150-bartholin-cover.jpg",
+            "medium": "/images/artists/Bartholin/300-bartholin-cover.jpg",
+            "large": "/images/artists/Bartholin/700-bartholin-cover.jpg",
+            "full": "/images/artists/Bartholin/2400-bartholin-cover.jpg"
+        },
+        "caption": "A Conversation About Sex",
+        "text": "Bartholin is a conversation between friends about sex.  Debuting their first album and collaboration with Tree Machine Records, the duo Drew Danburry and Cat Leavy take turns singing over carefully, compelling tunes on this self-titled EP.  Delving into the deep crevasse of the inner psyche and stirring the pot of what makes us tick as human animals, 'Bartholin' is an exploration into the Freudian subconscious and the end result is eargasmic.  The melody is soothing and pleasantly taxing throughout, snagging various heartstrings and melting into a sort of cryptic symbiosis.",
+        "downloadLink": "",
+        "links": {
+            "spotify": "",
+            "iTunes": "",
+            "blog": []
+        },
+        "spotlight": "true",
+        "isProduct": {
+            "bool": "false",
+            "hasVinyl": "false",
+            "hasCd": "false",
+            "hasDigital": "true",
+            "hasCassette": "false",
+        },
+        "productDetails": {}
+    },
+
+	// EAZY - Slutty Saturdays
+
+	{
         "albumTitle": "Treated",
         "discParam": "treated",
         "artistParam": "austin-bey",
@@ -30,7 +68,7 @@ let discography = [{
             "bool": "false",
             "hasVinyl": "false",
             "hasCd": "false",
-            "hasDigital": "false",
+            "hasDigital": "true",
             "hasCassette": "false",
         },
         "productDetails": {}
@@ -69,7 +107,7 @@ let discography = [{
                 "text": "The first single taken from the EP was ‘Tropic of Love’, a track that is perhaps one of the most noteworthy on the release. It’s more upbeat than the previous tracks, its gliding melodies will no doubt leave you with stars in your eyes. But, for those who want something less busy and more bare, ‘Alice’ will feed your hunger. As one of the more human tracks on ‘VHS Dreams’, it will remind any listener that Théo isn’t just a master of the synthesizer but human too..."
             }]
         },
-        "spotlight": "true",
+        "spotlight": "false",
         "isProduct": {
             "bool": "false",
             "hasVinyl": "false",

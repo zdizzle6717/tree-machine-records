@@ -1,12 +1,31 @@
 // Main view
 .view.ng-enter {
-  animation: 250ms fade-in;
+  animation: 500ms fade-in;
   z-index: 0;
 }
 
 .view.ng-leave {
-  animation: 250ms fade-out;
+  animation: 500ms fade-out;
   z-index: 0;
+}
+
+.animate.ng-enter, .animate.ng-leave {
+  transition: all 500ms;
+}
+
+.animate.ng-enter,
+.animate.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.animate.ng-leave,
+.animate.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+// Angulars ng-cloak directive to prevent a flicker pre-rendering content
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
 
 
