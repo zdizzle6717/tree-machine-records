@@ -1,0 +1,144 @@
+
+html, body {
+    font-family: 'Alegreya Sans', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	letter-spacing: .08rem;
+    text-shadow: 0px 0px 9px rgba(214,214,214,0.5);
+    color: $black;
+	background: $white;
+}
+
+.view {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+
+	> div:first-child {
+		height: 100%;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: inherit;
+    text-rendering: optimizeLegibility;
+    margin-top: 0;
+    margin-bottom: .2rem;
+    line-height: 1.4;
+}
+
+h1 {
+	@include breakpoint(medium down) {
+		font-size: 1.8rem;
+		text-align: center;
+	}
+
+	@include breakpoint(small only) {
+		font-size: 1.8rem;
+		text-align: center;
+	}
+}
+
+h5 {
+    font-size: 1.38rem;
+    text-shadow: 0 1px 1px rgba(145, 136, 98, 0.6);
+
+	a {
+		text-decoration: none;
+	}
+}
+
+p {
+    font-size: 1.11em;
+}
+
+a {
+    color: $black;
+    text-decoration: underline;
+
+    &:focus, &:hover {
+        color: $black;
+        text-decoration: none;
+        text-shadow: none;
+    }
+}
+
+.logo {
+    max-width: 426px;
+    width: 100%;
+}
+
+hr {
+	max-width: 100%;
+	border-bottom: 1px solid rgba(10, 10, 10, 0.44);
+	box-shadow: 0 0 0px 1px rgba(10,10,10,0.15);
+
+    &.top {
+        border-bottom: 2px solid rgba(16, 16, 13, 0.47);
+        box-shadow: 0 1px 2px 1px rgba(145, 136, 98, 0.6);
+    }
+}
+
+article {
+    padding: 10px;
+
+	a {
+		text-decoration: none;
+	}
+}
+
+.content-container {
+	min-height: 100%;
+	margin: 0 1rem;
+
+	.content-wrapper {
+		padding: 28px 0;
+	}
+}
+
+
+// Zurb Foundation Customization
+
+.row {
+    max-width: none;
+}
+
+fieldset {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    border-collapse: collapse;
+    margin: .5rem 0 1.5rem;
+}
+
+
+
+// Helpers
+.hidden {
+    visibility: hidden;
+}
+.no-underline {
+    text-decoration: none;
+
+    &.hover {
+        text-decoration: none;
+    }
+}
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (max-width: 800px) {
+	.content-container {
+		margin: 0 .5rem;
+	}
+}
+// @media screen and (min-width: 640px) and (max-width: 950px) {
+//     .menu>li>a {
+//
+//     }
+// }

@@ -1,0 +1,37 @@
+.overlay {
+	.animation-wrapper {
+		z-index: 200;
+
+		.logo-overlay {
+			z-index: 200;
+			position: fixed;
+			color: $white-500;
+			background: $black-900;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+	}
+
+	h1 {
+		font-size: 4rem;
+		letter-spacing: .4rem;
+	}
+
+	@media screen and (max-width: 900px) {
+	    h1 {
+	        font-size: 3rem;
+	    }
+	}
+
+	@media screen and (max-width: 600px) {
+	    h1 {
+	        font-size: 2rem;
+	    }
+	}
+}

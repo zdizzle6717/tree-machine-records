@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "tmadmin",
+    "password": "machinetree22",
+    "database": "treeMachineRecords",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "tmadmin",
+    "password": "machinetree22",
+    "database": "treeMachineRecords",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "tmadmin",
+    "password": "machinetree22",
+    "database": "treeMachineRecords",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
