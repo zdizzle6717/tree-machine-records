@@ -1,11 +1,10 @@
 'use strict';
 
-import dateFormat from 'dateformat';
+import moment from 'moment-timezone';
 
 const formatDate = (input) => {
-	let output = new Date(input);
-	output = dateFormat(output, 'd mmm yyyy');
-	// let output = new Date(dateString);
+	// Since the database stores dates as GMT, this will account for that conversion
+	let output = moment.tz(input, "Etc/GMT").format('D MMM YYYY');
 	return output;
 }
 

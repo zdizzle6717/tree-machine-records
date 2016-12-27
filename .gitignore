@@ -43,3 +43,4 @@ uploads*
 
 # SCSS
 .sass-cache
+babel_cache*

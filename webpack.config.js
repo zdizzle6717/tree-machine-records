@@ -16,8 +16,14 @@ module.exports = {
                 cacheDirectory: 'babel_cache',
                 presets: ['react', 'es2015']
             }
-        }]
+        },{
+			include: /\.json$/,
+			loaders: ["json-loader"]
+		}]
     },
+	resolve: {
+	    extensions: ['', '.json', '.jsx', '.js']
+	},
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
