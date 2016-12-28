@@ -26,15 +26,15 @@ export default class SideBar extends React.Component {
 
 	componentWillMount() {
         OverlayStore.addChangeListener(this.onChange);
+    }
+
+	componentDidMount() {
 		axios.get('/albumReleases/featuredAlbums/list').then((response) => {
 			let featuredAlbums = response.data;
 			this.setState({
 				'featuredAlbums': featuredAlbums
 			})
 		});
-    }
-
-	componentDidMount() {
 	}
 
 	componentWillReceiveProps(nextProps) {

@@ -16,3 +16,24 @@
 		align-items: center;
 	}
 }
+
+.login-box,
+.registration-box {
+	background: $white-600;
+	padding: 20px 20px 40px 20px;
+	border: 2px solid $black;
+	margin-top: 30px;
+
+	input {
+		font-size: 1.2rem;
+
+		&[type='password'] {
+			font-weight: bold;
+		}
+	}
+
+	button {
+		margin: 15px 0 15px 0 !important;
+		width: 100%;
+	}
+}

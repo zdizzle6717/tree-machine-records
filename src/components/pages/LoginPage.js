@@ -90,9 +90,8 @@ export default class LoginPage extends React.Component {
         return (
 			<div className="content-wrapper">
 				<div className="row">
-					<h1 className="push-bottom-2x">Login</h1>
-					<hr />
-					<div className="small-12 medium-6 medium-offset-3 large-4 large-offset-4 columns">
+					<div className="small-12 medium-6 medium-offset-3 large-4 large-offset-4 columns login-box">
+						<h1>Login</h1>
 						<Form name="loginForm" submitText="Login" handleSubmit={this.handleSubmit}>
 							<div className="row">
 								<div className="form-group small-12 columns">
