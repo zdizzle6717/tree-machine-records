@@ -7,6 +7,8 @@ import routes from '../routes';
 import authorizedRoutesConfig from '../constants/authorizedRoutesConfig';
 import UserStore from '../library/authentication/stores/UserStore';
 import scrollTo from '../library/utils/ScrollTo';
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-48987915-2');
 
 export default class AppRoutes extends React.Component {
 	constructor() {
@@ -20,6 +22,7 @@ export default class AppRoutes extends React.Component {
 		this.onUserChange = this.onUserChange.bind(this);
 		this.onViewChange = this.onViewChange.bind(this);
 		this.showAlert = this.showAlert.bind(this);
+		this.handleRouteUpdate = this.handleRouteUpdate.bind(this);
 	}
 
 	componentWillMount() {
@@ -65,6 +68,12 @@ export default class AppRoutes extends React.Component {
 		})
 	}
 
+	handleRouteUpdate() {
+		scrollTo(0, 0);
+		ReactGA.set({ 'page': window.location.pathname });
+		ReactGA.pageview(window.location.pathname);
+	}
+
 	componentWillUnmount() {
 		viewListener();
 		UserStore.removeChangeListener(this.onUserChange);
@@ -97,7 +106,7 @@ export default class AppRoutes extends React.Component {
 
 	render() {
 	    return (
-			<Router history={browserHistory} routes={routes} onUpdate={() => scrollTo(0, 0)}/>
+			<Router history={browserHistory} routes={routes} onUpdate={this.handleRouteUpdate}/>
 	    );
 	}
 }

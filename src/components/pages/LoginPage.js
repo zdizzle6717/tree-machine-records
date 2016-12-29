@@ -96,7 +96,7 @@ export default class LoginPage extends React.Component {
 							<div className="row">
 								<div className="form-group small-12 columns">
 									<label className="required">Username/Email</label>
-									<Input type="text" name="username" value={this.state.credentials.username || ''} handleInputChange={this.handleInputChange} validate="email" required={true} />
+									<Input type="text" name="username" value={this.state.credentials.username || ''} handleInputChange={this.handleInputChange} required={true} />
 								</div>
 							</div>
 							<div className="row">
