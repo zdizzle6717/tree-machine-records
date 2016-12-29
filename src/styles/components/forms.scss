@@ -19,6 +19,7 @@
 
 .login-box,
 .registration-box {
+	border: 1px solid #011e33;
 	background: $white-600;
 	padding: 20px 20px 40px 20px;
 	margin-top: 30px;
@@ -32,8 +33,13 @@
 		}
 	}
 
-	button {
+	button,
+	.button {
 		margin: 15px 0 15px 0 !important;
 		width: 100%;
+
+		&[disabled] {
+			opacity: 1;
+		}
 	}
 }

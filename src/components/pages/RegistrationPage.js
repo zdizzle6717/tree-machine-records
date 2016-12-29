@@ -35,6 +35,9 @@ export default class RegistrationPage extends React.Component {
 	handleInputChange(e) {
 		let credentials = this.state.credentials;
 		credentials[e.target.name] = e.target.value;
+		if (e.target.name === 'username' || e.target.name === 'email') {
+			credentials[e.target.name] = e.target.value.toLowerCase();
+		}
 		this.setState({
 			credentials: credentials
 		})
