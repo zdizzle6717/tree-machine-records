@@ -36,8 +36,10 @@ export default class CountryPage extends React.Component {
 		let photos = [];
 		let newArtistArray = [];
 		artists.forEach((artist, i) => {
-			if (artist.Origin.countryCode === this.props.params.countryCode) {
-				newArtistArray.push(artist);
+			if (artist.Origin) {
+				if (artist.Origin.countryCode === this.props.params.countryCode && artist.isCurrent) {
+					newArtistArray.push(artist);
+				}
 			}
 		});
 		newArtistArray.forEach((artist, i) => {
