@@ -3,7 +3,7 @@
 import TabGroup from './components/TabGroup';
 import Tab from './components/Tab';
 
-module.exports = {
+export {
 	TabGroup,
 	Tab
 }

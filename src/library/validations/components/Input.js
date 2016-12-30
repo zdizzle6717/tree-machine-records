@@ -96,6 +96,7 @@ export default class Input extends React.Component {
 	}
 
 	validateInput(e) {
+		e.preventDefault();
 		let value = e.target.value;
 		let empty = this.props.required ? (value ? false : true) : false;
 		let input = {
@@ -170,7 +171,7 @@ export default class Input extends React.Component {
 
 		return (
 			<div className="validate-error-element">
-				<input className={validationClasses} type={this.props.type} name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} min={this.props.min} max={this.props.max} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} disabled={this.props.disabled}/>
+				<input className={validationClasses} type={this.props.type} name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} min={this.props.min} max={this.props.max} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} autoComplete={this.props.autoComplete} disabled={this.props.disabled}/>
 				<div className="validate-errors">
 					{
 						this.state.errors.map((error, i) =>
@@ -184,6 +185,7 @@ export default class Input extends React.Component {
 }
 
 Input.propTypes = {
+	'autoComplete': React.PropTypes.string,
 	'type': React.PropTypes.string.isRequired,
 	'name': React.PropTypes.string.isRequired,
 	'value': React.PropTypes.string,
@@ -199,5 +201,6 @@ Input.propTypes = {
 }
 
 Input.defaultProps = {
+	'autoComplete': 'on',
 	'preserveState': false
 };

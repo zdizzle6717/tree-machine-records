@@ -31,7 +31,7 @@ function removeErrorMessage(currentErrors, key) {
 	return currentErrors;
 }
 
-module.exports = {
-	'addErrorMessage': addErrorMessage,
-	'removeErrorMessage': removeErrorMessage
+export {
+	addErrorMessage,
+	removeErrorMessage
 };

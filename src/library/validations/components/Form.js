@@ -58,7 +58,7 @@ export default class Form extends React.Component {
 			<div>
 				{
 					this.props.isParent ?
-					<form className="form" name={this.props.name} noValidate>
+					<form className={this.props.customClass ? `form ${this.props.customClass}` : 'form'} name={this.props.name} noValidate>
 						{this.props.children}
 						{
 							this.props.submitButton &&
@@ -69,7 +69,7 @@ export default class Form extends React.Component {
 							</div>
 						}
 					</form> :
-					<div className="form" name={this.props.name} noValidate>
+					<div className={this.props.customClass ? `form ${this.props.customClass}` : 'form'} name={this.props.name} noValidate>
 						{this.props.children}
 						{
 							this.props.submitButton &&
@@ -88,6 +88,7 @@ export default class Form extends React.Component {
 }
 
 Form.propTypes = {
+	customClass: React.PropTypes.string,
 	name: React.PropTypes.string.isRequired,
 	handleSubmit: React.PropTypes.func,
 	submitButton: React.PropTypes.bool,

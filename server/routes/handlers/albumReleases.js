@@ -1,5 +1,6 @@
 'use strict';
 
+const sequelize = require('sequelize');
 const models = require('../../models');
 const fs = require('fs-extra');
 const env = require('../../config/envVariables.js');
@@ -56,49 +57,49 @@ let albumReleases = {
 		});
     },
     search: (req, res) => {
-		let query = req.payload.searchQuery || '';
-		let totalResults = 0;
+		let query = req.payload.searchQuery ? req.payload.searchQuery.toLowerCase() : '';
 		let totalPages = 0;
-		let offset = 0;
-        models.AlbumRelease.findAndCountAll()
-		.then((allResults) => {
-			totalResults = allResults.count;
+		let offset = (req.payload.pageNumber - 1) * req.payload.pageSize;
+		models.AlbumRelease.findAndCountAll({
+			where: {
+				$or: [
+					{
+					  summary: {
+						$ilike: '%' + query + '%'
+					  }
+					},
+					{
+					  title: {
+						$ilike: '%' + query + '%'
+					  }
+					}
+				  ]
+			},
+			include: [
+				{
+					model: models.Artist
+				},
+				{
+					model: models.File
+				}
+			],
+			order: [['releaseDate', 'DESC']],
+			offset: offset,
+			limit: req.payload.pageSize
+		}).then((response) => {
+			let totalResults = response.count;
 			let totalPagesDecimal = totalResults === 0 ? 0 : (totalResults / req.payload.pageSize);
 			totalPages = Math.ceil(totalPagesDecimal);
-			offset = (req.payload.pageNumber - 1) * req.payload.pageSize;
-			models.AlbumRelease.findAll({
-				where: {
-					$and: [
-					    {
-					      title: {
-					        $ilike: '%' + query + '%'
-					      }
-					    }
-					  ]
+			res({
+				'pagination': {
+					pageNumber: req.payload.pageNumber,
+					pageSize: req.payload.pageSize,
+					totalPages: totalPages,
+					totalResults: response.rows.count
 				},
-				order: [['releaseDate', 'DESC']],
-				include: [
-					{
-						model: models.Artist
-					},
-					{
-						model: models.File
-					}
-				],
-				offset: offset,
-				limit: req.payload.pageSize
-			}).then((results) => {
-		    	res({
-					'pagination': {
-						pageNumber: req.payload.pageNumber,
-						pageSize: req.payload.pageSize,
-						totalPages: totalPages,
-						totalResults: totalResults
-					},
-					'results': results
-				}).code(200);
-			});
-		})
+				'results': response.rows
+			}).code(200);
+		});
     },
 	getFeaturedAlbums: (req, res) => {
         models.FeaturedAlbumList.find(

@@ -11,12 +11,14 @@ let _alertTimeout = 5000;
 
 function setAlerts(alert) {
 	alert.index = _alerts.push(alert) - 1;
-	removeAlert(alert);
+	if (alert.delay !== -1) {
+		removeAlert(alert);
+	}
 }
 
 function removeAlert(alert, skipTimeout = false) {
 	if (!skipTimeout) {
-		let delay = alert.delay || alertTimeout;
+		let delay = alert.delay || _alertTimeout;
 		setTimeout(() => {
 			removeFromAlerts(alert)
 		}, delay);

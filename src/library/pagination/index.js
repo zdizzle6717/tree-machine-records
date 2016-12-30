@@ -2,6 +2,6 @@
 
 import PaginationControls from './components/PaginationControls';
 
-module.exports = {
+export {
 	PaginationControls
 };

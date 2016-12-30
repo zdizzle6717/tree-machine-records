@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, browserHistory } from 'react-router';
 
 export default class BreadCrumbs extends React.Component {
-	// TODO: This is garbarge. Find a better solution.
+	// TODO: This is garbage. Find a better solution.
 
 	constructor() {
 		super();

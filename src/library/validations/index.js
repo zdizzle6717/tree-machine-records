@@ -8,7 +8,7 @@ import RadioGroup from './components/RadioGroup';
 import CheckBox from './components/CheckBox';
 import FileUpload from './components/FileUpload';
 
-module.exports = {
+export {
 	Form,
 	Input,
 	TextArea,

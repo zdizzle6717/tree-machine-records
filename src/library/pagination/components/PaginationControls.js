@@ -40,7 +40,8 @@ export default class PaginationControls extends React.Component {
 		phantomArraySlice = phantomArray.slice(startPage - 1, endPage);
 
 		this.setState({
-			pages: phantomArraySlice
+			'currentPage': nextProps.pageNumber,
+			'pages': phantomArraySlice
 		});
 	}
 
