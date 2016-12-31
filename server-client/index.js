@@ -76,7 +76,7 @@ app.get('*', (req, res) => {
 });
 
 // Start the server
-server.listen(port, err => {
+server.listen(env.clientPort, err => {
     if (err) {
         return console.error(err);
     }
