@@ -23,6 +23,12 @@ export default class LogoOverlay extends React.Component {
         OverlayStore.addChangeListener(this.onChange);
     }
 
+	componentDidMount() {
+		setTimeout(() => {
+			OverlayActions.hideOverlay();
+		}, 5000);
+	}
+
 	componentWillUnmount() {
 		OverlayStore.removeChangeListener(this.onChange);
 	}

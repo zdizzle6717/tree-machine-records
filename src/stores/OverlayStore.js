@@ -12,6 +12,10 @@ function toggle() {
 	_overlay = !_overlay;
 }
 
+function hide() {
+	_overlay = false;
+}
+
 class OverlayStoreClass extends EventEmitter {
 
     emitChange() {
@@ -40,6 +44,11 @@ OverlayStore.dispatchToken = AppDispatcher.register(action => {
     switch (action.actionType) {
 		case OverlayConstants.TOGGLE_OVERLAY:
             toggle();
+            OverlayStore.emitChange();
+            break;
+
+		case OverlayConstants.HIDE_OVERLAY:
+            hide();
             OverlayStore.emitChange();
             break;
 

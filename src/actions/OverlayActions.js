@@ -8,5 +8,10 @@ export default {
 		AppDispatcher.dispatch({
 			actionType: OverlayConstants.TOGGLE_OVERLAY
 		});
+    },
+	hideOverlay: () => {
+		AppDispatcher.dispatch({
+			actionType: OverlayConstants.HIDE_OVERLAY
+		});
     }
 }
