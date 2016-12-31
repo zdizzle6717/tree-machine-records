@@ -107,7 +107,7 @@ export default class ArtistPage extends React.Component {
 			                    <div className="large-12 columns artist-disc-items">
 									{
 										this.state.artist.AlbumReleases.map((release, i) =>
-											<Link key={i} to={`/artists/${this.state.artist.param}/discography/${release.param}`}><img key={i} src={`/images/artists/${this.state.artist.param}/albumCovers/150-${release.Files[0].name}`} /></Link>
+											<Link key={i} to={`/artists/${this.state.artist.param}/discography/${release.param}`}><img key={i} src={`/images/artists/${this.state.artist.param}/albumCovers/150-${release.Files[0] ? release.Files[0].name : ''}`} /></Link>
 										)
 									}
 								</div>
