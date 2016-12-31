@@ -12,7 +12,9 @@ export default class LoginPage extends React.Component {
         super();
 
         this.state = {
-            credentials: {}
+            'credentials': {},
+			'invalidUsername': false,
+			'invalidePassword': false
         }
 
 		this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,10 +50,19 @@ export default class LoginPage extends React.Component {
 		}).catch((error) => {
 			if (error.message === 'Incorrect password!') {
 				this.showAlert('incorrectPassword');
+				this.setState({
+					'invalidUsername': false,
+					'invalidPassword': true
+				});
 			}
 			if (error.message === 'Incorrect username or email!') {
 				this.showAlert('incorrectUsername');
+				this.setState({
+					'invalidUsername': true,
+					'invalidPassword': false
+				});
 			}
+
 		});
 	}
 
@@ -111,6 +122,16 @@ export default class LoginPage extends React.Component {
 						</Form>
 						<div className="form-group small-12">
 							Don't have an account? <Link key="register" to="/register" activeClassName="active" onClick={this.closeMenu}>Register/Sign Up</Link>
+						</div>
+						<div className="form-group small-12 text-center push-top">
+							{
+								this.state.invalidUsername &&
+								<div className="error-message">Invalid Username/Email</div>
+							}
+							{
+								this.state.invalidPassword &&
+								<div className="error-message">Incorrect Password!</div>
+							}
 						</div>
 					</div>
 				</div>

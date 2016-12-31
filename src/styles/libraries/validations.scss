@@ -114,3 +114,7 @@ select.blurred.invalid,
 select.dirty.invalid {
 	border: 1px solid $alert-500;
 }
+
+.error-message {
+	color: $alert-500;
+}

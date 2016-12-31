@@ -58,11 +58,11 @@ function verifyCredentials(req, res) {
                     if (isValid) {
                         res(user);
                     } else {
-                        res(Boom.unauthorized('Incorrect password!'));
+                        res(Boom.badRequest('Incorrect password!'));
                     }
                 });
             } else {
-                res(Boom.unauthorized('Incorrect username or email!'));
+                res(Boom.badRequest('Incorrect username or email!'));
             }
         })
         .catch((response) => {
