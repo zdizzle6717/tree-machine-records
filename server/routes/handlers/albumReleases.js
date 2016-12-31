@@ -115,7 +115,7 @@ let albumReleases = {
 					where: {
 						$or: [{id: featuredAlbumList.albumReleaseIds}]
 					},
-					attributes: ['caption', 'releaseDate'],
+					attributes: ['caption', 'releaseDate', 'id', 'param'],
 					include: [
 						{
 							model: models.File,
