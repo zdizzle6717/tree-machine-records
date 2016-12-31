@@ -6,6 +6,21 @@ const env = require('../../config/envVariables.js');
 const Boom = require('boom');
 const createToken = require('../../utils/createToken');
 const userFunctions = require('../../utils/userFunctions');
+const nodemailer = require('nodemailer');
+const generator = require('xoauth2').createXOAuth2Generator(env.email.XOAuth2);
+const buildRegistrationEmail = require('../../emailTemplates/registrationSuccess');
+
+// listen for token updates
+// you probably want to store these to a db
+generator.on('token', function(token) {
+});
+
+let transporter = nodemailer.createTransport(({
+	service: 'Gmail',
+	auth: {
+		xoauth2: generator
+	}
+}));
 
 // App users
 let users = {
@@ -23,13 +38,27 @@ let users = {
 					subscriber: subscriber
 	            })
 				.then((user) => {
-					res({
-						id: user.id,
-						email: user.email,
-						username: user.username,
-						roleFlags: userFunctions.getUserRoleFlags(user),
-						id_token: createToken(user)
-					}).code(201);
+					let customerMailConfig = {
+						from: env.email.user,
+						to: user.email,
+						subject: `Welcome to Tree Machine Records!`,
+						html: buildRegistrationEmail(user)
+					};
+
+					transporter.sendMail(customerMailConfig, function(error, info) {
+						if(error) {
+							console.log(error);
+							reply('Somthing went wrong');
+						} else{
+							res({
+								id: user.id,
+								email: user.email,
+								username: user.username,
+								roleFlags: userFunctions.getUserRoleFlags(user),
+								id_token: createToken(user)
+							}).code(201);
+						};
+					});
 				})
 				.catch((response) => {
 					throw Boom.badRequest(response);

@@ -54,15 +54,13 @@ export default class LoginPage extends React.Component {
 					'invalidUsername': false,
 					'invalidPassword': true
 				});
-			}
-			if (error.message === 'Incorrect username or email!') {
+			} else {
 				this.showAlert('incorrectUsername');
 				this.setState({
 					'invalidUsername': true,
 					'invalidPassword': false
 				});
 			}
-
 		});
 	}
 

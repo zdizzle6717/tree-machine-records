@@ -17,7 +17,7 @@ export default class ArchivePage extends React.Component {
     componentDidMount() {
         document.title = "Tree Machine Records | About/Contact";
     }
-	
+
     render() {
         return (
 			<div className="content-wrapper">
@@ -27,7 +27,7 @@ export default class ArchivePage extends React.Component {
 		                <p>
 		                    The future is guided only by the past, and the present is decided only by our choices here and now.
 		                    As technology advances, so much continues to change culturally and in many of the same ways across the globe.
-		                    Tree Machine records is our way of giving you a portal to peer into the past, and listen to the sounds that shape our future.
+		                    Tree Machine Records is our way of giving you a portal to peer into the past, and listen to the sounds that shape our future.
 		                    Artists have connected with us and vice versa from various parts of the diverse, aural landscapes of the world
 		                    that bring us together at the deepest level.  It's our honor to create records of these mucisians' will to find meaning,
 		                    in the beauty of life, throughout any given time.
