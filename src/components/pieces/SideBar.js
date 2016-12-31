@@ -211,7 +211,9 @@ export default class SideBar extends React.Component {
 									this.state.featuredAlbums.map((album, i) =>
 										<div key={i} className="media-object">
 											<div className="media-object-section">
-												<img className="thumbnail hover shadow" src={`/images/artists/${album.Artist.param}/albumCovers/150-${album.Files[0].name}`}/>
+												<Link key={i} to={`/artists/${album.Artist.param}/discography/${album.param}`}>
+													<img className="thumbnail hover shadow" src={`/images/artists/${album.Artist.param}/albumCovers/150-${album.Files[0].name}`}/>
+												</Link>
 											</div>
 											<div className="media-object-section text-left">
 												<h5>{album.caption}</h5>

@@ -40,7 +40,7 @@ export default class ArtistPhotographyPage extends React.Component {
 		let artist = ArtistStore.getArtist(this.props.params.artistParam);
 		let photos = [];
 		artist.Files.forEach((file) => {
-			if (file.identifier === 'photo' || file.identifier === 'photosCoverImage' || file.identifier === 'featuredImage') {
+			if (file.identifier === 'photo' || file.identifier === 'photosCoverImage' || file.identifier === 'featuredImage' || file.identifier === 'albumCover') {
 				photos.push(file);
 			}
 		});
