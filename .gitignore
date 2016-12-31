@@ -46,4 +46,4 @@ uploads*
 babel_cache*
 
 # Environment
-*environmentVariables.js
+*envVariables.js
