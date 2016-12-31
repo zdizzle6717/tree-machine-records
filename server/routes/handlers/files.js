@@ -11,7 +11,7 @@ let files = {
 	add: (req, res) => {
 		models.File.create({
 				ArtistId: req.payload.ArtistId,
-				AlbumReleaseId: req.payload.ArtistId,
+				AlbumReleaseId: req.payload.AlbumReleaseId,
 				identifier: req.payload.identifier,
 				name: req.payload.name,
 				size: req.payload.size,
