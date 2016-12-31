@@ -41,7 +41,6 @@ for (let i in routeConfig) {
 
             let markup;
             if (renderProps) {
-				console.log(renderProps);
                 markup = renderToString(<RouterContext {...renderProps}/>);
             } else {
                 markup = renderToString(<NotFoundPage/>);

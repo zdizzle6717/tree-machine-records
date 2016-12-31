@@ -158,7 +158,27 @@ export default class Layout extends React.Component {
 					</Animation>
 					<Alerts/>
 					<ScrollToTopButton duration={400}/>
-					<Loader loading={this.state.showLoader}/>
+					<Loader loading={this.state.showLoader} type="custom">
+						<div className="logo-overlay" key="logoOverlay" onClick={this.toggleOverlay}>
+							<svg viewBox="0 0 800 600">
+							  <symbol id="s-text">
+								<text textAnchor="middle" x="50%" y="35%" className="text-line" >
+								  Tree
+								</text>
+								<text textAnchor="middle" x="50%" y="68%" className="text-line" >
+								  Machine
+								</text>
+							  </symbol>
+							  <g className="g-ants">
+								<use xlinkHref="#s-text" className="text-copy"></use>
+								<use xlinkHref="#s-text" className="text-copy"></use>
+								<use xlinkHref="#s-text" className="text-copy"></use>
+								<use xlinkHref="#s-text" className="text-copy"></use>
+								<use xlinkHref="#s-text" className="text-copy"></use>
+							  </g>
+							</svg>
+						</div>
+					</Loader>
 					<LogoOverlay/>
 				<Footer/>
 			</div>

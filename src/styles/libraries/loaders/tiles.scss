@@ -1,0 +1,25 @@
+.loader-container {
+	@include loader-tiles;
+}
+@-webkit-keyframes loader-tiles {
+	0%,
+	100%,
+	70% {
+		transform: scale3d(1, 1, 1);
+	}
+
+	35% {
+		transform: scale3d(0, 0, 1);
+	}
+}
+@keyframes loader-tiles {
+	0%,
+	100%,
+	70% {
+		transform: scale3d(1, 1, 1);
+	}
+
+	35% {
+		transform: scale3d(0, 0, 1);
+	}
+}

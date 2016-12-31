@@ -17,14 +17,37 @@ export default class Loader extends React.Component {
 
 	    return (
 			<div className={loaderClasses}>
-				<div className="loader">
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
+				{
+					this.props.type === 'standard' &&
+					<div className="loader">
+						<div></div>
+					</div>
+				}
+				{
+					this.props.type === 'bars' &&
+					<div className="loader">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				}
+				{
+					this.props.type === 'custom' &&
+					<div>
+						{this.props.children}
+					</div>
+				}
 			</div>
 	    );
     }
+}
+
+Loader.propTypes = {
+	'type': React.PropTypes.string
+}
+
+Loader.defaultProps = {
+	'type': 'bars'
 }
