@@ -1,5 +1,7 @@
 'use strict';
 
+import env from '../../server-client/envVariables'
+
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 import AlertActions from '../library/alerts/actions/AlertActions';
@@ -20,7 +22,7 @@ let numLoadings = 0;
 let _timeout = 350;
 
 // Global axios config
-axios.defaults.baseURL = 'http://staging.treemachinerecords.com:8080/api/';
+axios.defaults.baseURL = env.baseUrl;
 
 // Global axios interceptor
 axios.interceptors.request.use((config) => {

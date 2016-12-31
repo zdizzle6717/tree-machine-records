@@ -1,3 +1,6 @@
+'use strict';
+
+import env from './envVariables';
 import path from 'path';
 import {Server} from 'http';
 import Express from 'express';
@@ -73,10 +76,9 @@ app.get('*', (req, res) => {
 });
 
 // Start the server
-const port = 8000;
 server.listen(port, err => {
     if (err) {
         return console.error(err);
     }
-    console.info(`Server running on http://www.treemachinerecords.com:${port}`);
+    console.info(`Server running on http://www.treemachinerecords.com:${env.clientPort}`);
 });
