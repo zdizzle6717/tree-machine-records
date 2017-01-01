@@ -12,7 +12,7 @@ export default class ArtistPhotographyPage extends React.Component {
         super(props, context);
 
         this.state = {
-            artist: {
+            'artist': {
 				'photos': [{}]
 			}
         }
@@ -22,7 +22,6 @@ export default class ArtistPhotographyPage extends React.Component {
 
 	componentWillMount() {
         ArtistStore.addChangeListener(this.onChange);
-
     }
 
     componentDidMount() {
@@ -56,13 +55,16 @@ export default class ArtistPhotographyPage extends React.Component {
 				<div className="row">
 					<h2 className=""><Link key={this.props.params.artistParam} to={`/artists/${this.props.params.artistParam}`} className="no-underline">{this.state.artist.name}</Link></h2>
 					<div className="photo-select">
-						<Animation transitionName="fade" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={250} transitionLeave={true} transitionLeaveTimeout={250}>
-							{
-								this.state.artist.photos.map((photo, i) =>
-									<ImageTile key={i} imageUrl={`/images/artists/${this.props.params.artistParam}/photos/${photo.name}`} linkUrl={`/images/artists/${this.props.params.artistParam}/photos/${photo.name}`}/>
-								)
-							}
-						</Animation>
+						{
+							this.state.artist.photos &&
+							<Animation transitionName="fade" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={250} transitionLeave={true} transitionLeaveTimeout={250}>
+								{
+									this.state.artist.photos.map((photo, i) =>
+										<ImageTile key={i} imageUrl={`/images/artists/${this.props.params.artistParam}/photos/${photo.name}`} linkUrl={`/images/artists/${this.props.params.artistParam}/photos/${photo.name}`}/>
+									)
+								}
+							</Animation>
+						}
 					</div>
 					{
 						this.state.artist.photos.length < 1 &&
