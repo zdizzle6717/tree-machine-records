@@ -1,13 +1,13 @@
 .search-input {
 	position: relative;
 
-	input {
-		padding: .5rem 2.3rem .5rem .5rem;
+	input{
+		padding: .5rem 2.3rem .5rem .9rem;
 	}
 
 	.search-icon {
 		position: absolute;
-		right: 0;
+		right: 2px;
 		top: 0;
 		height: 39px;
 		width: 39px;
@@ -17,13 +17,35 @@
 	}
 }
 
+input,
+input[type='text'],
+input[type='search'],
+input[type='password'],
+select {
+	border-radius: 20px;
+	padding: .5rem 2.3rem .5rem .9rem;
+
+	&:focus,
+	&:hover {
+		& ~ .validate-errors {
+			margin-right: 20px;
+		}
+	}
+}
+
+.validate-error-element {
+	.validate-errors {
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+	}
+}
+
 .login-box,
 .registration-box {
-	border: 1px solid #011e33;
 	background: $white-600;
 	padding: 20px 20px 40px 20px;
 	margin-top: 30px;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
 	input {
 		font-size: 1.2rem;
