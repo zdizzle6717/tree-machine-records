@@ -178,11 +178,11 @@ export default class SideBar extends React.Component {
 						<Animation transitionName="fade" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={500} transitionAppear={true} transitionAppearTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
 							{
 								!this.props.siteWideFeaturedImage && this.state.featuredImage &&
-								<p key={'featuredImage'}><Link to={this.state.featuredImage.toLink}><img src={this.state.featuredImage.url} alt="Featured Photography" className="hover shadow"/></Link></p>
+								<p key={'featuredImage'}><Link to={this.state.featuredImage.toLink}><img src={this.state.featuredImage.url} alt="Featured Photography" className="hover shadow" target="_blank"/></Link></p>
 							}
 							{
 								this.props.siteWideFeaturedImage && this.state.loadTimeoutComplete &&
-								<p key={'siteWideFeaturedImage'}><a href="/images/featured-image.jpg"><img src="/images/featured-image.jpg" alt="Featured Photography" className="hover shadow"/></a></p>
+								<p key={'siteWideFeaturedImage'}><a href="/images/featured-image.jpg"><img src="/images/featured-image.jpg" alt="Featured Photography" className="hover shadow" target="_blank"/></a></p>
 							}
 						</Animation>
 					</div>
