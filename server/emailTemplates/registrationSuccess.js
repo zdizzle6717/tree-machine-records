@@ -3,13 +3,13 @@
 
 function buildTemplate(data) {
 	return `
-		<div style="max-width:800px;position:relative;margin:20px auto;padding:15px;border:2px solid black;box-shadow:0 0 5px 2px lightgray;letter-spacing:1px;">
+		<div style="max-width:800px;position:relative;margin:20px auto;padding:15px;background:aliceblue;box-shadow:0 0 15px 0 rgba(0,0,0,0.2), 0 5px 5px 0 rgba(0,0,0,0.24);letter-spacing:1px;">
 			<div style="text-align:center;">
 				<h1 style="font-size:40px; font-size:40px; padding-bottom:5px; margin-top:15px;  border-bottom:1px solid #cacaca;">Registration Success!</h1>
 				<h2 style="font-size:28px">...your new account was successfully created.</h2>
 			</div>
 
-			<h4 style="font-size:16px">Thank you for subscribing to Tree Machine Records,</h4>
+			<p style="font-size:14px; line-height: 20px;">Thank you for subscribing to Tree Machine Records,</p>
 
 			<h4 style="font-size:16px">Enjoy access to free downloads from select artists! We also send out an update each month or so with details about new releases,
 			events, touring schedules, etc. Thanks for supporting the record label. You keep us going.</h4>
