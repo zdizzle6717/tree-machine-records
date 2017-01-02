@@ -6,6 +6,7 @@ const CHANGE_EVENT = 'artist:change';
 
 let _artists = [];
 let _artist = {};
+let _pagination = {};
 
 function setArtists(artists) {
 	if (artists) {
@@ -16,6 +17,12 @@ function setArtists(artists) {
 function setArtist(artist) {
 	if (artist) {
 		_artist = artist;
+	}
+}
+
+function setPagination(pagination) {
+	if (pagination) {
+		_pagination = pagination;
 	}
 }
 
@@ -50,6 +57,10 @@ class ArtistStoreClass extends EventEmitter {
         return _artist;
     }
 
+	getPagination() {
+		return _pagination;
+	}
+
 }
 
 const ArtistStore = new ArtistStoreClass();
@@ -64,6 +75,12 @@ ArtistStore.dispatchToken = AppDispatcher.register(action => {
 
         case ArtistConstants.GET_ARTISTS:
             setArtists(action.artists);
+            ArtistStore.emitChange();
+            break;
+
+		case ArtistConstants.SEARCH_ARTISTS:
+            setArtists(action.paginatedResponse.results);
+            setPagination(action.paginatedResponse.pagination);
             ArtistStore.emitChange();
             break;
 

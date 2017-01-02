@@ -80,35 +80,41 @@ let artists = {
 		});
     },
     search: (req, res) => {
-		let totalResults = 0;
+		let query = req.payload.searchQuery ? req.payload.searchQuery.toLowerCase() : '';
 		let totalPages = 0;
-		let offset = 0;
-        models.Artist.findAndCountAll()
-		.then((allResults) => {
-			totalResults = allResults.count;
+		let offset = (req.payload.pageNumber - 1) * req.payload.pageSize;
+		models.Artist.findAndCountAll({
+			where: {
+				$or: [
+					{
+					  name: {
+						$ilike: '%' + query + '%'
+					  }
+					}
+				  ]
+			},
+			include: [
+				{
+					model: models.BioSection
+				}
+			],
+			order: [['name', 'ASC']],
+			offset: offset,
+			limit: req.payload.pageSize
+		}).then((response) => {
+			let totalResults = response.count;
 			let totalPagesDecimal = totalResults === 0 ? 0 : (totalResults / req.payload.pageSize);
 			totalPages = Math.ceil(totalPagesDecimal);
-			offset = (req.payload.pageNumber - 1) * req.payload.pageSize;
-			models.Artist.findAll({
-				offset: offset,
-				limit: req.payload.pageSize,
-				include: [
-					{
-						model: models.File
-					}
-				]
-			}).then((results) => {
-		    	res({
-					'pagination': {
-						pageNumber: req.payload.pageNumber,
-						pageSize: req.payload.pageSize,
-						totalPages: totalPages,
-						totalResults: totalResults
-					},
-					'results': results
-				}).code(200);
-			});
-		})
+			res({
+				'pagination': {
+					pageNumber: req.payload.pageNumber,
+					pageSize: req.payload.pageSize,
+					totalPages: totalPages,
+					totalResults: response.rows.count
+				},
+				'results': response.rows
+			}).code(200);
+		});
     },
     create: (req, res) => {
 		models.Artist.create({

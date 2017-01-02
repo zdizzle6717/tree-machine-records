@@ -28,6 +28,18 @@ export default {
             });
     },
 
+	search: (criteria) => {
+        return ArtistService
+            .search(criteria)
+            .then(paginatedResponse => {
+                AppDispatcher.dispatch({
+                    actionType: ArtistConstants.SEARCH_ARTISTS,
+                    paginatedResponse: paginatedResponse
+                });
+				return paginatedResponse;
+            });
+    },
+
 	create: (data) => {
         return ArtistService
             .create(data)

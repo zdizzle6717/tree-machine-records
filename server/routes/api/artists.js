@@ -47,6 +47,7 @@ module.exports = [
             notes: 'Search artists and Paginate',
             validate: {
                 payload: {
+					filter: Joi.optional(),
                     searchQuery: Joi.optional(),
                     pageNumber: Joi.number().required(),
                     pageSize: Joi.number().required()

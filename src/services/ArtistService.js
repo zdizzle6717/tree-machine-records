@@ -18,6 +18,12 @@ export default {
 				return response.data;
 			});
 	},
+	search: (data) => {
+		return axios.post('/artists/search', data)
+			.then(function(response) {
+				return response.data;
+			});
+	},
 	create: (data) => {
 		return axios.post('/artists', data)
 			.then(function(response) {
