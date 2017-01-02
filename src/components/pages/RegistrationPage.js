@@ -116,7 +116,6 @@ export default class RegistrationPage extends React.Component {
 								<option value="">--Select--</option>
 								<option value="subscriber">Fan</option>
 								<option value="artist">Artist</option>
-								<option value="siteAdmin">Admin</option>
 							</Select>
 							<div className="row">
 								<div className="form-group small-12 columns">
