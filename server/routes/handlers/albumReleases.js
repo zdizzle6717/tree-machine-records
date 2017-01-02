@@ -69,6 +69,11 @@ let albumReleases = {
 					  }
 					},
 					{
+					  catalogueNumber: {
+						$ilike: '%' + query + '%'
+					  }
+					},
+					{
 					  title: {
 						$ilike: '%' + query + '%'
 					  }

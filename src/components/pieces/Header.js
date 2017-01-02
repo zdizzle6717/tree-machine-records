@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import axios from 'axios';
 import classNames from 'classnames';
 import Animation from 'react-addons-css-transition-group';
 import AudioPlayer from 'react-responsive-audio-player';
@@ -14,8 +15,9 @@ export default class Header extends React.Component {
 		super();
 
 		this.state = {
-			authenticated: false,
-			showMobileMenu: false
+			'authenticated': false,
+			'featuredSongs': [],
+			'showMobileMenu': false
 		}
 
 		this.onUserChange = this.onUserChange.bind(this);
@@ -31,6 +33,15 @@ export default class Header extends React.Component {
 			authenticated: UserStore.checkAuthentication()
 		});
 		UserStore.addChangeListener(this.onUserChange);
+	}
+
+	componentDidMount() {
+		axios.get('/songs/featuredSongs/list').then((response) => {
+			let featuredSongs = response.data;
+			this.setState({
+				'featuredSongs': featuredSongs
+			})
+		});
 	}
 
 	componentWillUnmount() {
@@ -81,36 +92,13 @@ export default class Header extends React.Component {
 	}
 
 	render() {
-		let playlist = [
-			{
-				url: '/audio/Bartholin - In Search Of.mp3',
-				displayText: 'Bartholin - "In Search Of"'
-			},
-			{
-				url: '/audio/Ladycop - Alaska.mp3',
-				displayText: 'Ladycop - "Alaska"'
-			},
-			{
-				url: '/audio/Living Hour - This Is The Place.mp3',
-				displayText: 'Living Hour - "This Is The Place"'
-			},
-			{
-				url: '/audio/Pony - Waiting For The Day.mp3',
-				displayText: 'Pony - "Waiting For The Day"'
-			},
-			{
-				url: '/audio/!mindparade - Somehow.mp3',
-				displayText: '!mindparade - "Somehow"'
-			},
-			{
-				url: '/audio/Wonderbitch - Beingness.mp3',
-				displayText: 'Wonderbitch - "Beingness"'
-			},
-			{
-				url: '/audio/Shorebilly - Shorebilly.mp3',
-				displayText: 'Shorebilly - "Shorebilly"'
+		let featuredSongs = this.state.featuredSongs;
+		let playlist = featuredSongs.map((song) => {
+			return {
+				'url': `/audio/${song.AlbumRelease.Artist.param}/${song.AlbumRelease.param}/${song.fileName}`,
+				'displayText': `${song.AlbumRelease.Artist.name} - "${song.title}"`
 			}
-		];
+		});
 
 		let backdropClasses = classNames({
 			'menu-backdrop': true,

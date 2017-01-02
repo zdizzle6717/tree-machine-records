@@ -4,25 +4,32 @@ const models = require('../../models');
 const Boom = require('boom');
 
 
-// BioSection Route Configs
-let bioSections = {
+// Song Route Configs
+let songs = {
     get: (req, res) => {
-        models.BioSection.find({
+        models.Song.find({
                 where: {
                     id: req.params.id
                 },
 				include: [
 					{
-						model: models.AlbumRelease
+						model: models.AlbumRelease,
+						attributes: ['title', 'param'],
+						include: [
+							{
+								model: models.Artist,
+								attributes: ['name', 'param']
+							}
+						]
 					},
 					{
 						model: models.File
 					},
 				]
             })
-            .then((bioSection) => {
-                if (bioSection) {
-                    res(bioSection).code(200);
+            .then((song) => {
+                if (song) {
+                    res(song).code(200);
                 }
                 else {
                     res().code(404);
@@ -30,12 +37,19 @@ let bioSections = {
             });
     },
     getAll: (req, res) => {
-        models.BioSection.findAll(
+        models.Song.findAll(
 			{
 				limit: 50,
 				include: [
 					{
-						model: models.AlbumRelease
+						model: models.AlbumRelease,
+						attributes: ['title', 'param'],
+						include: [
+							{
+								model: models.Artist,
+								attributes: ['name', 'param']
+							}
+						]
 					},
 					{
 						model: models.File
@@ -44,17 +58,114 @@ let bioSections = {
 			},
 
 		)
-        .then((bioSections) => {
-	    	res(bioSections).code(200);
+        .then((songs) => {
+	    	res(songs).code(200);
+		});
+    },
+	getFeaturedSongs: (req, res) => {
+        models.FeaturedSongList.find(
+			{
+				where: {
+					id: 1
+				}
+			}
+		)
+        .then((featuredSongList) => {
+	    	models.Song.findAll(
+				{
+					where: {
+						$or: [{id: featuredSongList.songIds}]
+					},
+					include: [
+						{
+							model: models.AlbumRelease,
+							attributes: ['title', 'param'],
+							include: [
+								{
+									model: models.Artist,
+									attributes: ['name', 'param']
+								}
+							]
+						},
+						{
+							model: models.File
+						},
+					]
+				}
+			).then((songs) => {
+				if (songs) {
+					res(songs).code(200);
+				} else {
+					res([]).code(200);
+				}
+			})
+		});
+    },
+	setFeaturedSongs: (req, res) => {
+        models.FeaturedSongList.find(
+			{
+				where: {
+					id: 1
+				}
+			}
+		)
+        .then((featuredSongList) => {
+			if (featuredSongList) {
+				featuredSongList.updateAttributes({
+					songIds: req.payload.songIds
+				}).then((featuredSongList) => {
+					res(featuredSongList).code(200);
+				})
+			} else {
+				models.FeaturedSongList.create({
+					songIds: req.payload.songIds
+				}).then((featuredSongList) => {
+					res(featuredSongList).code(200);
+				})
+			}
 		});
     },
     create: (req, res) => {
-		models.BioSection.create({
+		models.Song.create({
+				AlbumReleaseId: req.payload.AlbumReleaseId,
 				title: req.payload.title,
 				fileName: req.payload.fileName
             })
-            .then((bioSection) => {
-				res(bioSection).code(200);
+            .then((song) => {
+				if (song) {
+					models.File.create({
+						SongId: song.id,
+						identifier: req.payload.File.identifier,
+						name: req.payload.File.name,
+						size: req.payload.File.size,
+						type: req.payload.File.type
+					}).then((file) => {
+						models.Song.find({
+				                where: {
+				                    id: song.id
+				                },
+								include: [
+									{
+										model: models.AlbumRelease,
+										attributes: ['title', 'param'],
+										include: [
+											{
+												model: models.Artist,
+												attributes: ['name', 'param']
+											}
+										]
+									},
+									{
+										model: models.File
+									},
+								]
+				            }).then((song) => {
+								res(song).code(200);
+							});
+					});
+				} else {
+					res().code(406);
+				}
 			});
     },
     update: (req, res) => {
@@ -62,23 +173,23 @@ let bioSections = {
                 where: {
                     id: req.params.id
                 }
-            }).then((bioSection) => {
-				bioSection.updateAttributes({
+            }).then((song) => {
+				song.updateAttributes({
 					title: req.payload.title,
 					fileName: req.payload.fileName
-				}).then((bioSection) => {
-					res(bioSection).code(200);
+				}).then((song) => {
+					res(song).code(200);
 				})
 			})
 	},
     delete: (req, res) => {
-        models.BioSection.destroy({
+        models.Song.destroy({
                 where: {
                     id: req.params.id
                 }
             })
-            .then((bioSection) => {
-                if (bioSection) {
+            .then((song) => {
+                if (song) {
                     res().code(200);
                 }
                 else {
@@ -88,4 +199,4 @@ let bioSections = {
     }
 };
 
-module.exports = bioSections;
+module.exports = songs;

@@ -37,6 +37,37 @@ module.exports = [
             }
         }
     },
+	{
+        method: 'GET',
+        path: '/api/songs/featuredSongs/list',
+        handler: handlers.songs.getFeaturedSongs,
+        config: {
+            tags: ['api'],
+            description: 'Get a list of featured Songs',
+            notes: 'Get a list of featured Songs',
+            cors: {
+                origin: ['*']
+            }
+        }
+    },
+	{
+        method: 'POST',
+        path: '/api/songs/featuredSongs/list',
+        handler: handlers.songs.setFeaturedSongs,
+        config: {
+            tags: ['api'],
+            description: 'Set the list of featured Songs',
+            notes: 'Set the list of featured Songs',
+			validate: {
+				payload: {
+					songIds: Joi.array().items(Joi.number().required())
+				}
+			},
+            cors: {
+                origin: ['*']
+            }
+        }
+    },
     {
         method: 'POST',
         path: '/api/songs',
@@ -47,8 +78,15 @@ module.exports = [
             notes: 'Create a new song',
             validate: {
                 payload: {
+                    AlbumReleaseId: Joi.number().required(),
                     title: Joi.string().required(),
-                    fileName: Joi.string().required()
+                    fileName: Joi.string().required(),
+					File: Joi.object().keys({
+						'identifier': Joi.string().valid('song').required(),
+						'name': Joi.string().required(),
+						'size': Joi.number().required(),
+						'type': Joi.optional()
+					})
                 }
             },
             cors: {
