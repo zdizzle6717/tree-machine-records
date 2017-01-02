@@ -13,7 +13,7 @@ export default class ArtistDigitalDownloadsPage extends React.Component {
 
 		this.state = {
             artist: {
-				'downloads': [{}]
+				'downloads': []
 			}
         }
 

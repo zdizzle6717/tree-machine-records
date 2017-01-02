@@ -14,7 +14,7 @@ export default class ArtistPhotographyPage extends React.Component {
 
         this.state = {
             artist: {
-				'videos': [{}]
+				'videos': []
 			}
         }
 
