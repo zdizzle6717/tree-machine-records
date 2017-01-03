@@ -32,7 +32,16 @@ let artists = {
 						model: models.EmbeddableMedia
 					},
 					{
-						model: models.File
+						model: models.File,
+						include: {
+							model: models.Song,
+							include: {
+								model: models.AlbumRelease,
+								include: {
+									model: models.File
+								}
+							}
+						}
 					},
 					{
 						model: models.MediaMention

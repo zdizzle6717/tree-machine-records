@@ -2,6 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
     let File = sequelize.define("File", {
+		imageUrl: DataTypes.STRING,
+		label: DataTypes.STRING,
 		name: DataTypes.STRING,
         size: DataTypes.INTEGER,
         type: DataTypes.STRING,

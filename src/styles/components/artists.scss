@@ -78,8 +78,40 @@
         width: 100%;
     }
 
-    .photo-artist, .media-artist {
+    .photo-artist, .media-artist, .download-tile {
         width: 100%;
+
+		a {
+			width: 100%;
+			height: 100%;
+			display: block;
+
+			&.tile-anchor {
+				position: relative;
+
+				.download-overlay {
+					display: none;
+
+					&.show {
+						display: flex;
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						background: rgba(0, 0, 0, 0.15);
+						justify-content: center;
+						align-items: center;
+					}
+
+					span {
+						opacity: .75;
+					    font-size: 9rem;
+					    text-shadow: 0 1px 3px black;
+					}
+				}
+			}
+		}
     }
 }
 

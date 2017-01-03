@@ -29,9 +29,12 @@ module.exports = [
             notes: 'Add file details',
             validate: {
                 payload: {
+					'SongId': Joi.optional(),
 					'ArtistId': Joi.optional(),
 					'AlbumReleaseId': Joi.optional(),
-					'identifier': Joi.string().valid('featuredImage', 'photosCoverImage', 'albumCover', 'photo', 'artistTileFront').required(),
+					'identifier': Joi.string().valid('featuredImage', 'photosCoverImage', 'albumCover', 'photo', 'artistTileFront', 'download', 'song').required(),
+					'imageUrl': Joi.optional(),
+					'label': Joi.optional(),
 					'name': Joi.string().required(),
 					'size': Joi.number().required(),
 					'type': Joi.string().required()

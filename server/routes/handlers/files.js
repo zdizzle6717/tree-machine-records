@@ -10,9 +10,12 @@ const Boom = require('boom');
 let files = {
 	add: (req, res) => {
 		models.File.create({
+				SongId: req.payload.SongId,
 				ArtistId: req.payload.ArtistId,
 				AlbumReleaseId: req.payload.AlbumReleaseId,
 				identifier: req.payload.identifier,
+				imageUrl: req.payload.imageUrl,
+				label: req.payload.label,
 				name: req.payload.name,
 				size: req.payload.size,
 				type: req.payload.type

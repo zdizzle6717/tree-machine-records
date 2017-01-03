@@ -12,7 +12,7 @@ export default class ArtistDigitalDownloadsPage extends React.Component {
         super(props, context);
 
 		this.state = {
-            artist: {
+            'artist': {
 				'downloads': []
 			}
         }
@@ -40,7 +40,7 @@ export default class ArtistDigitalDownloadsPage extends React.Component {
 		let artist = ArtistStore.getArtist(this.props.params.artistParam);
 		let downloads = [];
 		artist.Files.forEach((file) => {
-			if (file.type === 'download') {
+			if (file.type === 'download' || 'song') {
 				downloads.push(file);
 			}
 		});
@@ -59,7 +59,16 @@ export default class ArtistDigitalDownloadsPage extends React.Component {
 						<Animation transitionName="fade" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={250} transitionLeave={true} transitionLeaveTimeout={250}>
 							{
 								this.state.artist.downloads.map((download, i) =>
-									<DownloadTile key={i} imageUrl={`/images/artists/${this.props.params.artistParam}/photos/${download.image}`} downloadUrl={`/images/artists/${this.props.params.artistParam}/digitalDownloads/${download.name}`}/>
+								<div key={i}>
+									{
+										download.identifier === 'song' &&
+										<DownloadTile key={i} imageUrl={`/images/artists/${this.props.params.artistParam}/albumCovers/700-${download.Song.AlbumRelease.Files[0].name}`} downloadUrl={`/audio/${this.props.params.artistParam}/${download.Song.AlbumRelease.param}/${download.name}`} label={download.Song.title}/>
+									}
+									{
+										download.identifier === 'download' &&
+										<DownloadTile key={i} imageUrl={`/images/artists/${this.props.params.artistParam}/digitalDownloads/${download.imageUrl}`} downloadUrl={`/images/artists/${this.props.params.artistParam}/digitalDownloads/${download.name}`} label={download.label}/>
+									}
+								</div>
 								)
 							}
 						</Animation>
