@@ -40,7 +40,7 @@ export default class ArtistDigitalDownloadsPage extends React.Component {
 		let artist = ArtistStore.getArtist(this.props.params.artistParam);
 		let downloads = [];
 		artist.Files.forEach((file) => {
-			if (file.type === 'download' || 'song') {
+			if (file.type === 'download' || file.type === 'song') {
 				downloads.push(file);
 			}
 		});

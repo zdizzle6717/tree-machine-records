@@ -19,6 +19,6 @@ module.exports = [
 	{
 		'name': 'subscriber',
 		'roleFlags': 4,
-		'homeState': '/',
+		'homeState': '/digital-downloads',
 	},
 ];
