@@ -59,7 +59,6 @@ export default class DiscographyPreview extends React.Component {
 						</p>
 						<p>{this.props.summary} <Link key={this.props.albumReleaseParam} to={`/artists/${this.props.artistParam}/discography/${this.props.albumReleaseParam}`}>...</Link></p>
 					</div>
-					<hr/>
 				</div>
 			</article>
 		)
