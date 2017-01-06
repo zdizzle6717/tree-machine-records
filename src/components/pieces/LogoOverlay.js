@@ -26,7 +26,7 @@ export default class LogoOverlay extends React.Component {
 	componentDidMount() {
 		setTimeout(() => {
 			OverlayActions.hideOverlay();
-		}, 5000);
+		}, 2500);
 	}
 
 	componentWillUnmount() {

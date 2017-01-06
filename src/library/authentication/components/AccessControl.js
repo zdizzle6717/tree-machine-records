@@ -36,13 +36,20 @@ export default class AccessControl extends React.Component {
 	render() {
 		return (
 			<span className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
-				{ this.state.authorized && this.props.children }
+				{ this.state.authorized && !this.props.publicOnly && this.props.children }
+				{ !this.state.authorized && this.props.publicOnly && this.props.children }
 			</span>
 		)
 	}
 }
 
 AccessControl.propTypes = {
-	'access': React.PropTypes.array.isRequired,
-	'customClasses': React.PropTypes.string
+	'access': React.PropTypes.array,
+	'customClasses': React.PropTypes.string,
+	'publicOnly': React.PropTypes.bool
+}
+
+AccessControl.defaultProps = {
+	'access': [],
+	'publicOnly': false
 }

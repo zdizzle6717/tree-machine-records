@@ -6,7 +6,6 @@ import {Link} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
 import SideBar from '../pieces/SideBar';
 import AccessControl from '../../library/authentication/components/AccessControl';
-import PublicOnly from '../../library/authentication/components/PublicOnly';
 
 export default class PlaylistPage extends React.Component {
     constructor(props, context) {
@@ -62,9 +61,9 @@ export default class PlaylistPage extends React.Component {
 							</tbody>
 						</table>
 
-						<PublicOnly access={['subscriber', 'artist', 'siteAdmin']} customClasses="text-center">
+						<AccessControl publicOnly={true} access={['subscriber', 'artist', 'siteAdmin']} customClasses="text-center">
 							<h3 className="text-center">Login for a free download of each track from the current playlist.</h3>
-						</PublicOnly>
+						</AccessControl>
 		            </div>
 					<SideBar/>
 				</div>
