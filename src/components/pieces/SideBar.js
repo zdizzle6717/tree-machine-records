@@ -48,7 +48,7 @@ export default class SideBar extends React.Component {
 		let socialLinks = [
 			{
 				'name': 'facebook',
-				'url': 'https://www.facebook.com/fwirecords/'
+				'url': 'https://www.facebook.com/treemachinerecords/'
 			},
 			{
 				'name': 'soundcloud',
