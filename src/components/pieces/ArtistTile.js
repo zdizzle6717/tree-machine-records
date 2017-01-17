@@ -8,28 +8,50 @@ export default class ArtistTile extends React.Component {
 		super();
 
 		this.state = {
-			'frontFileName': null
+			'imageName': null,
+			'frontFileName': null,
+			'backFileName': null,
 		}
+
+		this.hoverIn = this.hoverIn.bind(this);
+		this.hoverOut = this.hoverOut.bind(this);
 	}
 
 	componentDidMount() {
-		let frontFileName;
+		let frontFileName, backFileName;
 		this.props.files.forEach((file, i) => {
 			if (file.identifier === 'artistTileFront') {
 				frontFileName = file.name
 			}
+			if (file.identifier === 'artistTileBack') {
+				backFileName = file.name
+			}
 		});
 		this.setState({
-			'frontFileName': frontFileName
-		})
+			'imageName': frontFileName,
+			'frontFileName': frontFileName,
+			'backFileName': backFileName,
+		});
+	}
+
+	hoverIn() {
+		this.setState({
+			'imageName': this.state.backFileName
+		});
+	}
+
+	hoverOut() {
+		this.setState({
+			'imageName': this.state.frontFileName
+		});
 	}
 
 	render() {
 		let artistStyle = {
-		  backgroundImage: this.state.frontFileName ? `url('/images/artists/${this.props.param}/artistTiles/${this.state.frontFileName}')` : `url('/images/blankTile.jpg')`
+		  backgroundImage: this.state.imageName ? `url('/images/artists/${this.props.param}/artistTiles/${this.state.imageName}')` : `url('/images/blankTile.jpg')`
 		};
 		return (
-			<div className={`small-12 medium-4 large-3 columns artist-tile ${this.props.current ? 'show' : ''}`}>
+			<div className={`small-12 medium-4 large-3 columns artist-tile ${this.props.current ? 'show' : ''}`} onMouseOver={this.hoverIn} onMouseOut={this.hoverOut}>
 				<Link key={this.props.param} to={`/artists/${this.props.param}`}>
 					<div className="background-image hover" style={artistStyle}>
 						<img src="/images/blankTile.jpg" className="full-width front" />

@@ -15,27 +15,27 @@ export default class CountryListPage extends React.Component {
             'countries': [
 				{
 					'countryCode': 'US',
-					'Files': [{'name': 'united-states-of-america-fill.png'}]
+					'Files': [{'name': 'united-states-of-america.png'}, {'name': 'united-states-of-america-fill.png'}]
 				},
 				{
 					'countryCode': 'CA',
-					'Files': [{'name': 'canada-fill.png'}]
+					'Files': [{'name': 'canada.png'}, {'name': 'canada-fill.png'}]
 				},
 				{
 					'countryCode': 'FR',
-					'Files': [{'name': 'france-fill.png'}]
+					'Files': [{'name': 'france.png'}, {'name': 'france-fill.png'}]
 				},
 				{
 					'countryCode': 'SA',
-					'Files': [{'name': 'south-africa-fill.png'}]
+					'Files': [{'name': 'south-africa.png'}, {'name': 'south-africa-fill.png'}]
 				},
 				{
 					'countryCode': 'KR',
-					'Files': [{'name': 'south-korea-fill.png'}]
+					'Files': [{'name': 'south-korea.png'}, {'name': 'south-korea-fill.png'}]
 				},
 				{
 					'countryCode': 'UK',
-					'Files': [{'name': 'united-kingdom-fill.png'}]
+					'Files': [{'name': 'united-kingdom.png'}, {'name': 'united-kingdom-fill.png'}]
 				}
 			]
         }
@@ -53,7 +53,7 @@ export default class CountryListPage extends React.Component {
 						<Animation transitionName="fade" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
 							{
 								this.state.countries.map((country, i) =>
-									<CountryTile key={i} countryCode={country.countryCode} imageFront={country.Files[0].name}/>
+									<CountryTile key={i} countryCode={country.countryCode} imageFront={country.Files[0].name} imageBack={country.Files[1].name}/>
 								)
 							}
 						</Animation>
