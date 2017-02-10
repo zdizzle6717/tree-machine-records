@@ -76,6 +76,7 @@ let songs = {
 					where: {
 						$or: [{id: featuredSongList.songIds}]
 					},
+					order: 'id',
 					include: [
 						{
 							model: models.AlbumRelease,
