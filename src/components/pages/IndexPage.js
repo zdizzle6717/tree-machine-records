@@ -8,6 +8,7 @@ import PaginationControls from '../../library/pagination/components/PaginationCo
 import scrollTo from '../../library/utils/ScrollTo';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
 import AlbumReleaseStore from '../../stores/AlbumReleaseStore';
+import Iframe from '../../library/iframe';
 
 export default class IndexPage extends React.Component {
     constructor() {
@@ -61,6 +62,13 @@ export default class IndexPage extends React.Component {
 			<div className="content-wrapper">
 				<div className="row">
 					<div className="small-12 medium-8 large-9 columns">
+						<article>
+							<div className="row">
+								<div className="small-12 columns home-video">
+									<Iframe url={`https://www.youtube.com/embed/G3g0TypFrAI?showinfo=0`} width="100%" height="360px" position="relative"/>
+								</div>
+							</div>
+						</article>
 						{
 							this.state.albumReleases.map((albumRelease, i) =>
 								<DiscographyPreview key={i} artistParam={albumRelease.Artist.param} artistName={albumRelease.Artist.name} albumReleaseParam={albumRelease.param} summary={albumRelease.summary} files={albumRelease.Files} releaseDate={albumRelease.releaseDate} title={albumRelease.title}/>
