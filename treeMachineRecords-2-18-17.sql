@@ -268,6 +268,41 @@ ALTER SEQUENCE "FeaturedAlbumLists_id_seq" OWNED BY "FeaturedAlbumLists".id;
 
 
 --
+-- Name: FeaturedSongLists; Type: TABLE; Schema: public; Owner: tmadmin
+--
+
+CREATE TABLE "FeaturedSongLists" (
+    id integer NOT NULL,
+    "songIds" integer[],
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE "FeaturedSongLists" OWNER TO tmadmin;
+
+--
+-- Name: FeaturedSongLists_id_seq; Type: SEQUENCE; Schema: public; Owner: tmadmin
+--
+
+CREATE SEQUENCE "FeaturedSongLists_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "FeaturedSongLists_id_seq" OWNER TO tmadmin;
+
+--
+-- Name: FeaturedSongLists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tmadmin
+--
+
+ALTER SEQUENCE "FeaturedSongLists_id_seq" OWNED BY "FeaturedSongLists".id;
+
+
+--
 -- Name: Files; Type: TABLE; Schema: public; Owner: tmadmin
 --
 
@@ -283,7 +318,9 @@ CREATE TABLE "Files" (
     "ArtistId" integer,
     "MerchItemId" integer,
     "SongId" integer,
-    "UserId" integer
+    "UserId" integer,
+    label character varying(255),
+    "imageUrl" character varying(255)
 );
 
 
@@ -706,6 +743,13 @@ ALTER TABLE ONLY "FeaturedAlbumLists" ALTER COLUMN id SET DEFAULT nextval('"Feat
 -- Name: id; Type: DEFAULT; Schema: public; Owner: tmadmin
 --
 
+ALTER TABLE ONLY "FeaturedSongLists" ALTER COLUMN id SET DEFAULT nextval('"FeaturedSongLists_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: tmadmin
+--
+
 ALTER TABLE ONLY "Files" ALTER COLUMN id SET DEFAULT nextval('"Files_id_seq"'::regclass);
 
 
@@ -933,7 +977,6 @@ SELECT pg_catalog.setval('"ContactLists_id_seq"', 16, true);
 --
 
 COPY "EmbeddableMedia" (id, title, "linkUrl", "embedUrl", "createdAt", "updatedAt", "ArtistId", type) FROM stdin;
-1	Austin Bey - I Left ***** a Voicemail	https://soundcloud.com/austin-bey	https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/276129099&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false	2016-12-17 02:13:04.57+00	2016-12-17 02:13:04.57+00	1	featuredTrack
 2	Austin Bey	https://www.youtube.com/watch?v=Km2HLpvVWs4&list=PL7nsunlSnhp2g4itFO4KvbhvpkV-xQpu4	https://www.youtube.com/embed/Km2HLpvVWs4?list=PL7nsunlSnhp2g4itFO4KvbhvpkV-xQpu4	2016-12-17 14:25:47.788+00	2016-12-17 14:25:47.788+00	1	video
 3	Peristalsis	https://soundcloud.com/ddanburry/peristalsis	https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/280593026&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false	2016-12-17 23:06:58.818+00	2016-12-17 23:06:58.818+00	2	featuredTrack
 4	Interview on CBC Afternoon Drive	https://soundcloud.com/blimp-rock/interview-on-cbc-afternoon-drive	https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/222345434&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false	2016-12-17 23:08:46.05+00	2016-12-17 23:08:46.05+00	3	featuredTrack
@@ -981,6 +1024,7 @@ COPY "EmbeddableMedia" (id, title, "linkUrl", "embedUrl", "createdAt", "updatedA
 47	string	string	https://www.youtube.com/embed/aI7PcXCaqkM	2016-12-18 01:07:45.619+00	2016-12-18 01:07:45.619+00	15	video
 48	string	string	https://www.youtube.com/embed/E_VK4PRDZwk	2016-12-18 01:09:00.811+00	2016-12-18 01:09:00.811+00	16	video
 49	string	string	https://www.youtube.com/embed/GUttvVkgbp8	2016-12-18 01:09:14.314+00	2016-12-18 01:09:14.314+00	16	video
+1	Blu	https://soundcloud.com/austin-bey/blu	https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/306829495&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false	2016-12-17 02:13:04.57+00	2017-02-10 02:45:40.044+00	1	featuredTrack
 \.
 
 
@@ -1008,163 +1052,203 @@ SELECT pg_catalog.setval('"FeaturedAlbumLists_id_seq"', 1, false);
 
 
 --
+-- Data for Name: FeaturedSongLists; Type: TABLE DATA; Schema: public; Owner: tmadmin
+--
+
+COPY "FeaturedSongLists" (id, "songIds", "createdAt", "updatedAt") FROM stdin;
+1	{3,7,4,6,5,2,8}	2017-01-02 19:40:16.058+00	2017-02-10 02:49:00.711+00
+\.
+
+
+--
+-- Name: FeaturedSongLists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tmadmin
+--
+
+SELECT pg_catalog.setval('"FeaturedSongLists_id_seq"', 1, true);
+
+
+--
 -- Data for Name: Files; Type: TABLE DATA; Schema: public; Owner: tmadmin
 --
 
-COPY "Files" (id, name, size, type, identifier, "createdAt", "updatedAt", "AlbumReleaseId", "ArtistId", "MerchItemId", "SongId", "UserId") FROM stdin;
-184	austinbey.jpg	0	.jpg	artistTileFront	2016-12-31 20:57:28.798+00	2016-12-31 20:57:28.798+00	\N	1	\N	\N	\N
-185	bartholin.jpg	0	.jpg	artistTileFront	2016-12-31 20:58:04.542+00	2016-12-31 20:58:04.542+00	\N	2	\N	\N	\N
-186	bonfirejohn.jpg	0	.jpg	artistTileFront	2016-12-31 20:58:36.623+00	2016-12-31 20:58:36.623+00	\N	18	\N	\N	\N
-187	boxboxbox.jpg	0	.jpg	artistTileFront	2016-12-31 20:58:52.49+00	2016-12-31 20:58:52.49+00	\N	23	\N	\N	\N
-188	eazy.jpg	0	.jpg	artistTileFront	2016-12-31 20:59:24.428+00	2016-12-31 20:59:24.428+00	\N	4	\N	\N	\N
-189	blimprock.jpg	0	.jpg	artistTileFront	2016-12-31 21:00:16.82+00	2016-12-31 21:00:16.82+00	\N	3	\N	\N	\N
-190	jondice.jpg	0	.jpg	artistTileFront	2016-12-31 21:02:29.065+00	2016-12-31 21:02:29.065+00	\N	5	\N	\N	\N
-191	ladycop.jpg	0	.jpg	artistTileFront	2016-12-31 21:02:49.295+00	2016-12-31 21:02:49.295+00	\N	6	\N	\N	\N
-192	livingbody.jpg	0	.jpg	artistTileFront	2016-12-31 21:03:06.374+00	2016-12-31 21:03:06.374+00	\N	7	\N	\N	\N
-193	livinghour.jpg	0	.jpg	artistTileFront	2016-12-31 21:03:22.126+00	2016-12-31 21:03:22.126+00	\N	8	\N	\N	\N
-194	magicmachine.jpg	0	.jpg	artistTileFront	2016-12-31 21:03:40.042+00	2016-12-31 21:03:40.042+00	\N	19	\N	\N	\N
-195	mindparade.jpg	0	.jpg	artistTileFront	2016-12-31 21:04:12.471+00	2016-12-31 21:04:12.471+00	\N	9	\N	\N	\N
-196	pony.jpg	0	.jpg	artistTileFront	2016-12-31 21:04:34.564+00	2016-12-31 21:04:34.564+00	\N	10	\N	\N	\N
-197	shorebilly.jpg	0	.jpg	artistTileFront	2016-12-31 21:04:46.632+00	2016-12-31 21:04:46.632+00	\N	12	\N	\N	\N
-198	thepsychics.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:02.486+00	2016-12-31 21:05:02.486+00	\N	11	\N	\N	\N
-199	vows.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:12.795+00	2016-12-31 21:05:12.795+00	\N	13	\N	\N	\N
-200	wonderbitch.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:22.288+00	2016-12-31 21:05:22.288+00	\N	14	\N	\N	\N
-201	woof.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:32.818+00	2016-12-31 21:05:32.818+00	\N	15	\N	\N	\N
-202	youarenumbersix.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:45.067+00	2016-12-31 21:05:45.067+00	\N	16	\N	\N	\N
-207	body-is-working.jpg	0	.jpg	albumCover	2016-12-31 21:24:34.185+00	2016-12-31 21:24:34.185+00	27	7	\N	\N	\N
-208	undercurrent.jpg	0	.jpg	albumCover	2016-12-31 21:27:19.78+00	2016-12-31 21:27:19.78+00	29	6	\N	\N	\N
-209	bartholin.jpg	0	.jpg	albumCover	2016-12-31 21:28:17.872+00	2016-12-31 21:28:17.872+00	28	2	\N	\N	\N
-210	treated.jpg	0	.jpg	albumCover	2016-12-31 21:28:46.626+00	2016-12-31 21:28:46.626+00	26	1	\N	\N	\N
-211	vhs-dreams.jpg	0	.jpg	albumCover	2016-12-31 21:29:41.674+00	2016-12-31 21:29:41.674+00	33	16	\N	\N	\N
-212	wipeout.jpg	0	.jpg	albumCover	2016-12-31 21:30:52.426+00	2016-12-31 21:30:52.426+00	32	12	\N	\N	\N
-213	4x3.jpg	0	.jpg	albumCover	2016-12-31 21:31:34.805+00	2016-12-31 21:31:34.805+00	30	11	\N	\N	\N
-214	bad-connection.jpg	0	.jpg	albumCover	2016-12-31 21:32:22.782+00	2016-12-31 21:32:22.782+00	23	15	\N	\N	\N
-215	dead-mystics.jpg	0	.jpg	albumCover	2016-12-31 21:33:15.046+00	2016-12-31 21:33:15.046+00	21	9	\N	\N	\N
-216	i-dont-want-to-open-the-window-to-the-outside-world.jpg	0	.jpg	albumCover	2016-12-31 21:33:56.975+00	2016-12-31 21:33:56.975+00	22	10	\N	\N	\N
-217	wonderbitch.jpg	0	.jpg	albumCover	2016-12-31 21:35:13.895+00	2016-12-31 21:35:13.895+00	17	14	\N	\N	\N
-218	music-for-good-ears.jpg	0	.jpg	albumCover	2016-12-31 21:35:50.508+00	2016-12-31 21:35:50.508+00	20	4	\N	\N	\N
-219	living-hour.jpg	0	.jpg	albumCover	2016-12-31 21:36:19.52+00	2016-12-31 21:36:19.52+00	19	8	\N	\N	\N
-220	sophomore-slump.jpg	0	.jpg	albumCover	2016-12-31 21:36:58.623+00	2016-12-31 21:36:58.623+00	13	3	\N	\N	\N
-221	turn-it-up.jpg	0	.jpg	albumCover	2016-12-31 21:39:02.384+00	2016-12-31 21:39:02.384+00	48	25	\N	\N	\N
-222	woof.jpg	0	.jpg	albumCover	2016-12-31 21:49:06.733+00	2016-12-31 21:49:06.733+00	18	15	\N	\N	\N
-224	soak.jpg	0	.jpg	albumCover	2016-12-31 21:50:55.418+00	2016-12-31 21:50:55.418+00	15	5	\N	\N	\N
-225	jon-dice-presents-dubcake-volume-1.jpg	0	.jpg	albumCover	2016-12-31 21:51:34.685+00	2016-12-31 21:51:34.685+00	16	5	\N	\N	\N
-226	a-better-way.jpg	0	.jpg	albumCover	2016-12-31 21:51:55.902+00	2016-12-31 21:51:55.902+00	14	5	\N	\N	\N
-228	artifacts.jpg	0	.jpg	albumCover	2016-12-31 21:59:27.889+00	2016-12-31 21:59:27.889+00	46	24	\N	\N	\N
-229	college.jpg	0	.jpg	albumCover	2016-12-31 22:01:06.094+00	2016-12-31 22:01:06.094+00	47	18	\N	\N	\N
-230	call-you-on-it.jpg	0	.jpg	albumCover	2016-12-31 22:01:36.905+00	2016-12-31 22:01:36.905+00	11	5	\N	\N	\N
-231	black-blood-stains.jpg	0	.jpg	albumCover	2016-12-31 22:02:15.543+00	2016-12-31 22:02:15.543+00	10	4	\N	\N	\N
-232	vows.jpg	0	.jpg	albumCover	2016-12-31 22:03:13.227+00	2016-12-31 22:03:13.227+00	8	13	\N	\N	\N
-234	dive.jpg	0	.jpg	albumCover	2016-12-31 22:04:27.129+00	2016-12-31 22:04:27.129+00	45	23	\N	\N	\N
-235	only-the-beginning.jpg	0	.jpg	albumCover	2016-12-31 22:06:03.947+00	2016-12-31 22:06:03.947+00	44	19	\N	\N	\N
-236	happy-family.jpg	0	.jpg	albumCover	2016-12-31 22:06:56.74+00	2016-12-31 22:06:56.74+00	43	28	\N	\N	\N
-237	hero.jpg	0	.jpg	albumCover	2016-12-31 22:10:00.182+00	2016-12-31 22:10:00.182+00	12	9	\N	\N	\N
-239	yetunde.jpg	0	.jpg	albumCover	2016-12-31 22:13:54.697+00	2016-12-31 22:13:54.697+00	49	26	\N	\N	\N
-240	0.jpg	0	.jpg	albumCover	2016-12-31 22:15:08.285+00	2016-12-31 22:15:08.285+00	9	13	\N	\N	\N
-241	dance-floor-secrets.jpg	0	.jpg	albumCover	2016-12-31 22:32:33.064+00	2016-12-31 22:32:33.064+00	7	4	\N	\N	\N
-242	loves-you.jpg	0	.jpg	albumCover	2016-12-31 22:33:06.688+00	2016-12-31 22:33:06.688+00	6	14	\N	\N	\N
-243	blimp-rock.jpg	0	.jpg	albumCover	2016-12-31 22:33:36.544+00	2016-12-31 22:33:36.544+00	5	3	\N	\N	\N
-244	stranger-things.jpg	0	.jpg	albumCover	2016-12-31 22:34:06.24+00	2016-12-31 22:34:06.24+00	4	13	\N	\N	\N
-245	tweaker-ii.jpg	0	.jpg	albumCover	2016-12-31 22:34:55.592+00	2016-12-31 22:34:55.592+00	3	17	\N	\N	\N
-246	intricate-circuits.jpg	0	.jpg	albumCover	2016-12-31 22:35:38.477+00	2016-12-31 22:35:38.477+00	42	27	\N	\N	\N
-247	everything-is-happening.jpg	0	.jpg	albumCover	2016-12-31 22:36:17.276+00	2016-12-31 22:36:17.276+00	2	9	\N	\N	\N
-248	before-i-was-a-ghost.jpg	0	.jpg	albumCover	2016-12-31 22:37:12.402+00	2016-12-31 22:37:12.402+00	40	21	\N	\N	\N
-249	one-hungry-acre.jpg	0	.jpg	albumCover	2016-12-31 22:38:04.941+00	2016-12-31 22:38:04.941+00	38	20	\N	\N	\N
-250	why-so-routine.jpg	0	.jpg	albumCover	2016-12-31 22:41:59.405+00	2016-12-31 22:41:59.405+00	37	19	\N	\N	\N
-251	gather-round.jpg	0	.jpg	albumCover	2016-12-31 23:07:56.647+00	2016-12-31 23:07:56.647+00	41	18	\N	\N	\N
-252	making-the-most.jpg	0	.jpg	albumCover	2016-12-31 23:08:29.403+00	2016-12-31 23:08:29.403+00	36	18	\N	\N	\N
-253	early-life.jpg	0	.jpg	albumCover	2016-12-31 23:09:05.613+00	2016-12-31 23:09:05.613+00	39	19	\N	\N	\N
-254	tweaker-in-the-park.jpg	0	.jpg	albumCover	2016-12-31 23:09:40.71+00	2016-12-31 23:09:40.71+00	35	17	\N	\N	\N
-255	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:34:37.498+00	2016-12-31 23:34:37.498+00	\N	1	\N	\N	\N
-256	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:26.137+00	2016-12-31 23:36:26.137+00	\N	2	\N	\N	\N
-257	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:28.988+00	2016-12-31 23:36:28.988+00	\N	3	\N	\N	\N
-258	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:31.971+00	2016-12-31 23:36:31.971+00	\N	4	\N	\N	\N
-259	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:35.354+00	2016-12-31 23:36:35.354+00	\N	5	\N	\N	\N
-260	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:38.798+00	2016-12-31 23:36:38.798+00	\N	6	\N	\N	\N
-261	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:41.924+00	2016-12-31 23:36:41.924+00	\N	7	\N	\N	\N
-262	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:45.05+00	2016-12-31 23:36:45.05+00	\N	8	\N	\N	\N
-263	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:47.861+00	2016-12-31 23:36:47.861+00	\N	9	\N	\N	\N
-264	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:50.964+00	2016-12-31 23:36:50.964+00	\N	10	\N	\N	\N
-265	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:53.573+00	2016-12-31 23:36:53.573+00	\N	11	\N	\N	\N
-266	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:56.276+00	2016-12-31 23:36:56.276+00	\N	12	\N	\N	\N
-267	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:59.323+00	2016-12-31 23:36:59.323+00	\N	13	\N	\N	\N
-268	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:02.231+00	2016-12-31 23:37:02.231+00	\N	14	\N	\N	\N
-269	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:04.957+00	2016-12-31 23:37:04.957+00	\N	15	\N	\N	\N
-270	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:08.138+00	2016-12-31 23:37:08.138+00	\N	16	\N	\N	\N
-271	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:13.722+00	2016-12-31 23:37:13.722+00	\N	17	\N	\N	\N
-272	bey.jpg	0	.jpg	photosCoverImage	2016-12-31 23:40:54.86+00	2016-12-31 23:40:54.86+00	\N	1	\N	\N	\N
-274	band.jpg	0	.jpg	photosCoverImage	2016-12-31 23:57:22.465+00	2016-12-31 23:57:22.465+00	\N	3	\N	\N	\N
-276	group.jpg	0	.jpg	photo	2017-01-01 00:03:01.94+00	2017-01-01 00:03:01.94+00	\N	3	\N	\N	\N
-277	live.jpg	0	.jpg	photo	2017-01-01 00:03:10.587+00	2017-01-01 00:03:10.587+00	\N	3	\N	\N	\N
-278	blimp-rock-enterprises.jpg	0	.jpg	photo	2017-01-01 00:04:00.767+00	2017-01-01 00:04:00.767+00	\N	3	\N	\N	\N
-279	dj4.jpg	0	.jpg	photosCoverImage	2017-01-01 18:25:43.23+00	2017-01-01 18:25:43.23+00	\N	4	\N	\N	\N
-280	1.jpg	0	.jpg	photo	2017-01-01 18:25:56.381+00	2017-01-01 18:25:56.381+00	\N	4	\N	\N	\N
-281	2.jpg	0	.jpg	photo	2017-01-01 18:25:59.052+00	2017-01-01 18:25:59.052+00	\N	4	\N	\N	\N
-282	3.jpg	0	.jpg	photo	2017-01-01 18:26:02.418+00	2017-01-01 18:26:02.418+00	\N	4	\N	\N	\N
-283	4.jpg	0	.jpg	photo	2017-01-01 18:26:06.073+00	2017-01-01 18:26:06.073+00	\N	4	\N	\N	\N
-284	5.jpg	0	.jpg	photo	2017-01-01 18:26:11.352+00	2017-01-01 18:26:11.352+00	\N	4	\N	\N	\N
-285	chillin.jpg	0	.jpg	photo	2017-01-01 18:26:17.192+00	2017-01-01 18:26:17.192+00	\N	4	\N	\N	\N
-286	eazy.jpg	0	.jpg	photo	2017-01-01 18:26:23.463+00	2017-01-01 18:26:23.463+00	\N	4	\N	\N	\N
-287	laugh.jpg	0	.jpg	photo	2017-01-01 18:26:27.797+00	2017-01-01 18:26:27.797+00	\N	4	\N	\N	\N
-288	talk-trash.jpg	0	.jpg	photo	2017-01-01 18:26:32.004+00	2017-01-01 18:26:32.004+00	\N	4	\N	\N	\N
-289	city.jpg	0	.jpg	photosCoverImage	2017-01-01 18:27:19.577+00	2017-01-01 18:27:19.577+00	\N	5	\N	\N	\N
-291	dicepuppet.jpg	0	.jpg	photo	2017-01-01 18:27:37.076+00	2017-01-01 18:27:37.076+00	\N	5	\N	\N	\N
-292	alex.jpg	0	.jpg	photosCoverImage	2017-01-01 18:28:16.186+00	2017-01-01 18:28:16.186+00	\N	6	\N	\N	\N
-293	cassette.jpg	0	.jpg	photo	2017-01-01 18:28:25.919+00	2017-01-01 18:28:25.919+00	\N	6	\N	\N	\N
-295	chelsea.jpg	0	.jpg	photo	2017-01-01 18:28:34.878+00	2017-01-01 18:28:34.878+00	\N	6	\N	\N	\N
-296	studio.jpg	0	.jpg	photo	2017-01-01 18:28:38.912+00	2017-01-01 18:28:38.912+00	\N	6	\N	\N	\N
-297	three.jpg	0	.jpg	photo	2017-01-01 18:28:42.895+00	2017-01-01 18:28:42.895+00	\N	6	\N	\N	\N
-298	logo.jpg	0	.jpg	photo	2017-01-01 18:28:48.488+00	2017-01-01 18:28:48.488+00	\N	6	\N	\N	\N
-299	grafitti.jpg	0	.jpg	photosCoverImage	2017-01-01 18:30:01.16+00	2017-01-01 18:30:01.16+00	\N	7	\N	\N	\N
-300	band.jpg	0	.jpg	photo	2017-01-01 18:30:11.904+00	2017-01-01 18:30:11.904+00	\N	7	\N	\N	\N
-301	gear.jpg	0	.jpg	photo	2017-01-01 18:30:15.261+00	2017-01-01 18:30:15.261+00	\N	7	\N	\N	\N
-302	livingbody.jpg	0	.jpg	photo	2017-01-01 18:30:24.256+00	2017-01-01 18:30:24.256+00	\N	7	\N	\N	\N
-303	shirts.jpg	0	.jpg	photo	2017-01-01 18:30:27.694+00	2017-01-01 18:30:27.694+00	\N	7	\N	\N	\N
-304	jeff.jpg	0	.jpg	photo	2017-01-01 18:30:31.581+00	2017-01-01 18:30:31.581+00	\N	7	\N	\N	\N
-305	90s.jpg	0	.jpg	photosCoverImage	2017-01-01 18:31:37.05+00	2017-01-01 18:31:37.05+00	\N	8	\N	\N	\N
-306	gil.jpg	0	.jpg	photo	2017-01-01 18:31:45.869+00	2017-01-01 18:31:45.869+00	\N	8	\N	\N	\N
-307	livinghour1.jpg	0	.jpg	photo	2017-01-01 18:31:52.291+00	2017-01-01 18:31:52.291+00	\N	8	\N	\N	\N
-308	livinghour4.jpg	0	.jpg	photo	2017-01-01 18:31:56.962+00	2017-01-01 18:31:56.962+00	\N	8	\N	\N	\N
-309	livinghour7.jpg	0	.jpg	photo	2017-01-01 18:32:00.055+00	2017-01-01 18:32:00.055+00	\N	8	\N	\N	\N
-310	fullband.gif	0	.gif	photo	2017-01-01 18:32:10.136+00	2017-01-01 18:32:10.136+00	\N	8	\N	\N	\N
-311	alex-studio.jpg	0	.jpg	photosCoverImage	2017-01-01 18:33:14.299+00	2017-01-01 18:33:14.299+00	\N	9	\N	\N	\N
-312	alex.png	0	.png	photo	2017-01-01 18:34:06.227+00	2017-01-01 18:34:06.227+00	\N	9	\N	\N	\N
-313	chelsea.png	0	.png	photo	2017-01-01 18:34:09.595+00	2017-01-01 18:34:09.595+00	\N	9	\N	\N	\N
-314	chuck.png	0	.png	photo	2017-01-01 18:34:12.598+00	2017-01-01 18:34:12.598+00	\N	9	\N	\N	\N
-315	zack.png	0	.png	photo	2017-01-01 18:34:15.674+00	2017-01-01 18:34:15.674+00	\N	9	\N	\N	\N
-316	levitation.jpg	0	.jpg	photo	2017-01-01 18:35:04.354+00	2017-01-01 18:35:04.354+00	\N	9	\N	\N	\N
-317	live.jpg	0	.jpg	photo	2017-01-01 18:35:10.329+00	2017-01-01 18:35:10.329+00	\N	9	\N	\N	\N
-318	woods.jpg	0	.jpg	photo	2017-01-01 18:35:26.565+00	2017-01-01 18:35:26.565+00	\N	9	\N	\N	\N
-319	recording3.jpg	0	.jpg	photosCoverImage	2017-01-01 18:37:30.425+00	2017-01-01 18:37:30.425+00	\N	10	\N	\N	\N
-320	pony.jpg	0	.jpg	photo	2017-01-01 18:38:04.879+00	2017-01-01 18:38:04.879+00	\N	10	\N	\N	\N
-321	recording.jpg	0	.jpg	photo	2017-01-01 18:38:40.731+00	2017-01-01 18:38:40.731+00	\N	10	\N	\N	\N
-322	promo.png	0	.png	photo	2017-01-01 18:38:48.443+00	2017-01-01 18:38:48.443+00	\N	10	\N	\N	\N
-323	promo2.png	0	.png	photo	2017-01-01 18:38:51.01+00	2017-01-01 18:38:51.01+00	\N	10	\N	\N	\N
-324	couch.jpg	0	.jpg	photosCoverImage	2017-01-01 18:40:29.227+00	2017-01-01 18:40:29.227+00	\N	11	\N	\N	\N
-325	queenave.jpg	0	.jpg	photo	2017-01-01 18:40:39.719+00	2017-01-01 18:40:39.719+00	\N	11	\N	\N	\N
-326	riverwestcoop.jpg	0	.jpg	photo	2017-01-01 18:40:46.574+00	2017-01-01 18:40:46.574+00	\N	11	\N	\N	\N
-327	tambourine.jpg	0	.jpg	photo	2017-01-01 18:40:53.954+00	2017-01-01 18:40:53.954+00	\N	11	\N	\N	\N
-328	american.png	0	.png	photo	2017-01-01 18:41:06.236+00	2017-01-01 18:41:06.236+00	\N	11	\N	\N	\N
-329	5.jpg	0	.jpg	photosCoverImage	2017-01-01 18:42:27.693+00	2017-01-01 18:42:27.693+00	\N	12	\N	\N	\N
-330	8.jpg	0	.jpg	photo	2017-01-01 18:42:34.605+00	2017-01-01 18:42:34.605+00	\N	12	\N	\N	\N
-331	bg.jpg	0	.jpg	photo	2017-01-01 18:42:39.722+00	2017-01-01 18:42:39.722+00	\N	12	\N	\N	\N
-332	billy.jpg	0	.jpg	photo	2017-01-01 18:42:43.985+00	2017-01-01 18:42:43.985+00	\N	12	\N	\N	\N
-333	2.jpg	0	.jpg	photosCoverImage	2017-01-01 18:43:52.535+00	2017-01-01 18:43:52.535+00	\N	13	\N	\N	\N
-334	vows3.jpg	0	.jpg	photo	2017-01-01 18:44:01.353+00	2017-01-01 18:44:01.353+00	\N	13	\N	\N	\N
-335	woods.jpg	0	.jpg	photo	2017-01-01 18:44:05.387+00	2017-01-01 18:44:05.387+00	\N	13	\N	\N	\N
-336	oldy.jpg	0	.jpg	photo	2017-01-01 18:44:09.135+00	2017-01-01 18:44:09.135+00	\N	13	\N	\N	\N
-337	lovesyou.jpg	0	.jpg	photo	2017-01-01 18:44:39.846+00	2017-01-01 18:44:39.846+00	\N	14	\N	\N	\N
-338	wonderbitch.jpg	0	.jpg	photo	2017-01-01 18:44:45.776+00	2017-01-01 18:44:45.776+00	\N	14	\N	\N	\N
-339	band.jpg	0	.jpg	photosCoverImage	2017-01-01 18:44:53.892+00	2017-01-01 18:44:53.892+00	\N	14	\N	\N	\N
-340	3.jpg	0	.jpg	photosCoverImage	2017-01-01 18:45:41.981+00	2017-01-01 18:45:41.981+00	\N	15	\N	\N	\N
-341	2.jpg	0	.jpg	photo	2017-01-01 18:45:53.582+00	2017-01-01 18:45:53.582+00	\N	15	\N	\N	\N
-342	4.jpg	0	.jpg	photo	2017-01-01 18:45:56.416+00	2017-01-01 18:45:56.416+00	\N	15	\N	\N	\N
-343	6.jpg	0	.jpg	photo	2017-01-01 18:45:59.533+00	2017-01-01 18:45:59.533+00	\N	15	\N	\N	\N
-344	six.jpg	0	.jpg	photo	2017-01-01 18:46:57.757+00	2017-01-01 18:46:57.757+00	\N	16	\N	\N	\N
-345	cassette.jpg	0	.jpg	photosCoverImage	2017-01-01 18:47:07.54+00	2017-01-01 18:47:07.54+00	\N	16	\N	\N	\N
-346	phone.jpg	0	.jpg	photosCoverImage	2017-01-01 19:03:25.64+00	2017-01-01 19:03:25.64+00	\N	2	\N	\N	\N
-347	drew.jpg	0	.jpg	photo	2017-01-01 19:03:36.915+00	2017-01-01 19:03:36.915+00	\N	2	\N	\N	\N
-348	friends.jpg	0	.jpg	photo	2017-01-01 19:03:46.907+00	2017-01-01 19:03:46.907+00	\N	2	\N	\N	\N
+COPY "Files" (id, name, size, type, identifier, "createdAt", "updatedAt", "AlbumReleaseId", "ArtistId", "MerchItemId", "SongId", "UserId", label, "imageUrl") FROM stdin;
+184	austinbey.jpg	0	.jpg	artistTileFront	2016-12-31 20:57:28.798+00	2016-12-31 20:57:28.798+00	\N	1	\N	\N	\N	\N	\N
+185	bartholin.jpg	0	.jpg	artistTileFront	2016-12-31 20:58:04.542+00	2016-12-31 20:58:04.542+00	\N	2	\N	\N	\N	\N	\N
+186	bonfirejohn.jpg	0	.jpg	artistTileFront	2016-12-31 20:58:36.623+00	2016-12-31 20:58:36.623+00	\N	18	\N	\N	\N	\N	\N
+187	boxboxbox.jpg	0	.jpg	artistTileFront	2016-12-31 20:58:52.49+00	2016-12-31 20:58:52.49+00	\N	23	\N	\N	\N	\N	\N
+188	eazy.jpg	0	.jpg	artistTileFront	2016-12-31 20:59:24.428+00	2016-12-31 20:59:24.428+00	\N	4	\N	\N	\N	\N	\N
+189	blimprock.jpg	0	.jpg	artistTileFront	2016-12-31 21:00:16.82+00	2016-12-31 21:00:16.82+00	\N	3	\N	\N	\N	\N	\N
+190	jondice.jpg	0	.jpg	artistTileFront	2016-12-31 21:02:29.065+00	2016-12-31 21:02:29.065+00	\N	5	\N	\N	\N	\N	\N
+191	ladycop.jpg	0	.jpg	artistTileFront	2016-12-31 21:02:49.295+00	2016-12-31 21:02:49.295+00	\N	6	\N	\N	\N	\N	\N
+192	livingbody.jpg	0	.jpg	artistTileFront	2016-12-31 21:03:06.374+00	2016-12-31 21:03:06.374+00	\N	7	\N	\N	\N	\N	\N
+193	livinghour.jpg	0	.jpg	artistTileFront	2016-12-31 21:03:22.126+00	2016-12-31 21:03:22.126+00	\N	8	\N	\N	\N	\N	\N
+194	magicmachine.jpg	0	.jpg	artistTileFront	2016-12-31 21:03:40.042+00	2016-12-31 21:03:40.042+00	\N	19	\N	\N	\N	\N	\N
+195	mindparade.jpg	0	.jpg	artistTileFront	2016-12-31 21:04:12.471+00	2016-12-31 21:04:12.471+00	\N	9	\N	\N	\N	\N	\N
+196	pony.jpg	0	.jpg	artistTileFront	2016-12-31 21:04:34.564+00	2016-12-31 21:04:34.564+00	\N	10	\N	\N	\N	\N	\N
+197	shorebilly.jpg	0	.jpg	artistTileFront	2016-12-31 21:04:46.632+00	2016-12-31 21:04:46.632+00	\N	12	\N	\N	\N	\N	\N
+198	thepsychics.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:02.486+00	2016-12-31 21:05:02.486+00	\N	11	\N	\N	\N	\N	\N
+199	vows.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:12.795+00	2016-12-31 21:05:12.795+00	\N	13	\N	\N	\N	\N	\N
+200	wonderbitch.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:22.288+00	2016-12-31 21:05:22.288+00	\N	14	\N	\N	\N	\N	\N
+201	woof.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:32.818+00	2016-12-31 21:05:32.818+00	\N	15	\N	\N	\N	\N	\N
+202	youarenumbersix.jpg	0	.jpg	artistTileFront	2016-12-31 21:05:45.067+00	2016-12-31 21:05:45.067+00	\N	16	\N	\N	\N	\N	\N
+207	body-is-working.jpg	0	.jpg	albumCover	2016-12-31 21:24:34.185+00	2016-12-31 21:24:34.185+00	27	7	\N	\N	\N	\N	\N
+208	undercurrent.jpg	0	.jpg	albumCover	2016-12-31 21:27:19.78+00	2016-12-31 21:27:19.78+00	29	6	\N	\N	\N	\N	\N
+209	bartholin.jpg	0	.jpg	albumCover	2016-12-31 21:28:17.872+00	2016-12-31 21:28:17.872+00	28	2	\N	\N	\N	\N	\N
+210	treated.jpg	0	.jpg	albumCover	2016-12-31 21:28:46.626+00	2016-12-31 21:28:46.626+00	26	1	\N	\N	\N	\N	\N
+211	vhs-dreams.jpg	0	.jpg	albumCover	2016-12-31 21:29:41.674+00	2016-12-31 21:29:41.674+00	33	16	\N	\N	\N	\N	\N
+212	wipeout.jpg	0	.jpg	albumCover	2016-12-31 21:30:52.426+00	2016-12-31 21:30:52.426+00	32	12	\N	\N	\N	\N	\N
+213	4x3.jpg	0	.jpg	albumCover	2016-12-31 21:31:34.805+00	2016-12-31 21:31:34.805+00	30	11	\N	\N	\N	\N	\N
+214	bad-connection.jpg	0	.jpg	albumCover	2016-12-31 21:32:22.782+00	2016-12-31 21:32:22.782+00	23	15	\N	\N	\N	\N	\N
+215	dead-mystics.jpg	0	.jpg	albumCover	2016-12-31 21:33:15.046+00	2016-12-31 21:33:15.046+00	21	9	\N	\N	\N	\N	\N
+216	i-dont-want-to-open-the-window-to-the-outside-world.jpg	0	.jpg	albumCover	2016-12-31 21:33:56.975+00	2016-12-31 21:33:56.975+00	22	10	\N	\N	\N	\N	\N
+217	wonderbitch.jpg	0	.jpg	albumCover	2016-12-31 21:35:13.895+00	2016-12-31 21:35:13.895+00	17	14	\N	\N	\N	\N	\N
+218	music-for-good-ears.jpg	0	.jpg	albumCover	2016-12-31 21:35:50.508+00	2016-12-31 21:35:50.508+00	20	4	\N	\N	\N	\N	\N
+219	living-hour.jpg	0	.jpg	albumCover	2016-12-31 21:36:19.52+00	2016-12-31 21:36:19.52+00	19	8	\N	\N	\N	\N	\N
+220	sophomore-slump.jpg	0	.jpg	albumCover	2016-12-31 21:36:58.623+00	2016-12-31 21:36:58.623+00	13	3	\N	\N	\N	\N	\N
+221	turn-it-up.jpg	0	.jpg	albumCover	2016-12-31 21:39:02.384+00	2016-12-31 21:39:02.384+00	48	25	\N	\N	\N	\N	\N
+222	woof.jpg	0	.jpg	albumCover	2016-12-31 21:49:06.733+00	2016-12-31 21:49:06.733+00	18	15	\N	\N	\N	\N	\N
+224	soak.jpg	0	.jpg	albumCover	2016-12-31 21:50:55.418+00	2016-12-31 21:50:55.418+00	15	5	\N	\N	\N	\N	\N
+225	jon-dice-presents-dubcake-volume-1.jpg	0	.jpg	albumCover	2016-12-31 21:51:34.685+00	2016-12-31 21:51:34.685+00	16	5	\N	\N	\N	\N	\N
+226	a-better-way.jpg	0	.jpg	albumCover	2016-12-31 21:51:55.902+00	2016-12-31 21:51:55.902+00	14	5	\N	\N	\N	\N	\N
+228	artifacts.jpg	0	.jpg	albumCover	2016-12-31 21:59:27.889+00	2016-12-31 21:59:27.889+00	46	24	\N	\N	\N	\N	\N
+229	college.jpg	0	.jpg	albumCover	2016-12-31 22:01:06.094+00	2016-12-31 22:01:06.094+00	47	18	\N	\N	\N	\N	\N
+230	call-you-on-it.jpg	0	.jpg	albumCover	2016-12-31 22:01:36.905+00	2016-12-31 22:01:36.905+00	11	5	\N	\N	\N	\N	\N
+231	black-blood-stains.jpg	0	.jpg	albumCover	2016-12-31 22:02:15.543+00	2016-12-31 22:02:15.543+00	10	4	\N	\N	\N	\N	\N
+232	vows.jpg	0	.jpg	albumCover	2016-12-31 22:03:13.227+00	2016-12-31 22:03:13.227+00	8	13	\N	\N	\N	\N	\N
+234	dive.jpg	0	.jpg	albumCover	2016-12-31 22:04:27.129+00	2016-12-31 22:04:27.129+00	45	23	\N	\N	\N	\N	\N
+235	only-the-beginning.jpg	0	.jpg	albumCover	2016-12-31 22:06:03.947+00	2016-12-31 22:06:03.947+00	44	19	\N	\N	\N	\N	\N
+236	happy-family.jpg	0	.jpg	albumCover	2016-12-31 22:06:56.74+00	2016-12-31 22:06:56.74+00	43	28	\N	\N	\N	\N	\N
+237	hero.jpg	0	.jpg	albumCover	2016-12-31 22:10:00.182+00	2016-12-31 22:10:00.182+00	12	9	\N	\N	\N	\N	\N
+239	yetunde.jpg	0	.jpg	albumCover	2016-12-31 22:13:54.697+00	2016-12-31 22:13:54.697+00	49	26	\N	\N	\N	\N	\N
+240	0.jpg	0	.jpg	albumCover	2016-12-31 22:15:08.285+00	2016-12-31 22:15:08.285+00	9	13	\N	\N	\N	\N	\N
+241	dance-floor-secrets.jpg	0	.jpg	albumCover	2016-12-31 22:32:33.064+00	2016-12-31 22:32:33.064+00	7	4	\N	\N	\N	\N	\N
+242	loves-you.jpg	0	.jpg	albumCover	2016-12-31 22:33:06.688+00	2016-12-31 22:33:06.688+00	6	14	\N	\N	\N	\N	\N
+243	blimp-rock.jpg	0	.jpg	albumCover	2016-12-31 22:33:36.544+00	2016-12-31 22:33:36.544+00	5	3	\N	\N	\N	\N	\N
+244	stranger-things.jpg	0	.jpg	albumCover	2016-12-31 22:34:06.24+00	2016-12-31 22:34:06.24+00	4	13	\N	\N	\N	\N	\N
+245	tweaker-ii.jpg	0	.jpg	albumCover	2016-12-31 22:34:55.592+00	2016-12-31 22:34:55.592+00	3	17	\N	\N	\N	\N	\N
+246	intricate-circuits.jpg	0	.jpg	albumCover	2016-12-31 22:35:38.477+00	2016-12-31 22:35:38.477+00	42	27	\N	\N	\N	\N	\N
+247	everything-is-happening.jpg	0	.jpg	albumCover	2016-12-31 22:36:17.276+00	2016-12-31 22:36:17.276+00	2	9	\N	\N	\N	\N	\N
+248	before-i-was-a-ghost.jpg	0	.jpg	albumCover	2016-12-31 22:37:12.402+00	2016-12-31 22:37:12.402+00	40	21	\N	\N	\N	\N	\N
+249	one-hungry-acre.jpg	0	.jpg	albumCover	2016-12-31 22:38:04.941+00	2016-12-31 22:38:04.941+00	38	20	\N	\N	\N	\N	\N
+250	why-so-routine.jpg	0	.jpg	albumCover	2016-12-31 22:41:59.405+00	2016-12-31 22:41:59.405+00	37	19	\N	\N	\N	\N	\N
+251	gather-round.jpg	0	.jpg	albumCover	2016-12-31 23:07:56.647+00	2016-12-31 23:07:56.647+00	41	18	\N	\N	\N	\N	\N
+252	making-the-most.jpg	0	.jpg	albumCover	2016-12-31 23:08:29.403+00	2016-12-31 23:08:29.403+00	36	18	\N	\N	\N	\N	\N
+253	early-life.jpg	0	.jpg	albumCover	2016-12-31 23:09:05.613+00	2016-12-31 23:09:05.613+00	39	19	\N	\N	\N	\N	\N
+254	tweaker-in-the-park.jpg	0	.jpg	albumCover	2016-12-31 23:09:40.71+00	2016-12-31 23:09:40.71+00	35	17	\N	\N	\N	\N	\N
+255	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:34:37.498+00	2016-12-31 23:34:37.498+00	\N	1	\N	\N	\N	\N	\N
+256	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:26.137+00	2016-12-31 23:36:26.137+00	\N	2	\N	\N	\N	\N	\N
+257	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:28.988+00	2016-12-31 23:36:28.988+00	\N	3	\N	\N	\N	\N	\N
+258	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:31.971+00	2016-12-31 23:36:31.971+00	\N	4	\N	\N	\N	\N	\N
+259	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:35.354+00	2016-12-31 23:36:35.354+00	\N	5	\N	\N	\N	\N	\N
+260	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:38.798+00	2016-12-31 23:36:38.798+00	\N	6	\N	\N	\N	\N	\N
+261	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:41.924+00	2016-12-31 23:36:41.924+00	\N	7	\N	\N	\N	\N	\N
+262	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:45.05+00	2016-12-31 23:36:45.05+00	\N	8	\N	\N	\N	\N	\N
+263	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:47.861+00	2016-12-31 23:36:47.861+00	\N	9	\N	\N	\N	\N	\N
+264	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:50.964+00	2016-12-31 23:36:50.964+00	\N	10	\N	\N	\N	\N	\N
+265	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:53.573+00	2016-12-31 23:36:53.573+00	\N	11	\N	\N	\N	\N	\N
+266	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:56.276+00	2016-12-31 23:36:56.276+00	\N	12	\N	\N	\N	\N	\N
+267	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:36:59.323+00	2016-12-31 23:36:59.323+00	\N	13	\N	\N	\N	\N	\N
+268	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:02.231+00	2016-12-31 23:37:02.231+00	\N	14	\N	\N	\N	\N	\N
+269	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:04.957+00	2016-12-31 23:37:04.957+00	\N	15	\N	\N	\N	\N	\N
+270	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:08.138+00	2016-12-31 23:37:08.138+00	\N	16	\N	\N	\N	\N	\N
+271	featured-image.jpg	0	.jpg	featuredImage	2016-12-31 23:37:13.722+00	2016-12-31 23:37:13.722+00	\N	17	\N	\N	\N	\N	\N
+272	bey.jpg	0	.jpg	photosCoverImage	2016-12-31 23:40:54.86+00	2016-12-31 23:40:54.86+00	\N	1	\N	\N	\N	\N	\N
+274	band.jpg	0	.jpg	photosCoverImage	2016-12-31 23:57:22.465+00	2016-12-31 23:57:22.465+00	\N	3	\N	\N	\N	\N	\N
+276	group.jpg	0	.jpg	photo	2017-01-01 00:03:01.94+00	2017-01-01 00:03:01.94+00	\N	3	\N	\N	\N	\N	\N
+277	live.jpg	0	.jpg	photo	2017-01-01 00:03:10.587+00	2017-01-01 00:03:10.587+00	\N	3	\N	\N	\N	\N	\N
+278	blimp-rock-enterprises.jpg	0	.jpg	photo	2017-01-01 00:04:00.767+00	2017-01-01 00:04:00.767+00	\N	3	\N	\N	\N	\N	\N
+279	dj4.jpg	0	.jpg	photosCoverImage	2017-01-01 18:25:43.23+00	2017-01-01 18:25:43.23+00	\N	4	\N	\N	\N	\N	\N
+280	1.jpg	0	.jpg	photo	2017-01-01 18:25:56.381+00	2017-01-01 18:25:56.381+00	\N	4	\N	\N	\N	\N	\N
+281	2.jpg	0	.jpg	photo	2017-01-01 18:25:59.052+00	2017-01-01 18:25:59.052+00	\N	4	\N	\N	\N	\N	\N
+282	3.jpg	0	.jpg	photo	2017-01-01 18:26:02.418+00	2017-01-01 18:26:02.418+00	\N	4	\N	\N	\N	\N	\N
+283	4.jpg	0	.jpg	photo	2017-01-01 18:26:06.073+00	2017-01-01 18:26:06.073+00	\N	4	\N	\N	\N	\N	\N
+284	5.jpg	0	.jpg	photo	2017-01-01 18:26:11.352+00	2017-01-01 18:26:11.352+00	\N	4	\N	\N	\N	\N	\N
+285	chillin.jpg	0	.jpg	photo	2017-01-01 18:26:17.192+00	2017-01-01 18:26:17.192+00	\N	4	\N	\N	\N	\N	\N
+286	eazy.jpg	0	.jpg	photo	2017-01-01 18:26:23.463+00	2017-01-01 18:26:23.463+00	\N	4	\N	\N	\N	\N	\N
+287	laugh.jpg	0	.jpg	photo	2017-01-01 18:26:27.797+00	2017-01-01 18:26:27.797+00	\N	4	\N	\N	\N	\N	\N
+288	talk-trash.jpg	0	.jpg	photo	2017-01-01 18:26:32.004+00	2017-01-01 18:26:32.004+00	\N	4	\N	\N	\N	\N	\N
+289	city.jpg	0	.jpg	photosCoverImage	2017-01-01 18:27:19.577+00	2017-01-01 18:27:19.577+00	\N	5	\N	\N	\N	\N	\N
+291	dicepuppet.jpg	0	.jpg	photo	2017-01-01 18:27:37.076+00	2017-01-01 18:27:37.076+00	\N	5	\N	\N	\N	\N	\N
+292	alex.jpg	0	.jpg	photosCoverImage	2017-01-01 18:28:16.186+00	2017-01-01 18:28:16.186+00	\N	6	\N	\N	\N	\N	\N
+293	cassette.jpg	0	.jpg	photo	2017-01-01 18:28:25.919+00	2017-01-01 18:28:25.919+00	\N	6	\N	\N	\N	\N	\N
+295	chelsea.jpg	0	.jpg	photo	2017-01-01 18:28:34.878+00	2017-01-01 18:28:34.878+00	\N	6	\N	\N	\N	\N	\N
+296	studio.jpg	0	.jpg	photo	2017-01-01 18:28:38.912+00	2017-01-01 18:28:38.912+00	\N	6	\N	\N	\N	\N	\N
+297	three.jpg	0	.jpg	photo	2017-01-01 18:28:42.895+00	2017-01-01 18:28:42.895+00	\N	6	\N	\N	\N	\N	\N
+298	logo.jpg	0	.jpg	photo	2017-01-01 18:28:48.488+00	2017-01-01 18:28:48.488+00	\N	6	\N	\N	\N	\N	\N
+299	grafitti.jpg	0	.jpg	photosCoverImage	2017-01-01 18:30:01.16+00	2017-01-01 18:30:01.16+00	\N	7	\N	\N	\N	\N	\N
+300	band.jpg	0	.jpg	photo	2017-01-01 18:30:11.904+00	2017-01-01 18:30:11.904+00	\N	7	\N	\N	\N	\N	\N
+301	gear.jpg	0	.jpg	photo	2017-01-01 18:30:15.261+00	2017-01-01 18:30:15.261+00	\N	7	\N	\N	\N	\N	\N
+302	livingbody.jpg	0	.jpg	photo	2017-01-01 18:30:24.256+00	2017-01-01 18:30:24.256+00	\N	7	\N	\N	\N	\N	\N
+303	shirts.jpg	0	.jpg	photo	2017-01-01 18:30:27.694+00	2017-01-01 18:30:27.694+00	\N	7	\N	\N	\N	\N	\N
+304	jeff.jpg	0	.jpg	photo	2017-01-01 18:30:31.581+00	2017-01-01 18:30:31.581+00	\N	7	\N	\N	\N	\N	\N
+305	90s.jpg	0	.jpg	photosCoverImage	2017-01-01 18:31:37.05+00	2017-01-01 18:31:37.05+00	\N	8	\N	\N	\N	\N	\N
+306	gil.jpg	0	.jpg	photo	2017-01-01 18:31:45.869+00	2017-01-01 18:31:45.869+00	\N	8	\N	\N	\N	\N	\N
+307	livinghour1.jpg	0	.jpg	photo	2017-01-01 18:31:52.291+00	2017-01-01 18:31:52.291+00	\N	8	\N	\N	\N	\N	\N
+308	livinghour4.jpg	0	.jpg	photo	2017-01-01 18:31:56.962+00	2017-01-01 18:31:56.962+00	\N	8	\N	\N	\N	\N	\N
+309	livinghour7.jpg	0	.jpg	photo	2017-01-01 18:32:00.055+00	2017-01-01 18:32:00.055+00	\N	8	\N	\N	\N	\N	\N
+310	fullband.gif	0	.gif	photo	2017-01-01 18:32:10.136+00	2017-01-01 18:32:10.136+00	\N	8	\N	\N	\N	\N	\N
+311	alex-studio.jpg	0	.jpg	photosCoverImage	2017-01-01 18:33:14.299+00	2017-01-01 18:33:14.299+00	\N	9	\N	\N	\N	\N	\N
+312	alex.png	0	.png	photo	2017-01-01 18:34:06.227+00	2017-01-01 18:34:06.227+00	\N	9	\N	\N	\N	\N	\N
+313	chelsea.png	0	.png	photo	2017-01-01 18:34:09.595+00	2017-01-01 18:34:09.595+00	\N	9	\N	\N	\N	\N	\N
+314	chuck.png	0	.png	photo	2017-01-01 18:34:12.598+00	2017-01-01 18:34:12.598+00	\N	9	\N	\N	\N	\N	\N
+315	zack.png	0	.png	photo	2017-01-01 18:34:15.674+00	2017-01-01 18:34:15.674+00	\N	9	\N	\N	\N	\N	\N
+316	levitation.jpg	0	.jpg	photo	2017-01-01 18:35:04.354+00	2017-01-01 18:35:04.354+00	\N	9	\N	\N	\N	\N	\N
+317	live.jpg	0	.jpg	photo	2017-01-01 18:35:10.329+00	2017-01-01 18:35:10.329+00	\N	9	\N	\N	\N	\N	\N
+318	woods.jpg	0	.jpg	photo	2017-01-01 18:35:26.565+00	2017-01-01 18:35:26.565+00	\N	9	\N	\N	\N	\N	\N
+319	recording3.jpg	0	.jpg	photosCoverImage	2017-01-01 18:37:30.425+00	2017-01-01 18:37:30.425+00	\N	10	\N	\N	\N	\N	\N
+320	pony.jpg	0	.jpg	photo	2017-01-01 18:38:04.879+00	2017-01-01 18:38:04.879+00	\N	10	\N	\N	\N	\N	\N
+321	recording.jpg	0	.jpg	photo	2017-01-01 18:38:40.731+00	2017-01-01 18:38:40.731+00	\N	10	\N	\N	\N	\N	\N
+322	promo.png	0	.png	photo	2017-01-01 18:38:48.443+00	2017-01-01 18:38:48.443+00	\N	10	\N	\N	\N	\N	\N
+323	promo2.png	0	.png	photo	2017-01-01 18:38:51.01+00	2017-01-01 18:38:51.01+00	\N	10	\N	\N	\N	\N	\N
+324	couch.jpg	0	.jpg	photosCoverImage	2017-01-01 18:40:29.227+00	2017-01-01 18:40:29.227+00	\N	11	\N	\N	\N	\N	\N
+325	queenave.jpg	0	.jpg	photo	2017-01-01 18:40:39.719+00	2017-01-01 18:40:39.719+00	\N	11	\N	\N	\N	\N	\N
+326	riverwestcoop.jpg	0	.jpg	photo	2017-01-01 18:40:46.574+00	2017-01-01 18:40:46.574+00	\N	11	\N	\N	\N	\N	\N
+327	tambourine.jpg	0	.jpg	photo	2017-01-01 18:40:53.954+00	2017-01-01 18:40:53.954+00	\N	11	\N	\N	\N	\N	\N
+328	american.png	0	.png	photo	2017-01-01 18:41:06.236+00	2017-01-01 18:41:06.236+00	\N	11	\N	\N	\N	\N	\N
+329	5.jpg	0	.jpg	photosCoverImage	2017-01-01 18:42:27.693+00	2017-01-01 18:42:27.693+00	\N	12	\N	\N	\N	\N	\N
+330	8.jpg	0	.jpg	photo	2017-01-01 18:42:34.605+00	2017-01-01 18:42:34.605+00	\N	12	\N	\N	\N	\N	\N
+331	bg.jpg	0	.jpg	photo	2017-01-01 18:42:39.722+00	2017-01-01 18:42:39.722+00	\N	12	\N	\N	\N	\N	\N
+332	billy.jpg	0	.jpg	photo	2017-01-01 18:42:43.985+00	2017-01-01 18:42:43.985+00	\N	12	\N	\N	\N	\N	\N
+333	2.jpg	0	.jpg	photosCoverImage	2017-01-01 18:43:52.535+00	2017-01-01 18:43:52.535+00	\N	13	\N	\N	\N	\N	\N
+334	vows3.jpg	0	.jpg	photo	2017-01-01 18:44:01.353+00	2017-01-01 18:44:01.353+00	\N	13	\N	\N	\N	\N	\N
+335	woods.jpg	0	.jpg	photo	2017-01-01 18:44:05.387+00	2017-01-01 18:44:05.387+00	\N	13	\N	\N	\N	\N	\N
+336	oldy.jpg	0	.jpg	photo	2017-01-01 18:44:09.135+00	2017-01-01 18:44:09.135+00	\N	13	\N	\N	\N	\N	\N
+337	lovesyou.jpg	0	.jpg	photo	2017-01-01 18:44:39.846+00	2017-01-01 18:44:39.846+00	\N	14	\N	\N	\N	\N	\N
+338	wonderbitch.jpg	0	.jpg	photo	2017-01-01 18:44:45.776+00	2017-01-01 18:44:45.776+00	\N	14	\N	\N	\N	\N	\N
+339	band.jpg	0	.jpg	photosCoverImage	2017-01-01 18:44:53.892+00	2017-01-01 18:44:53.892+00	\N	14	\N	\N	\N	\N	\N
+340	3.jpg	0	.jpg	photosCoverImage	2017-01-01 18:45:41.981+00	2017-01-01 18:45:41.981+00	\N	15	\N	\N	\N	\N	\N
+341	2.jpg	0	.jpg	photo	2017-01-01 18:45:53.582+00	2017-01-01 18:45:53.582+00	\N	15	\N	\N	\N	\N	\N
+342	4.jpg	0	.jpg	photo	2017-01-01 18:45:56.416+00	2017-01-01 18:45:56.416+00	\N	15	\N	\N	\N	\N	\N
+343	6.jpg	0	.jpg	photo	2017-01-01 18:45:59.533+00	2017-01-01 18:45:59.533+00	\N	15	\N	\N	\N	\N	\N
+344	six.jpg	0	.jpg	photo	2017-01-01 18:46:57.757+00	2017-01-01 18:46:57.757+00	\N	16	\N	\N	\N	\N	\N
+345	cassette.jpg	0	.jpg	photosCoverImage	2017-01-01 18:47:07.54+00	2017-01-01 18:47:07.54+00	\N	16	\N	\N	\N	\N	\N
+346	phone.jpg	0	.jpg	photosCoverImage	2017-01-01 19:03:25.64+00	2017-01-01 19:03:25.64+00	\N	2	\N	\N	\N	\N	\N
+347	drew.jpg	0	.jpg	photo	2017-01-01 19:03:36.915+00	2017-01-01 19:03:36.915+00	\N	2	\N	\N	\N	\N	\N
+348	friends.jpg	0	.jpg	photo	2017-01-01 19:03:46.907+00	2017-01-01 19:03:46.907+00	\N	2	\N	\N	\N	\N	\N
+349	Bartholin - In Search Of.mp3	0	.mp3	song	2017-01-02 19:36:19.303+00	2017-01-02 19:36:19.303+00	\N	\N	\N	\N	\N	\N	\N
+357	Wonderbitch - Beingness.mp3	0	.mp3	song	2017-01-02 23:26:57.571+00	2017-01-02 23:26:57.571+00	\N	14	\N	7	\N	\N	\N
+358	Living Hour - This Is The Place.mp3	0	.mp3	song	2017-01-02 23:30:36.164+00	2017-01-02 23:30:36.164+00	\N	8	\N	4	\N	\N	\N
+359	!mindparade - Somehow.mp3	0	.mp3	song	2017-01-02 23:33:36.1+00	2017-01-02 23:33:36.1+00	\N	9	\N	6	\N	\N	\N
+360	Pony - Waiting For The Day.mp3	0	.mp3	song	2017-01-02 23:34:22.593+00	2017-01-02 23:34:22.593+00	\N	10	\N	5	\N	\N	\N
+361	Bartholin - In Search Of.mp3	0	.mp3	song	2017-01-02 23:35:06.593+00	2017-01-02 23:35:06.593+00	\N	2	\N	2	\N	\N	\N
+362	Ladycop - Alaska.mp3	0	.mp3	song	2017-01-02 23:35:41.213+00	2017-01-02 23:35:41.213+00	\N	6	\N	3	\N	\N	\N
+363	Shorebilly - Shorebilly.mp3	0	.mp3	song	2017-01-02 23:36:28.368+00	2017-01-02 23:36:28.368+00	\N	12	\N	8	\N	\N	\N
+364	austinbey2.jpg	0	.jpg	artistTileBack	2017-01-17 00:54:52.247+00	2017-01-17 00:54:52.247+00	\N	1	\N	\N	\N	\N	\N
+365	bartholin2.jpg	0	.jpg	artistTileBack	2017-01-17 00:55:06.944+00	2017-01-17 00:55:06.944+00	\N	2	\N	\N	\N	\N	\N
+366	blimprock2.jpg	0	.jpg	artistTileBack	2017-01-17 00:55:22.637+00	2017-01-17 00:55:22.637+00	\N	3	\N	\N	\N	\N	\N
+367	eazy2.jpg	0	.jpg	artistTileBack	2017-01-17 00:55:42.712+00	2017-01-17 00:55:42.712+00	\N	4	\N	\N	\N	\N	\N
+368	jondice2.jpg	0	.jpg	artistTileBack	2017-01-17 00:55:53.305+00	2017-01-17 00:55:53.305+00	\N	5	\N	\N	\N	\N	\N
+369	ladycop2.jpg	0	.jpg	artistTileBack	2017-01-17 00:56:02.412+00	2017-01-17 00:56:02.412+00	\N	6	\N	\N	\N	\N	\N
+370	livingbody2.jpg	0	.jpg	artistTileBack	2017-01-17 00:56:13.26+00	2017-01-17 00:56:13.26+00	\N	7	\N	\N	\N	\N	\N
+371	livinghour2.jpg	0	.jpg	artistTileBack	2017-01-17 00:56:23.998+00	2017-01-17 00:56:23.998+00	\N	8	\N	\N	\N	\N	\N
+372	mindparade2.jpg	0	.jpg	artistTileBack	2017-01-17 00:56:45.969+00	2017-01-17 00:56:45.969+00	\N	9	\N	\N	\N	\N	\N
+373	pony2.jpg	0	.jpg	artistTileBack	2017-01-17 00:56:57.728+00	2017-01-17 00:56:57.728+00	\N	10	\N	\N	\N	\N	\N
+374	thepsychics2.jpg	0	.jpg	artistTileBack	2017-01-17 00:57:33.711+00	2017-01-17 00:57:33.711+00	\N	11	\N	\N	\N	\N	\N
+375	shorebilly2.jpg	0	.jpg	artistTileBack	2017-01-17 00:57:45.147+00	2017-01-17 00:57:45.147+00	\N	12	\N	\N	\N	\N	\N
+376	vows2.jpg	0	.jpg	artistTileBack	2017-01-17 00:57:55.234+00	2017-01-17 00:57:55.234+00	\N	13	\N	\N	\N	\N	\N
+377	wonderbitch2.jpg	0	.jpg	artistTileBack	2017-01-17 00:58:06.789+00	2017-01-17 00:58:06.789+00	\N	14	\N	\N	\N	\N	\N
+378	woof2.jpg	0	.jpg	artistTileBack	2017-01-17 00:58:24.275+00	2017-01-17 00:58:24.275+00	\N	15	\N	\N	\N	\N	\N
+379	youarenumbersix2.jpg	0	.jpg	artistTileBack	2017-01-17 00:58:42.37+00	2017-01-17 00:58:42.37+00	\N	16	\N	\N	\N	\N	\N
 \.
 
 
@@ -1172,7 +1256,7 @@ COPY "Files" (id, name, size, type, identifier, "createdAt", "updatedAt", "Album
 -- Name: Files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tmadmin
 --
 
-SELECT pg_catalog.setval('"Files_id_seq"', 348, true);
+SELECT pg_catalog.setval('"Files_id_seq"', 379, true);
 
 
 --
@@ -1274,6 +1358,13 @@ SELECT pg_catalog.setval('"SocialLinkLists_id_seq"', 17, true);
 --
 
 COPY "Songs" (id, title, "fileName", "createdAt", "updatedAt", "AlbumReleaseId", "ArtistId") FROM stdin;
+2	In Search Of	Bartholin - In Search Of.mp3	2017-01-02 20:31:36.732+00	2017-01-02 20:31:36.732+00	28	\N
+3	Alaska	Ladycop - Alaska.mp3	2017-01-02 20:46:52.023+00	2017-01-02 20:46:52.023+00	29	\N
+4	This Is The Place	Living Hour - This Is The Place.mp3	2017-01-02 20:48:11.132+00	2017-01-02 20:48:11.132+00	19	\N
+5	Waiting For The Day	Pony - Waiting For The Day.mp3	2017-01-02 20:49:37.131+00	2017-01-02 20:49:37.131+00	22	\N
+6	Somehow	!mindparade - Somehow.mp3	2017-01-02 20:51:59.192+00	2017-01-02 20:51:59.192+00	21	\N
+7	Beingness	Wonderbitch - Beingness.mp3	2017-01-02 20:52:57.69+00	2017-01-02 20:52:57.69+00	17	\N
+8	Shorebilly	Shorebilly - Shorebilly.mp3	2017-01-02 20:53:45.63+00	2017-01-02 20:53:45.63+00	32	\N
 \.
 
 
@@ -1281,7 +1372,7 @@ COPY "Songs" (id, title, "fileName", "createdAt", "updatedAt", "AlbumReleaseId",
 -- Name: Songs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tmadmin
 --
 
-SELECT pg_catalog.setval('"Songs_id_seq"', 1, false);
+SELECT pg_catalog.setval('"Songs_id_seq"', 8, true);
 
 
 --
@@ -1385,6 +1476,14 @@ ALTER TABLE ONLY "EmbeddableMedia"
 
 ALTER TABLE ONLY "FeaturedAlbumLists"
     ADD CONSTRAINT "FeaturedAlbumLists_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: FeaturedSongLists_pkey; Type: CONSTRAINT; Schema: public; Owner: tmadmin
+--
+
+ALTER TABLE ONLY "FeaturedSongLists"
+    ADD CONSTRAINT "FeaturedSongLists_pkey" PRIMARY KEY (id);
 
 
 --

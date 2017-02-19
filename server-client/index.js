@@ -1,6 +1,6 @@
 'use strict';
 
-import env from './envVariables';
+import env from '../envVariables';
 import path from 'path';
 import {Server} from 'http';
 import Express from 'express';
@@ -79,5 +79,5 @@ server.listen(env.clientPort, err => {
     if (err) {
         return console.error(err);
     }
-    console.info(`Server running on http://www.treemachinerecords.com:${env.clientPort}`);
+    console.info(`Server running on ${env.baseUrl}:${env.clientPort}`);
 });

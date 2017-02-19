@@ -1,7 +1,7 @@
 import AppDispatcher from '../../../dispatcher';
 import UserConstants from '../constants/UserConstants';
 import { EventEmitter } from 'events';
-import rolesConfig from '../../../constants/rolesConfig';
+import roleConfig from '../../../../roleConfig';
 
 const CHANGE_EVENT = 'user:change';
 
@@ -18,13 +18,13 @@ function setUsers(users) {
 
 function setUser(user) {
 	if (user) {
-		rolesConfig.forEach((role) => {
+		roleConfig.forEach((role) => {
 			if (role.roleFlags === user.roleFlags) {
 				user.roleConfig = role;
 			}
 		});
 		if (!user.roleConfig) {
-			throw new Error('Oops! Make sure that the rolesConfig on the UI and API have matching values.');
+			throw new Error('Oops! Make sure that the roleConfig on the UI and API have matching values.');
 		}
 		_user = user;
 		_isAuthenticated = true;
@@ -87,14 +87,14 @@ class UserStoreClass extends EventEmitter {
 		let userFlags = _user.roleFlags || 0;
 		let accessFlags = 0;
 		accessControl.forEach((roleName) => {
-			rolesConfig.forEach((config) => {
-				if (config.name === roleName) {
-					accessFlags += config.roleFlags;
+			roleConfig.forEach((role) => {
+				if (role.name === roleName) {
+					accessFlags += role.roleFlags;
 				}
 			});
 		});
 
-		let hasFlags = function (flags, mask) {
+		let hasFlags = (flags, mask) => {
 			flags = parseInt(flags, 10);
 			mask = parseInt(mask, 10);
 

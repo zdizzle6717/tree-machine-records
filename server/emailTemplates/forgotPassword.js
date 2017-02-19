@@ -1,6 +1,5 @@
 'use strict';
 
-
 function buildTemplate(data) {
 	return `
 		<div style="max-width:800px;position:relative;margin:20px auto;padding:15px;border:2px solid black;box-shadow:0 0 5px 2px lightgray;letter-spacing:1px;">

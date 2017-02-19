@@ -2,7 +2,6 @@
 
 const models = require('../../models');
 const fs = require('fs-extra');
-const env = require('../../config/envVariables.js');
 const Boom = require('boom');
 
 

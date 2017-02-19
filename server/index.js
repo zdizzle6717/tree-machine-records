@@ -9,7 +9,7 @@ const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 const HapiAuthJwt = require('hapi-auth-jwt');
 let models = require('./models');
-let env = require('./config/envVariables')
+let env = require('../envVariables')
 
 // Create Server
 const server = new Hapi.Server();

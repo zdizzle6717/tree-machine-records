@@ -51,7 +51,7 @@ export default class PlaylistPage extends React.Component {
 											<td>{song.AlbumRelease.Artist.name}</td>
 											<td>{song.AlbumRelease.title}</td>
 											<td className="download-column">
-												<AccessControl access={['subscriber', 'artist', 'siteAdmin']} customClasses="text-center">
+												<AccessControl access={['subscriber']} customClasses="text-center">
 													<a href={`/audio/${song.AlbumRelease.Artist.param}/${song.AlbumRelease.param}/${song.fileName}`} download><span className="fa fa-download"></span></a>
 												</AccessControl>
 											</td>
@@ -61,7 +61,7 @@ export default class PlaylistPage extends React.Component {
 							</tbody>
 						</table>
 
-						<AccessControl publicOnly={true} access={['subscriber', 'artist', 'siteAdmin']} customClasses="text-center">
+						<AccessControl publicOnly={true} access={['subscriber']} customClasses="text-center">
 							<h3 className="text-center">Login for a free download of each track from the current playlist.</h3>
 						</AccessControl>
 		            </div>

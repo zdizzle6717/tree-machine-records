@@ -7,7 +7,7 @@ module.exports = [
 		'homeState': '/',
 	},
 	{
-		'name': 'siteAdmin',
+		'name': 'subscriber',
 		'roleFlags': 1,
 		'homeState': '/',
 	},
@@ -17,8 +17,8 @@ module.exports = [
 		'homeState': '/artists',
 	},
 	{
-		'name': 'subscriber',
-		'roleFlags': 4,
+		'name': 'siteAdmin',
+		'roleFlags': 3,
 		'homeState': '/',
-	},
+	}
 ];

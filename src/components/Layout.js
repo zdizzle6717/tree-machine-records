@@ -1,6 +1,6 @@
 'use strict';
 
-import env from '../../server-client/envVariables'
+import env from '../../envVariables'
 
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
@@ -22,7 +22,7 @@ let numLoadings = 0;
 let _timeout = 350;
 
 // Global axios config
-axios.defaults.baseURL = env.baseUrl;
+axios.defaults.baseURL = env.baseApiRoute;
 
 // Global axios interceptor
 axios.interceptors.request.use((config) => {

@@ -1,12 +1,12 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const env = require('../config/envVariables');
-const rolesConfig = require('../config/rolesConfig');
+const env = require('../../envVariables');
+const roleConfig = require('../../roleConfig');
 
 function createToken(user) {
   let scopes = [];
-  rolesConfig.forEach((role) => {
+  roleConfig.forEach((role) => {
 	  if (user[role.name]) {
 		  scopes.push(role.name);
 	  }
