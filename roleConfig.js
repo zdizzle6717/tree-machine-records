@@ -20,5 +20,10 @@ module.exports = [
 		'name': 'siteAdmin',
 		'roleFlags': 3,
 		'homeState': '/',
+	},
+	{
+		'name': 'recordStore',
+		'roleFlags': 4,
+		'homeState': '/',
 	}
 ];

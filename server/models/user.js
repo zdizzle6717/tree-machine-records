@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
     subscriber: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    recordStore: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     classMethods: {
