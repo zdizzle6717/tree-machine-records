@@ -1,18 +1,24 @@
 'use strict';
 
 import React from 'react';
+import {connect} from 'react-redux';
 import classNames from 'classnames';
 
-export default class Loader extends React.Component {
-	constructor(props, context) {
-		super(props, context);
+const mapStateToProps = (state) => {
+	return {
+		'loader': state.loader
+	}
+}
 
+class Loader extends React.Component {
+	constructor() {
+		super();
 	}
 
     render() {
 		let loaderClasses = classNames({
 			'loader-container': true,
-			'show': this.props.loading
+			'show': this.props.loader
 		});
 
 	    return (
@@ -51,3 +57,5 @@ Loader.propTypes = {
 Loader.defaultProps = {
 	'type': 'bars'
 }
+
+export default connect(mapStateToProps)(Loader);

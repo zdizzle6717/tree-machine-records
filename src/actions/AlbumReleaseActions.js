@@ -1,79 +1,79 @@
 'use strict';
 
-import AppDispatcher from '../dispatcher';
 import AlbumReleaseConstants from '../constants/AlbumReleaseConstants';
 import AlbumReleaseService from '../services/AlbumReleaseService';
 
+const _initiateRequest = (type, data) => {
+	return {
+		'type': type,
+		'data': data
+	};
+};
+const _returnResponse = (type, data) => {
+	return {
+		'type': type,
+		'data': data,
+		'receivedAt': Date.now()
+	};
+};
+
 export default {
-    get: (id) => {
-        return AlbumReleaseService
-            .get(id)
-            .then(albumRelease => {
-                AppDispatcher.dispatch({
-                    actionType: AlbumReleaseConstants.GET_ALBUM_RELEASE,
-                    albumRelease: albumRelease
-                });
+	get: (id) => {
+		return (dispatch) => {
+			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST, id));
+			return AlbumReleaseService.get(id).then((albumRelease) => {
+				dispatch(_returnResponse(AlbumReleaseConstants.GET_ALBUM_RELEASE, albumRelease));
 				return albumRelease;
-            });
-    },
-
-    getAll: () => {
-        return AlbumReleaseService
-            .getAll()
-            .then((albumReleases) => {
-                AppDispatcher.dispatch({
-                    actionType: AlbumReleaseConstants.GET_ALBUM_RELEASES,
-                    albumReleases: albumReleases
-                });
-				return albumReleases;
-            });
-    },
-
-    search: (criteria) => {
-        return AlbumReleaseService
-            .search(criteria)
-            .then(paginatedResponse => {
-                AppDispatcher.dispatch({
-                    actionType: AlbumReleaseConstants.SEARCH_ALBUM_RELEASES,
-                    paginatedResponse: paginatedResponse
-                });
-				return paginatedResponse;
-            });
-    },
-
-	create: (albumRelease) => {
-        return AlbumReleaseService
-            .create(albumRelease)
-            .then(albumRelease => {
-                AppDispatcher.dispatch({
-                    actionType: AlbumReleaseConstants.CREATE_ALBUM_RELEASE,
-                    albumRelease: albumRelease
-                });
-				return albumRelease;
-            });
-    },
-
-	update: (id, albumRelease) => {
-        return AlbumReleaseService
-            .update(id, albumRelease)
-            .then(albumRelease => {
-                AppDispatcher.dispatch({
-                    actionType: AlbumReleaseConstants.UPDATE_ALBUM_RELEASE,
-                    albumRelease: albumRelease
-                });
-				return albumRelease;
-            });
-    },
-
+			});
+		}
+	},
+	getAll: () => {
+		return (dispatch, getState) => {
+			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST));
+			return AlbumReleaseService.getAll().then((albumReleases) => {
+				dispatch(_returnResponse(AlbumReleaseConstants.GET_ALBUM_RELEASES, albumReleases));
+			});
+		};
+	},
+	search: (criteria) => {
+		return (dispatch) => {
+			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST));
+			return AlbumReleaseService.search(criteria).then((response) => {
+				dispatch(_returnResponse(AlbumReleaseConstants.GET_ALBUM_RELEASES, response.results));
+				return response.pagination;
+			});
+		}
+	},
+	create: (data) => {
+		return (dispatch) => {
+			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST));
+			return AlbumReleaseService.create(data).then((albumRelease) => {
+				dispatch(_returnResponse(AlbumReleaseConstants.CREATE_ALBUM_RELEASE, albumRelease));
+			});
+		};
+	},
+	update: (id, data) => {
+		return (dispatch) => {
+			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST));
+			return AlbumReleaseService.update(id, data).then((albumRelease) => {
+				dispatch(_returnResponse(AlbumReleaseConstants.UPDATE_ALBUM_RELEASE, albumRelease));
+			});
+		};
+	},
 	remove: (id) => {
-        return AlbumReleaseService
-            .remove(id)
-            .then(albumRelease => {
-                AppDispatcher.dispatch({
-                    actionType: AlbumReleaseConstants.REMOVE_ALBUM_RELEASE,
-                    id: id
-                });
-				return albumRelease;
-            });
-    }
+		return (dispatch) => {
+			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST, id));
+			return AlbumReleaseService.remove(id).then((response) => {
+				dispatch(_returnResponse(AlbumReleaseConstants.REMOVE_ALBUM_RELEASE, id));
+			});
+		};
+	},
+	filter: (data) => {
+		return (dispatch) => {
+			dispatch({
+				'type': AlbumReleaseConstants.FILTER_ALBUM_RELEASES,
+				'data': data
+			})
+		}
+	}
 };

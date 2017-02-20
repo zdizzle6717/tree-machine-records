@@ -13,8 +13,8 @@ export default {
 			'method': 'POST',
 			'url': '/users/authenticate',
 			'auth': {
-				username: credentials.username,
-				password: credentials.password
+				'username': credentials.username,
+				'password': credentials.password
 			},
 			'data': credentials
 		};

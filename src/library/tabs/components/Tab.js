@@ -25,7 +25,7 @@ export default class Tab extends React.Component {
 }
 
 Tab.propTypes = {
-	title: React.PropTypes.string.isRequired,
-	name: React.PropTypes.string.isRequired,
-	errorCount: React.PropTypes.number
+	'title': React.PropTypes.string.isRequired,
+	'name': React.PropTypes.string.isRequired,
+	'errorCount': React.PropTypes.number
 }

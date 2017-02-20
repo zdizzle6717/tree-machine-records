@@ -1,55 +1,59 @@
 'use strict';
 
 import React from 'react';
-import UserStore from '../stores/UserStore';
-import UserActions from '../actions/UserActions';
+import {connect} from 'react-redux';
+import checkAuthorization from '../utilities/checkAuthorization';
 
-export default class AccessControl extends React.Component {
+export default function(roleConfig) {
+	const mapStateToProps = (state) => {
+		return {
+			'user': state.user
+		}
+	};
 
-	constructor() {
-		super();
+	class AccessControl extends React.Component {
+		constructor() {
+			super();
 
-		this.state = {
-			authorized: false
+			this.state = {
+				'authorized': false
+			}
 		}
 
-		this.onUserChange = this.onUserChange.bind(this);
+		componentWillMount() {
+			this.setState({
+				'authorized': checkAuthorization(this.props.access, this.props.user, roleConfig)
+			});
+		}
+
+		componentWillReceiveProps(nextProps) {
+			if (nextProps.user.roleFlags !== this.props.user.roleFlags) {
+				this.setState({
+					'authorized': checkAuthorization(this.props.access, nextProps.user, roleConfig)
+				});
+			}
+		}
+
+		render() {
+			return (
+				<span className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
+					{ this.state.authorized && !this.props.publicOnly && this.props.children }
+					{ !this.state.authorized && this.props.publicOnly && this.props.children }
+				</span>
+			)
+		}
 	}
 
-	componentWillMount() {
-		this.setState({
-			authorized: UserStore.checkAuthorization(this.props.access)
-		});
-		UserStore.addChangeListener(this.onUserChange);
+	AccessControl.propTypes = {
+		'access': React.PropTypes.array,
+		'customClasses': React.PropTypes.string,
+		'publicOnly': React.PropTypes.bool
 	}
 
-	componentWillUnmount() {
-		UserStore.removeChangeListener(this.onUserChange);
+	AccessControl.defaultProps = {
+		'access': [],
+		'publicOnly': false
 	}
 
-	onUserChange() {
-		this.setState({
-			authorized: UserStore.checkAuthorization(this.props.access)
-		});
-	}
-
-	render() {
-		return (
-			<span className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
-				{ this.state.authorized && !this.props.publicOnly && this.props.children }
-				{ !this.state.authorized && this.props.publicOnly && this.props.children }
-			</span>
-		)
-	}
-}
-
-AccessControl.propTypes = {
-	'access': React.PropTypes.array,
-	'customClasses': React.PropTypes.string,
-	'publicOnly': React.PropTypes.bool
-}
-
-AccessControl.defaultProps = {
-	'access': [],
-	'publicOnly': false
+	return connect(mapStateToProps)(AccessControl);
 }

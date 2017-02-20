@@ -1,16 +1,29 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Animation from 'react-addons-css-transition-group';
 import SideBar from '../pieces/SideBar';
 import DiscographyPreview from '../pieces/DiscographyPreview';
 import PaginationControls from '../../library/pagination/components/PaginationControls';
-import scrollTo from '../../library/utils/ScrollTo';
+import scrollTo from '../../library/utilities/ScrollTo';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
-import AlbumReleaseStore from '../../stores/AlbumReleaseStore';
 import Iframe from '../../library/iframe';
 
-export default class IndexPage extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'albumReleases': state.albumReleases
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'searchAlbumReleases': AlbumReleaseActions.search
+	}, dispatch);
+}
+
+class IndexPage extends React.Component {
     constructor() {
         super();
 
@@ -19,43 +32,28 @@ export default class IndexPage extends React.Component {
 			'pagination': {}
         }
 		this.handlePageChange = this.handlePageChange.bind(this);
-		this.onChange = this.onChange.bind(this);
-    }
-
-	componentWillMount() {
-        AlbumReleaseStore.addChangeListener(this.onChange);
     }
 
     componentDidMount() {
         document.title = "Tree Machine Records";
-		AlbumReleaseActions.search(
+		this.props.searchAlbumReleases(
 			{
 			  'pageNumber': 1,
 			  'pageSize': 5
 			}
-		);
+		).then((pagination) => {
+			this.setState({'albumReleases': this.props.albumReleases});
+			this.setState({'pagination': pagination});
+		});
     }
 
-	componentWillUnmount() {
-		AlbumReleaseStore.removeChangeListener(this.onChange);
-	}
-
 	handlePageChange(pageNumber) {
-		AlbumReleaseActions.search(
-			{
-			  'pageNumber': pageNumber,
-			  'pageSize': 5
-			}
-		);
-		scrollTo(0, 0);
-	}
-
-	onChange() {
-	    this.setState({
-	      albumReleases: AlbumReleaseStore.getAlbumReleases(),
-		  pagination: AlbumReleaseStore.getPagination()
-	    });
-	}
+        this.props.searchAlbumReleases({'searchQuery': '', 'pageNumber': pageNumber, 'pageSize': 5}).then((pagination) => {
+			this.setState({'albumReleases': this.props.albumReleases});
+            this.setState({'pagination': pagination});
+			scrollTo(0, 0);
+        });
+    }
 
     render() {
 		return (
@@ -82,3 +80,5 @@ export default class IndexPage extends React.Component {
 	    );
 	}
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);

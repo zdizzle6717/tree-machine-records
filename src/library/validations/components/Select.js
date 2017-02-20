@@ -2,12 +2,27 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import defaultValidations from '../constants/defaultValidations'
 import classNames from 'classnames';
 import FormActions from '../actions/FormActions';
-import FormStore from '../stores/FormStore';
+import {getInput} from '../utilities';
 
-export default class Select extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'forms': state.forms
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'addInput': FormActions.addInput,
+		'removeInput': FormActions.removeInput
+	}, dispatch);
+}
+
+class Select extends React.Component {
 	constructor() {
         super();
 
@@ -49,7 +64,7 @@ export default class Select extends React.Component {
 				'formName': this.state.formName
 			}
 			setTimeout(() => {
-				FormActions.removeInput(input);
+				this.props.removeInput(input);
 			});
 		}
 	}
@@ -57,7 +72,7 @@ export default class Select extends React.Component {
 	validateInit(props, propsHaveLoaded = false) {
 		let elem = ReactDOM.findDOMNode(this);
 		let formName = elem.closest('.form').getAttribute('name');
-		let existingInput = propsHaveLoaded ? false : FormStore.getInput(formName, props.name);
+		let existingInput = propsHaveLoaded ? false : getInput(props.forms, formName, props.name);
 		if (existingInput) {
 			this.setState(existingInput);
 			return;
@@ -76,9 +91,9 @@ export default class Select extends React.Component {
 				initial: false
 			})
 		}
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		setTimeout(() => {
-			FormActions.addInput(input);
+			this.props.addInput(input);
 		});
 	}
 
@@ -92,28 +107,28 @@ export default class Select extends React.Component {
 			'initial': false,
 			'pristine': false
 		}
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 		this.props.handleInputChange(e);
 	}
 
 	handleMouseDown() {
-		let input = Object.assign(this.state, {'touched': true});
+		let input = Object.assign({}, this.state, {'touched': true});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	handleFocus() {
-		let input = Object.assign(this.state, {'focused': true, 'blurred': false});
+		let input = Object.assign({}, this.state, {'focused': true, 'blurred': false});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	handleBlur() {
-		let input = Object.assign(this.state, {'focused': false, 'blurred': true});
+		let input = Object.assign({}, this.state, {'focused': false, 'blurred': true});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	render() {
@@ -150,3 +165,5 @@ Select.propTypes = {
 Select.defaultProps = {
 	'preserveState': false
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Select);

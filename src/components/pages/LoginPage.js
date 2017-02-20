@@ -1,13 +1,29 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import AlertActions from '../../library/alerts/actions/AlertActions';
 import { Form, Input, Select, FileUpload } from '../../library/validations'
 import UserActions from '../../library/authentication/actions/UserActions';
-import UserStore from '../../library/authentication/stores/UserStore';
 
-export default class LoginPage extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'user': state.user,
+		'redirectRoute': state.redirectRoute
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
+		'authenticate': UserActions.authenticate,
+		'setRedirect': UserActions.setRedirect
+    }, dispatch);
+};
+
+class LoginPage extends React.Component {
     constructor() {
         super();
 
@@ -39,11 +55,13 @@ export default class LoginPage extends React.Component {
 	}
 
 	handleSubmit(e) {
-		UserActions.authenticate(this.state.credentials).then((response) => {
-			let homeState = UserStore.getUser().roleConfig.homeState;
+		this.props.authenticate(this.state.credentials).then((response) => {
+			let homeState = this.props.user.roleConfig.homeState;
 			this.showAlert('loginSuccess');
-			if (UserStore.getRedirectRoute()) {
-				browserHistory.push(UserStore.getRedirectRoute());
+			if (this.props.redirectRoute) {
+				let redirectPath = this.props.redirectRoute;
+				this.props.setRedirect(false);
+				browserHistory.push(redirectPath);
 			} else {
 				browserHistory.push(homeState);
 			}
@@ -67,7 +85,7 @@ export default class LoginPage extends React.Component {
 	showAlert(selector) {
 		const alerts = {
 			'loginSuccess': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Login Success',
 					message: 'You have been successfully authenticated.',
@@ -76,7 +94,7 @@ export default class LoginPage extends React.Component {
 				});
 			},
 			'incorrectPassword': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Incorrect Password',
 					message: 'The password you entered is incorrect.',
@@ -85,7 +103,7 @@ export default class LoginPage extends React.Component {
 				});
 			},
 			'incorrectUsername': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Incorrect Email/Username',
 					message: 'No user was found with that email or username.',
@@ -137,3 +155,5 @@ export default class LoginPage extends React.Component {
 		);
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

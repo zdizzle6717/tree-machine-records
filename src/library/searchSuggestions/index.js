@@ -3,7 +3,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { Input } from '../../library/validations';
+import {Input} from '../../library/validations';
+import {scrollUp, scrollDown} from '../utilities/scrollHelpers';
 
 export default function(Service, method) {
 	let _keyChart = {
@@ -47,8 +48,6 @@ export default function(Service, method) {
 			this.handleClickSelect = this.handleClickSelect.bind(this);
 			this.handleClickAway = this.handleClickAway.bind(this);
 			this.toggleSuggestions = this.toggleSuggestions.bind(this);
-			this._scrollDown = this._scrollDown.bind(this);
-			this._scrollUp = this._scrollUp.bind(this);
 		}
 
 		componentDidMount() {
@@ -56,37 +55,6 @@ export default function(Service, method) {
 			this.setState({
 				'element': element
 			})
-		}
-
-		_scrollDown(suggestions, selectedIndex) {
-			let rowCount = this.props.rowCount || 4;
-			let elem = this.state.element
-			let listElement = elem.getElementsByTagName('ul')[0];
-			let rowHeight = elem.getElementsByTagName('li')[0].offsetHeight;
-			let selectedRow = selectedIndex + 1;
-			if (selectedRow <= suggestions.length) {
-				if (selectedRow - (listElement.scrollTop / rowHeight) > rowCount) {
-					listElement.scrollTop = (selectedRow - rowCount) * rowHeight + 3;
-				} else if (selectedRow - (listElement.scrollTop / rowHeight) < 1) {
-					listElement.scrollTop = 3 + (selectedRow * rowHeight) - rowHeight;
-				}
-			}
-		}
-
-		_scrollUp(selectedIndex) {
-			let rowCount = this.props.rowCount || 4;
-			let elem = this.state.element
-			let listElement = elem.getElementsByTagName('ul')[0];
-			let rowHeight = elem.getElementsByTagName('li')[0].offsetHeight;
-			let containerHeight = rowCount * rowHeight;
-			let selectedRow = selectedIndex + 1;
-			if (selectedRow > 0) {
-				if (selectedRow - ((listElement.scrollTop - 3) / rowHeight) < 2) {
-					listElement.scrollTop = (selectedIndex - 1) * rowHeight + 3;
-				} else if (selectedRow - ((listElement.scrollTop - 3) / rowHeight) > rowCount + 1) {
-					listElement.scrollTop = 3 + (selectedRow * rowHeight) - (containerHeight + rowHeight);
-				}
-			}
 		}
 
 		handleClickAway() {
@@ -106,12 +74,10 @@ export default function(Service, method) {
 				'storedInputString': value
 			});
 			if (!_skipSearch) {
-				Service[method](
-					{
-						"searchQuery": value,
-						"maxResults": this.props.maxResults
-					}
-				).then((response) => {
+				if (!Service[method]) {
+					throw new Error('Library searchSuggestions: No service was found with the supplied method name');
+				}
+				Service[method]({"searchQuery": value, "maxResults": this.props.maxResults}).then((response) => {
 					let showSuggestions = false;
 					let suggestions = [];
 					if (response.results.length > 0 && value.length >= this.props.minCharacters) {
@@ -191,18 +157,19 @@ export default function(Service, method) {
 				suggestions = [];
 			}
 			if (key === 'down') {
-				selectedIndex = selectedIndex < this.state.suggestions.length - 1 ? selectedIndex + 1 : selectedIndex;
 				if (suggestions.length > 0) {
-					this._scrollDown(suggestions, selectedIndex);
+					scrollDown(this.props.rowCount, this.state.element, selectedIndex, suggestions.length);
 				}
+				selectedIndex = selectedIndex < this.state.suggestions.length - 1 ? selectedIndex + 1 : selectedIndex;
 			}
 			if (key === 'tab') {
 				if (selectedIndex < this.state.suggestions.length - 1) {
-					selectedIndex++;
 					e.preventDefault();
+
 					if (suggestions.length > 0) {
-						this._scrollDown(suggestions, selectedIndex);
+						scrollDown(this.props.rowCount, this.state.element, selectedIndex, suggestions.length);
 					}
+					selectedIndex++;
 				} else {
 					selectedIndex = -1;
 					suggestions = [];
@@ -211,7 +178,7 @@ export default function(Service, method) {
 			}
 			if (key === 'up') {
 				if (suggestions.length > 0) {
-					this._scrollUp(selectedIndex);
+					scrollUp(this.props.rowCount, this.state.element, selectedIndex, suggestions.length);
 				}
 				selectedIndex = selectedIndex > -1 ? selectedIndex - 1 : selectedIndex;
 				if (selectedIndex === -1) {
@@ -281,7 +248,8 @@ export default function(Service, method) {
 	SearchSuggestions.defaultProps = {
 		'maxResults': 10,
 		'minCharacters': 3,
-		'required': false
+		'required': false,
+		'rowCount': 4
 	}
 
 	return SearchSuggestions;

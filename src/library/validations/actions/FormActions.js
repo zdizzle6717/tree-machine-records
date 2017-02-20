@@ -1,19 +1,37 @@
 'use strict';
 
-import AppDispatcher from '../../../dispatcher';
 import FormConstants from '../constants/FormConstants';
 
 export default {
 	addInput: (input) => {
-		AppDispatcher.dispatch({
-			actionType: FormConstants.ADD_INPUT,
-			input: input
-		});
+		return (dispatch) => {
+			dispatch({
+				'type': FormConstants.ADD_INPUT,
+				'data': input
+			});
+		};
 	},
 	removeInput: (input) => {
-		AppDispatcher.dispatch({
-			actionType: FormConstants.REMOVE_INPUT,
-			input: input
-		});
+		return (dispatch) => {
+			dispatch({
+				'type': FormConstants.REMOVE_INPUT,
+				'data': input
+			});
+		};
+	},
+	resetForm: (formName) => {
+		return (dispatch) => {
+			dispatch({
+				'type': FormConstants.RESET_FORM,
+				'data': formName
+			})
+		}
+	},
+	resetAllForms: () => {
+		return (dispatch) => {
+			dispatch({
+				'type': FormConstants.RESET_ALL_FORMS
+			});
+		}
 	}
-}
+};

@@ -14,17 +14,17 @@ export default class Iframe extends React.Component {
 	}
 
 	render() {
-		return React.createElement("iframe", {
-			ref: "iframe",
-            frameBorder: "0",
-            src: this.props.url,
-            style: {
-				position: this.props.position,
-				height: this.props.height,
-				width: this.props.width
+		return React.createElement('iframe', {
+			'ref': 'iframe',
+            'frameBorder': '0',
+            'src': this.props.url,
+            'style': {
+				'position': this.props.position,
+				'height': this.props.height,
+				'width': this.props.width
 			},
-            height: this.props.height,
-			width: this.props.width
+            'height': this.props.height,
+			'width': this.props.width
 		});
 	}
 }

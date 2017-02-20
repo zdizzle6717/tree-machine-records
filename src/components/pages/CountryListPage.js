@@ -5,7 +5,6 @@ import {Link} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
 import CountryTile from '../pieces/CountryTile';
 // import CountryActions from '../../actions/CountryActions';
-// import CountryStore from '../../stores/CountryStore';
 
 export default class CountryListPage extends React.Component {
     constructor(props, context) {

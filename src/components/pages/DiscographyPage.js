@@ -1,16 +1,31 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
-import formatDate from '../../library/utils/FormatJSONDate';
+import formatDate from '../../library/utilities/FormatJSONDate';
 import SideBar from '../pieces/SideBar';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
-import AlbumReleaseStore from '../../stores/AlbumReleaseStore';
 import ArtistActions from '../../actions/ArtistActions';
-import ArtistStore from '../../stores/ArtistStore';
 
-export default class DiscographyPage extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'artist': state.artist,
+		'albumRelease': state.albumRelease
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'getArtist': ArtistActions.get,
+		'getAlbumRelease': AlbumReleaseActions.get,
+		'searchAlbumReleases': AlbumReleaseActions.search
+	}, dispatch);
+}
+
+class DiscographyPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -23,19 +38,16 @@ export default class DiscographyPage extends React.Component {
 				'Files': []
 			}
         }
-		this.onChange = this.onChange.bind(this);
     }
 
-	componentWillMount() {
-        AlbumReleaseStore.addChangeListener(this.onChange);
-    }
-
-    componentDidMount() {
+	componentDidMount() {
         document.title = 'Tree Machine Records | Artist Discography';
-		ArtistActions.get(this.props.params.artistParam).then(() => {
-			AlbumReleaseActions.get(this.props.params.discographyParam).catch(() => {
+		this.props.getArtist(this.props.params.artistParam).then(() => {
+			this.props.getAlbumRelease(this.props.params.discographyParam).catch(() => {
 				console.log('caught disco');
 				browserHistory.push('/discography');
+			}).then(() => {
+				this.configureAlbumRelease();
 			})
 		}).catch(() => {
 			console.log('caught artist');
@@ -43,13 +55,9 @@ export default class DiscographyPage extends React.Component {
 		});
     }
 
-	componentWillUnmount() {
-		AlbumReleaseStore.removeChangeListener(this.onChange);
-	}
-
-	onChange() {
-		let albumRelease = AlbumReleaseStore.getAlbumRelease(this.props.params.discographyParam);
-		let artist = ArtistStore.getArtist(this.props.params.artistParam);
+	configureAlbumRelease() {
+		let albumRelease = this.props.albumRelease;
+		let artist = this.props.artist;
 		let videos = [];
 		albumRelease.Files.forEach((file) => {
 			if (file.identifier === 'albumCover') {
@@ -127,3 +135,5 @@ export default class DiscographyPage extends React.Component {
         );
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiscographyPage);

@@ -20,7 +20,7 @@ export default class Modal extends React.Component {
 		})
 		return (
 			<div className={containerClasses} key={this.props.name}>
-				<Animation transitionName="slide-z" className="modal-animation-wrapper" transitionAppear={true} transitionAppearTimeout={500} transitionEnter={true} transitionEnterTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
+				<Animation transitionName={this.props.transitionName} className="modal-animation-wrapper" transitionAppear={true} transitionAppearTimeout={250} transitionEnter={true} transitionEnterTimeout={250} transitionLeave={true} transitionLeaveTimeout={250}>
 					{
 						this.props.modalIsOpen &&
 					<div className="modal">
@@ -48,9 +48,14 @@ export default class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-	name: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string.isRequired,
-	handleClose: React.PropTypes.func.isRequired,
-	handleSubmit: React.PropTypes.func.isRequired,
-	modalIsOpen: React.PropTypes.bool.isRequired
+	'handleClose': React.PropTypes.func.isRequired,
+	'handleSubmit': React.PropTypes.func.isRequired,
+	'modalIsOpen': React.PropTypes.bool.isRequired,
+	'name': React.PropTypes.string.isRequired,
+	'title': React.PropTypes.string.isRequired,
+	'transitionName': React.PropTypes.string
+}
+
+Modal.defaultProps = {
+	'transitionName': 'fade'
 }

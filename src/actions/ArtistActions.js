@@ -1,78 +1,71 @@
 'use strict';
 
-import AppDispatcher from '../dispatcher';
 import ArtistConstants from '../constants/ArtistConstants';
 import ArtistService from '../services/ArtistService';
 
+const _initiateRequest = (type, data) => {
+	return {
+		'type': type,
+		'data': data
+	};
+};
+const _returnResponse = (type, data) => {
+	return {
+		'type': type,
+		'data': data,
+		'receivedAt': Date.now()
+	};
+};
+
 export default {
 	get: (param) => {
-        return ArtistService
-            .get(param).then(artist => {
-				AppDispatcher.dispatch({
-					actionType: ArtistConstants.GET_ARTIST,
-					artist: artist
-				});
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST, param));
+			return ArtistService.get(param).then((artist) => {
+				dispatch(_returnResponse(ArtistConstants.GET_ARTIST, artist));
 				return artist;
-            });
-    },
-
-    getAll: () => {
-        return ArtistService
-            .getAll()
-            .then(artists => {
-                AppDispatcher.dispatch({
-                    actionType: ArtistConstants.GET_ARTISTS,
-                    artists: artists
-                });
-				return artists;
-            });
-    },
-
+			});
+		}
+	},
+	getAll: () => {
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST));
+			return ArtistService.getAll().then((contacts) => {
+				dispatch(_returnResponse(ArtistConstants.GET_ARTISTS, contacts));
+			});
+		};
+	},
 	search: (criteria) => {
-        return ArtistService
-            .search(criteria)
-            .then(paginatedResponse => {
-                AppDispatcher.dispatch({
-                    actionType: ArtistConstants.SEARCH_ARTISTS,
-                    paginatedResponse: paginatedResponse
-                });
-				return paginatedResponse;
-            });
-    },
-
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST));
+			return ArtistService.search(criteria).then((response) => {
+				dispatch(_returnResponse(ArtistConstants.GET_ARTISTS, response.results));
+				return response.pagination;
+			});
+		}
+	},
 	create: (data) => {
-        return ArtistService
-            .create(data)
-            .then(artist => {
-                AppDispatcher.dispatch({
-                    actionType: ArtistConstants.CREATE_ARTIST,
-                    artist: artist
-                });
-				return artist;
-            });
-    },
-
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST));
+			return ArtistService.create(data).then((contact) => {
+				dispatch(_returnResponse(ArtistConstants.CREATE_ARTIST, contact));
+			});
+		};
+	},
 	update: (id, data) => {
-        return ArtistService
-            .update(id, data)
-            .then(artist => {
-                AppDispatcher.dispatch({
-                    actionType: ArtistConstants.UPDATE_ARTIST,
-                    artist: artist
-                });
-				return artist;
-            });
-    },
-
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST));
+			return ArtistService.update(id, data).then((contact) => {
+				dispatch(_returnResponse(ArtistConstants.UPDATE_ARTIST, contact));
+			});
+		};
+	},
 	remove: (id) => {
-        return ArtistService
-            .remove(id)
-            .then(artist => {
-                AppDispatcher.dispatch({
-                    actionType: ArtistConstants.REMOVE_ARTIST,
-                    id: id
-                });
-				return artist;
-            });
-    }
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST, id));
+			return ArtistService.remove(id).then((response) => {
+				dispatch(_returnResponse(ArtistConstants.REMOVE_ARTIST, id));
+			});
+		};
+	}
 }

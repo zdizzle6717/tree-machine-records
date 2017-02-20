@@ -1,17 +1,27 @@
 'use strict';
 
-import AppDispatcher from '../dispatcher';
 import OverlayConstants from '../constants/OverlayConstants';
 
 export default {
-	toggleOverlay: () => {
-		AppDispatcher.dispatch({
-			actionType: OverlayConstants.TOGGLE_OVERLAY
-		});
-    },
-	hideOverlay: () => {
-		AppDispatcher.dispatch({
-			actionType: OverlayConstants.HIDE_OVERLAY
-		});
-    }
+	toggle: () => {
+		return (dispatch) => {
+			dispatch({
+				'type': OverlayConstants.TOGGLE_OVERLAY
+			});
+		};
+  },
+	show: () => {
+		return (dispatch) => {
+			dispatch({
+				'type': OverlayConstants.SHOW_OVERLAY
+			});
+		};
+  },
+	hide: () => {
+		return (dispatch) => {
+			dispatch({
+				'type': OverlayConstants.HIDE_OVERLAY
+			});
+		};
+  }
 }

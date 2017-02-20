@@ -1,38 +1,43 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import classNames from 'classnames';
 import Animation from 'react-addons-css-transition-group';
 import AudioPlayer from 'react-responsive-audio-player';
 import AlertActions from '../../library/alerts/actions/AlertActions';
 import { Link, browserHistory } from 'react-router';
-import UserStore from '../../library/authentication/stores/UserStore';
 import UserActions from '../../library/authentication/actions/UserActions';
 
-export default class Header extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'user': state.user,
+		'isAuthenticated': state.isAuthenticated
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
+		'logout': UserActions.logout
+    }, dispatch);
+};
+
+class Header extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
-			'authenticated': false,
 			'featuredSongs': [],
 			'showMobileMenu': false
 		}
 
-		this.onUserChange = this.onUserChange.bind(this);
 		this.toggleMenu = this.toggleMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
 		this.showAlert = this.showAlert.bind(this);
 		this.logout = this.logout.bind(this);
-	}
-
-
-	componentWillMount() {
-		this.setState({
-			authenticated: UserStore.checkAuthentication()
-		});
-		UserStore.addChangeListener(this.onUserChange);
 	}
 
 	componentDidMount() {
@@ -41,16 +46,6 @@ export default class Header extends React.Component {
 			this.setState({
 				'featuredSongs': featuredSongs
 			})
-		});
-	}
-
-	componentWillUnmount() {
-		UserStore.removeChangeListener(this.onUserChange);
-	}
-
-	onUserChange() {
-		this.setState({
-			authenticated: UserStore.checkAuthentication()
 		});
 	}
 
@@ -67,18 +62,15 @@ export default class Header extends React.Component {
 	}
 
 	logout() {
-		UserActions.logout();
-		this.setState({
-			authenticated: false
-		})
-		this.showAlert('logoutSuccess')
+		this.props.logout();
+		this.showAlert('logoutSuccess');
 		browserHistory.push('/');
 	}
 
 	showAlert(selector) {
 		const alerts = {
 			'logoutSuccess': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Logout Success',
 					message: 'You have been successfully logged out.',
@@ -140,7 +132,7 @@ export default class Header extends React.Component {
 							</ul>
 							<ul className="login-menu">
 								{
-									this.state.authenticated ?
+									this.props.isAuthenticated ?
 									<li className="login-link">
 										<a className="menu-link" onClick={this.logout}>Logout</a>
 									</li> :
@@ -169,7 +161,7 @@ export default class Header extends React.Component {
 								</ul>
 								<ul className="login-menu">
 									{
-										this.state.authenticated ?
+										this.props.isAuthenticated ?
 										<li className="login-link">
 											<a className="menu-link" onClick={this.logout}>Logout</a>
 										</li> :
@@ -211,3 +203,5 @@ Header.defaultProps = {
 	'logoUrl': '/images/logo-mini.png',
 	'hasScrolled': false
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

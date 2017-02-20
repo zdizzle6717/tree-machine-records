@@ -8,8 +8,8 @@ export default class PaginationControls extends React.Component {
 		super();
 
 		this.state = {
-			pages: [],
-			currentPage: 1
+			'pages': [],
+			'currentPage': 1
 		}
 	}
 
@@ -40,7 +40,7 @@ export default class PaginationControls extends React.Component {
 		phantomArraySlice = phantomArray.slice(startPage - 1, endPage);
 
 		this.setState({
-			pages: phantomArraySlice
+			'pages': phantomArraySlice
 		});
 	}
 
@@ -50,7 +50,7 @@ export default class PaginationControls extends React.Component {
 		if (pageNumber !== this.state.currentPage) {
 			this.props.handlePageChange(pageNumber);
 			this.setState({
-				currentPage: pageNumber
+				'currentPage': pageNumber
 			});
 		}
 	}
@@ -81,9 +81,9 @@ export default class PaginationControls extends React.Component {
 };
 
 PaginationControls.propTypes = {
-	pageNumber: React.PropTypes.number,
-	pageSize: React.PropTypes.number,
-	totalPages: React.PropTypes.number,
-	totalResults: React.PropTypes.number,
-	handlePageChange: React.PropTypes.func
+	'pageNumber': React.PropTypes.number,
+	'pageSize': React.PropTypes.number,
+	'totalPages': React.PropTypes.number,
+	'totalResults': React.PropTypes.number,
+	'handlePageChange': React.PropTypes.func
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import scrollTo from '../../library/utils/ScrollTo';
+import scrollTo from '../../library/utilities/ScrollTo';
 
 export default class ScrollToTopButton extends React.Component {
 	constructor() {

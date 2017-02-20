@@ -1,37 +1,43 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
 import ImageTile from '../pieces/ImageTile';
 import ArtistActions from '../../actions/ArtistActions';
-import ArtistStore from '../../stores/ArtistStore';
 
-export default class PhotographyListPage extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'artists': state.artists
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'getArtists': ArtistActions.getAll
+	}, dispatch);
+}
+
+class PhotographyListPage extends React.Component {
 	constructor(props, context) {
         super(props, context);
 
         this.state = {
             photos: []
         }
-        this.onChange = this.onChange.bind(this);
-    }
-
-	componentWillMount() {
-        ArtistStore.addChangeListener(this.onChange);
     }
 
     componentDidMount() {
         document.title = "Tree Machine Records | Photography By Artist";
-        ArtistActions.getAll();
+        this.props.getArtists().then(() => {
+			this.configureArtists();
+		});
     }
 
-	componentWillUnmount() {
-		ArtistStore.removeChangeListener(this.onChange);
-	}
-
-	onChange() {
-		let artists = ArtistStore.getArtists();
+	configureArtists() {
+		let artists = this.props.artists;
 		let photos = [];
 		artists.forEach((artist, i) => {
 			artist.Files.forEach((file) => {
@@ -65,3 +71,5 @@ export default class PhotographyListPage extends React.Component {
         );
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhotographyListPage);

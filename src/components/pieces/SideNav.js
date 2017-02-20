@@ -15,18 +15,6 @@ export default class SideNav extends React.Component {
 		this.toggleSideNav = this.toggleSideNav.bind(this);
 	}
 
-	componentWillMount() {
-    }
-
-	componentWillUnmount() {
-	}
-
-	toggleOverlay() {
-	}
-
-	onChange() {
-	}
-
 	toggleSideNav() {
 		this.setState({
 			showSideNav: !this.state.showSideNav

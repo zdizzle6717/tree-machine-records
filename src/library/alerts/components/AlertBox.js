@@ -6,7 +6,6 @@ import classNames from 'classnames';
 export default function AlertBox(props) {
 	let alertClasses = classNames({
 		'alert-box': true,
-		'show': props.show,
 		'error': props.type === 'error',
 		'info': props.type === 'info',
 		'success': props.type === 'success'

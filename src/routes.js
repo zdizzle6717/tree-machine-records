@@ -1,17 +1,14 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import Layout from './components/Layout';
+
+// Main Pages
 import IndexPage from './components/pages/IndexPage';
 import LoginPage from './components/pages/LoginPage';
 import RegistrationPage from './components/pages/RegistrationPage';
 import NotFoundPage from './components/pages/NotFoundPage';
 import AboutPage from './components/pages/AboutPage';
 import ArchivePage from './components/pages/ArchivePage';
-import ArtistCinematographyPage from './components/pages/ArtistCinematographyPage';
-import ArtistDigitalDownloadsPage from './components/pages/ArtistDigitalDownloadsPage';
-import ArtistListPage from './components/pages/ArtistListPage';
-import ArtistPage from './components/pages/ArtistPage';
-import ArtistPhotographyPage from './components/pages/ArtistPhotographyPage';
 import CinematographyListPage from './components/pages/CinematographyListPage';
 import CountryPage from './components/pages/CountryPage';
 import DiscographyListPage from './components/pages/DiscographyListPage';
@@ -22,6 +19,16 @@ import PhotographyListPage from './components/pages/PhotographyListPage';
 import PlaylistPage from './components/pages/PlaylistPage';
 import SearchPage from './components/pages/SearchPage';
 import SiteMapPage from './components/pages/SiteMapPage';
+
+// Artist Pages
+import ArtistCinematographyPage from './components/pages/artist/ArtistCinematographyPage';
+import ArtistDigitalDownloadsPage from './components/pages/artist/ArtistDigitalDownloadsPage';
+import ArtistListPage from './components/pages/artist/ArtistListPage';
+import ArtistPage from './components/pages/artist/ArtistPage';
+import ArtistPhotographyPage from './components/pages/artist/ArtistPhotographyPage';
+
+// Profile Pages
+import ProfilePage from './components/pages/profile/ProfilePage';
 
 const routes = (
 	<Route path="/" component={Layout}>
@@ -46,6 +53,7 @@ const routes = (
 		</Route>
 		<Route path="photography" component={PhotographyListPage}/>
 		<Route path="playlist" component={PlaylistPage}/>
+		<Route path="profile" component={ProfilePage}/>
 		<Route path="register" component={RegistrationPage}/>
 		<Route path="search" component={SearchPage}/>
 		<Route path="site-map" component={SiteMapPage}/>

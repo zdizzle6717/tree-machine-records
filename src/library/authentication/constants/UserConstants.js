@@ -3,12 +3,10 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
-	CREATE_USER: null,
-	AUTHENTICATE_USER: null,
-	SET_USER: null,
-	LOGOUT_USER: null,
-	GET_USER: null,
+	INITIATE_USER_REQUEST: null,
+	GET_CURRENT_USER: null,
 	GET_USERS: null,
+	CREATE_USER: null,
 	UPDATE_USER: null,
 	REMOVE_USER: null
 });

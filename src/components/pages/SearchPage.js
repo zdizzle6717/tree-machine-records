@@ -1,19 +1,33 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import Animation from 'react-addons-css-transition-group';
 import SideBar from '../pieces/SideBar';
 import { Form, Input, Select } from '../../library/validations';
-import formatDate from '../../library/utils/FormatJSONDate';
-import scrollTo from '../../library/utils/ScrollTo';
+import formatDate from '../../library/utilities/FormatJSONDate';
+import scrollTo from '../../library/utilities/ScrollTo';
 import PaginationControls from '../../library/pagination/components/PaginationControls';
 import ArtistActions from '../../actions/ArtistActions';
-import ArtistStore from '../../stores/ArtistStore';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
-import AlbumReleaseStore from '../../stores/AlbumReleaseStore';
 
-export default class SearchPage extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'albumReleases': state.albumReleases,
+		'artists': state.artists,
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'searchArtists': ArtistActions.search,
+		'searchAlbumReleases': AlbumReleaseActions.search
+	}, dispatch);
+}
+
+class SearchPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -27,24 +41,13 @@ export default class SearchPage extends React.Component {
 
 		this.filterDiscography = this.filterDiscography.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
-		this.onChange = this.onChange.bind(this);
 		this.paginateResults = this.paginateResults.bind(this);
 		this.setFilter = this.setFilter.bind(this);
     }
 
-	componentWillMount() {
-        AlbumReleaseStore.addChangeListener(this.onChange);
-        ArtistStore.addChangeListener(this.onChange);
-    }
-
-    componentDidMount() {
+	componentDidMount() {
         document.title = "Tree Machine Records | Search";
     }
-
-	componentWillUnmount() {
-		AlbumReleaseStore.removeChangeListener(this.onChange);
-		ArtistStore.removeChangeListener(this.onChange);
-	}
 
 	filterDiscography(e) {
 		this.setState({
@@ -55,23 +58,29 @@ export default class SearchPage extends React.Component {
 
 	paginateResults(searchQuery, filter, pageNumber, pageSize) {
 		if (this.state.filter === 'artists') {
-			ArtistActions.search(
+			this.props.searchArtists(
 				{
 					'searchQuery': searchQuery,
 					'filter': filter,
 					'pageNumber': pageNumber,
 					'pageSize': pageSize
 				}
-			);
+			).then((pagination) => {
+				this.setState({'results': this.props.artists});
+				this.setState({'pagination': pagination});
+			});
 		} else if (this.state.filter === 'discography') {
-			AlbumReleaseActions.search(
+			this.props.searchAlbumReleases(
 				{
 					'searchQuery': searchQuery,
 					'filter': filter,
 					'pageNumber': pageNumber,
 					'pageSize': pageSize
 				}
-			);
+			).then((pagination) => {
+				this.setState({'results': this.props.albumReleases});
+				this.setState({'pagination': pagination});
+			});;
 		}
 	}
 
@@ -89,23 +98,6 @@ export default class SearchPage extends React.Component {
 		setTimeout(() => {
 			this.paginateResults(this.state.searchQuery, filter, 1, 10);
 		});
-	}
-
-	onChange() {
-		if (this.state.filter === 'artists') {
-			this.setState({
-		      results: ArtistStore.getArtists(),
-			  pagination: ArtistStore.getPagination(),
-			  initialSearch: false
-		    });
-		} else if (this.state.filter === 'discography') {
-			this.setState({
-		      results: AlbumReleaseStore.getAlbumReleases(),
-			  pagination: AlbumReleaseStore.getPagination(),
-			  initialSearch: false
-		    });
-		}
-
 	}
 
     render() {
@@ -175,3 +167,5 @@ export default class SearchPage extends React.Component {
         );
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

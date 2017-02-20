@@ -1,15 +1,21 @@
 'use strict';
 
-import env from '../envVariables';
 import path from 'path';
-import {Server} from 'http';
+import { Server } from 'http';
 import Express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import { Provider } from 'react-redux';
+import rootReducer from '../src/reducers';
 import routes from '../src/routes';
 import routeConfig from './routeConfig';
+import env from '../envVariables';
 import NotFoundPage from '../src/components/pages/NotFoundPage';
+const loggerMiddleware = createLogger();
 
 // Initialize the server and configure support for handlebars templates
 const app = new Express();
@@ -30,24 +36,56 @@ for (let i in routeConfig) {
             routes,
             location: req.url
         }, (err, redirectLocation, renderProps) => {
+			if (err) {
+				return res.status(500).send(err.message);
+			}
 
-            if (err) {
-                return res.status(500).send(err.message);
-            }
+			if (redirectLocation) {
+				return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+			}
 
-            if (redirectLocation) {
-                return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-            }
+			const components = renderProps.components;
 
-            let markup;
-            if (renderProps) {
-                markup = renderToString(<RouterContext {...renderProps}/>);
-            } else {
-                markup = renderToString(<NotFoundPage/>);
-                res.status(404);
-            }
+			const Comp = components[components.length - 1].WrappedComponent
+    		const fetchData = (Comp && Comp.fetchData) || (() => Promise.resolve());
 
-            return res.render(routeView, {markup});
+			const initialState = {};
+			const store = createStore(
+				rootReducer,
+				initialState,
+				applyMiddleware(
+					thunkMiddleware, // let's us dispatch functions
+					loggerMiddleware // middleware that logs actions (development only)
+				)
+			);
+			const { location, params, history } = renderProps;
+
+			fetchData({ store, location, params, history }).then(() => {
+				let markup;
+	            if (renderProps) {
+	                markup = renderToString(
+						<Provider store={store}>
+						  <RouterContext {...renderProps} />
+						</Provider>
+					);
+	            } else {
+	                markup = renderToString(
+						<Provider store={store}>
+							<NotFoundPage/>
+						</Provider>
+					);
+	                res.status(404);
+	            }
+
+				const state = JSON.stringify(store.getState());
+
+				return res.render(routeView, {markup, state});
+			}).catch((err) => {
+				console.warn(err);
+				let markup = '';
+				const state = JSON.stringify({});
+				return res.render('not-found', {markup, state})
+			});
         });
     });
 }
@@ -58,19 +96,47 @@ app.get('*', (req, res) => {
 		routes,
 		location: req.url
 	}, (err, redirectLocation, renderProps) => {
-
 		if (err) {
 			return res.status(500).send(err.message);
 		}
 
 		if (redirectLocation) {
-			return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+			return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
 		}
 
-		let markup = renderToString(<NotFoundPage/>);
-		res.status(404);
+		const components = renderProps.components;
 
-		return res.render('not-found', {markup});
+		const Comp = components[components.length - 1].WrappedComponent
+		const fetchData = (Comp && Comp.fetchData) || (() => Promise.resolve());
+
+		const initialState = {};
+		const store = createStore(
+			rootReducer,
+			initialState,
+			applyMiddleware(
+				thunkMiddleware, // let's us dispatch functions
+				loggerMiddleware // middleware that logs actions (development only)
+			)
+		);
+		const { location, params, history } = renderProps;
+
+		fetchData({ store, location, params, history }).then(() => {
+			let markup = renderToString(
+				<Provider store={store}>
+					<NotFoundPage/>
+				</Provider>
+			);
+			res.status(404);
+
+			const state = JSON.stringify(store.getState());
+
+			return res.render('notFound', {markup, state});
+		}).catch((err) => {
+			console.warn(err);
+			let markup = '';
+			const state = JSON.stringify({});
+			return res.render('not-found', {markup, state})
+		});
 	});
 });
 

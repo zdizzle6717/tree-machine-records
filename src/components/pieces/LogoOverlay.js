@@ -1,47 +1,30 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Animation from 'react-addons-css-transition-group';
 import { Link, browserHistory } from 'react-router';
-import OverlayStore from '../../stores/OverlayStore';
 import OverlayActions from '../../actions/OverlayActions';
-import scrollTo from '../../library/utils/ScrollTo';
+import scrollTo from '../../library/utilities/ScrollTo';
 
-export default class LogoOverlay extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'overlay': state.overlay
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'toggleOverlay': OverlayActions.toggle,
+		'showOverlay': OverlayActions.show,
+		'hideOverlay': OverlayActions.hide,
+	}, dispatch);
+}
+
+class LogoOverlay extends React.Component {
 	constructor() {
 		super();
-
-		this.state = {
-			overlay: true
-		}
-
-		this.toggleOverlay = this.toggleOverlay.bind(this);
-		this.onChange = this.onChange.bind(this);
-	}
-
-	componentWillMount() {
-        OverlayStore.addChangeListener(this.onChange);
-    }
-
-	componentDidMount() {
-		setTimeout(() => {
-			OverlayActions.hideOverlay();
-		}, 2500);
-	}
-
-	componentWillUnmount() {
-		OverlayStore.removeChangeListener(this.onChange);
-	}
-
-	toggleOverlay() {
-		OverlayActions.toggleOverlay();
-		scrollTo(0, 0);
-	}
-
-	onChange() {
-		this.setState({
-			overlay: OverlayStore.getOverlay()
-		})
 	}
 
 	render() {
@@ -50,8 +33,8 @@ export default class LogoOverlay extends React.Component {
 				<Animation transitionName="fade" className="animation-wrapper"
 					transitionEnter={true} transitionEnterTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
 					{
-						this.state.overlay &&
-						<div className="logo-overlay" key="logoOverlay" onClick={this.toggleOverlay}>
+						this.props.overlay &&
+						<div className="logo-overlay" key="logoOverlay" onClick={this.props.hideOverlay}>
 							<img src="/images/logo_transparent.png" className="hover"/>
 								<svg viewBox="0 0 800 600">
 								  <symbol id="s-text">
@@ -78,3 +61,5 @@ export default class LogoOverlay extends React.Component {
 	    );
 	}
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogoOverlay);

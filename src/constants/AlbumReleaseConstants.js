@@ -3,6 +3,7 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
+	INITIATE_ALBUM_RELEASE_REQUEST: null,
 	GET_ALBUM_RELEASE: null,
 	GET_ALBUM_RELEASES: null,
 	SEARCH_ALBUM_RELEASES: null,

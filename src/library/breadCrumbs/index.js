@@ -10,7 +10,7 @@ export default class BreadCrumbs extends React.Component {
 		super();
 
 		this.state = {
-			breadCrumbs: []
+			'breadCrumbs': []
 		}
 
 		this.onViewChange = this.onViewChange.bind(this);
@@ -31,7 +31,7 @@ export default class BreadCrumbs extends React.Component {
 			breadCrumbs.push(location);
 		}
 		this.setState({
-			breadCrumbs: breadCrumbs
+			'breadCrumbs': breadCrumbs
 		});
 	}
 
@@ -55,5 +55,5 @@ export default class BreadCrumbs extends React.Component {
 }
 
 BreadCrumbs.propTypes = {
-	totalCrumbs: React.PropTypes.number.isRequired,
+	'totalCrumbs': React.PropTypes.number.isRequired,
 }

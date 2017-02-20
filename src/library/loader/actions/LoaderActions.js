@@ -1,17 +1,20 @@
 'use strict';
 
-import AppDispatcher from '../../../dispatcher';
 import LoaderConstants from '../constants/LoaderConstants';
 
 export default {
 	showLoader: () => {
-		AppDispatcher.dispatch({
-			actionType: LoaderConstants.SHOW_LOADER
-		});
+		return (dispatch) => {
+			dispatch({
+				'type': LoaderConstants.SHOW_LOADER
+			})
+		}
 	},
 	hideLoader: () => {
-		AppDispatcher.dispatch({
-			actionType: LoaderConstants.HIDE_LOADER
-		});
-	},
-}
+		return (dispatch) => {
+			dispatch({
+				'type': LoaderConstants.HIDE_LOADER
+			})
+		}
+	}
+};

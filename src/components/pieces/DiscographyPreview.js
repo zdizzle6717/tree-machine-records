@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
-import formatDate from '../../library/utils/FormatJSONDate';
+import formatDate from '../../library/utilities/FormatJSONDate';
 
 export default class DiscographyPreview extends React.Component {
 	constructor() {

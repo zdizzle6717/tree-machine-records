@@ -2,15 +2,29 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import accepts from 'attr-accept';
 import classNames from 'classnames';
 import FormActions from '../actions/FormActions';
-import FormStore from '../stores/FormStore';
-import { addErrorMessage, removeErrorMessage } from '../utils/updateErrorMessages';
+import {addErrorMessage, removeErrorMessage, getInput, range} from '../utilities';
 
 // TODO: Drag & Drop functionality
 
-export default class FileUpload extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'forms': state.forms
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'addInput': FormActions.addInput,
+		'removeInput': FormActions.removeInput
+	}, dispatch);
+}
+
+class FileUpload extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -72,7 +86,7 @@ export default class FileUpload extends React.Component {
 				'formName': this.state.formName
 			}
 			setTimeout(() => {
-				FormActions.removeInput(input);
+				this.props.removeInput(input);
 			});
 		}
 	}
@@ -81,7 +95,7 @@ export default class FileUpload extends React.Component {
 	validateInit(props, propsHaveLoaded = false) {
 		let elem = ReactDOM.findDOMNode(this);
 		let formName = elem.closest('.form').getAttribute('name');
-		let existingInput = propsHaveLoaded ? false : FormStore.getInput(formName, props.name);
+		let existingInput = propsHaveLoaded ? false : getInput(props.forms, formName, props.name);
 		if (existingInput) {
 			this.setState(existingInput);
 			return;
@@ -89,8 +103,7 @@ export default class FileUpload extends React.Component {
 		let input = {
 			'name': props.name,
 			'value': props.value,
-			'formName': formName,
-			'initial': false
+			'formName': formName
 		};
 		input.files = this.props.typeOfModel === 'object' ? (props.value ? [props.value] : []) : (props.value || []);
 		let message = props.required > 1 ? `At least ${props.required} files are required.` : `At least 1 file is required`;
@@ -98,10 +111,10 @@ export default class FileUpload extends React.Component {
 		if (propsHaveLoaded) {
 			input.initial = false;
 		}
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
 		setTimeout(() => {
-			FormActions.addInput(input);
+			this.props.addInput(input);
 		});
 	}
 
@@ -198,9 +211,9 @@ export default class FileUpload extends React.Component {
 		input.value = updatedFiles;
 		input.filesUploaded = filesUploaded;
 		input.files = updatedFiles;
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	verifyFileType(file) {
@@ -222,9 +235,9 @@ export default class FileUpload extends React.Component {
 		let message = this.props.required > 1 ? `At least ${this.props.required} files are required.` : `At least 1 file is required.`;
 		this.updateErrorMessages(input, (this.props.required ? (files.length >= this.props.required ? true : false) : true), 'filesRequired', message);
 		this.updateErrorMessages(input, true, 'maxFilesExceeded');
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 		return files;
 	}
 
@@ -243,36 +256,36 @@ export default class FileUpload extends React.Component {
 		})
 		input.errors = newErrorMessages;
 		input.valid = validity;
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
 		setTimeout(() => {
-			FormActions.addInput(input);
+			this.props.addInput(input);
 		});
 	}
 
 	handleMouseDown() {
-		let input = Object.assign(this.state, {'touched': true});
+		let input = Object.assign({}, this.state, {'touched': true});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	handleFocus() {
-		let input = Object.assign(this.state, {'focused': true, 'blurred': false});
+		let input = Object.assign({}, this.state, {'focused': true, 'blurred': false});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	handleBlur() {
-		let input = Object.assign(this.state, {'focused': false, 'blurred': true});
+		let input = Object.assign({}, this.state, {'focused': false, 'blurred': true});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	toggleFileList(e) {
 		if (e) {
 			e.preventDefault();
 		}
-		let input = Object.assign(this.state, {'showFileList': !this.state.showFileList});
+		let input = Object.assign({}, this.state, {'showFileList': !this.state.showFileList});
 		this.setState(input);
 	}
 
@@ -377,3 +390,5 @@ FileUpload.defaultProps = {
 	'preserveState': false,
 	'typeOfModel': 'array'
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);

@@ -1,13 +1,21 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import AlertActions from '../../library/alerts/actions/AlertActions';
 import { Form, Input, Select, FileUpload } from '../../library/validations'
 import UserActions from '../../library/authentication/actions/UserActions';
-import UserStore from '../../library/authentication/stores/UserStore';
 
-export default class RegistrationPage extends React.Component {
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
+		'createUser': UserActions.create
+    }, dispatch);
+};
+
+class RegistrationPage extends React.Component {
     constructor() {
         super();
 
@@ -44,8 +52,8 @@ export default class RegistrationPage extends React.Component {
 	}
 
 	handleSubmit(e) {
-		UserActions.create(this.state.credentials).then((response) => {
-			let homeState = UserStore.getUser().roleConfig.homeState;
+		this.props.createUser(this.state.credentials).then((response) => {
+			let homeState = this.props.user.roleConfig.homeState;
 			this.showAlert('registrationSuccess');
 			browserHistory.push(homeState);
 		}).catch((error) => {
@@ -61,7 +69,7 @@ export default class RegistrationPage extends React.Component {
 	showAlert(selector) {
 		const alerts = {
 			'registrationSuccess': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Registration Success',
 					message: 'You have successfully registered an account and were automatically logged in.',
@@ -70,7 +78,7 @@ export default class RegistrationPage extends React.Component {
 				});
 			},
 			'invalidUsername': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Invalid Username',
 					message: 'An account with that username is already in use.',
@@ -79,7 +87,7 @@ export default class RegistrationPage extends React.Component {
 				});
 			},
 			'invalidEmail': () => {
-				AlertActions.addAlert({
+				this.props.addAlert({
 					show: true,
 					title: 'Invalid Email',
 					message: 'An account with that email is already in use.',
@@ -140,3 +148,5 @@ export default class RegistrationPage extends React.Component {
 		);
     }
 }
+
+export default connect(null, mapDispatchToProps)(RegistrationPage);

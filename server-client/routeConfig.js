@@ -46,6 +46,10 @@ export default [
 		'view': 'playlist'
 	},
 	{
+		'route': '/profile',
+		'view': 'profile'
+	},
+	{
 		'route': '/register',
 		'view': 'register'
 	},
@@ -56,6 +60,5 @@ export default [
 	{
 		'route': '/site-map',
 		'view': 'site-map'
-	},
-
+	}
 ];

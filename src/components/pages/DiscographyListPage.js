@@ -1,16 +1,29 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Animation from 'react-addons-css-transition-group';
 import SideBar from '../pieces/SideBar';
 import { Form, Input } from '../../library/validations';
 import PaginationControls from '../../library/pagination/components/PaginationControls';
-import scrollTo from '../../library/utils/ScrollTo';
+import scrollTo from '../../library/utilities/ScrollTo';
 import DiscographyCard from '../pieces/DiscographyCard';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
-import AlbumReleaseStore from '../../stores/AlbumReleaseStore';
 
-export default class DiscographyListPage extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'albumReleases': state.albumReleases
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'searchAlbumReleases': AlbumReleaseActions.search
+	}, dispatch);
+}
+
+class DiscographyListPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -23,31 +36,25 @@ export default class DiscographyListPage extends React.Component {
 		this.handlePageChange = this.handlePageChange.bind(this);
 		this.filterDiscography = this.filterDiscography.bind(this);
 		this.paginateDiscography = this.paginateDiscography.bind(this);
-		this.onChange = this.onChange.bind(this);
     }
 
-	componentWillMount() {
-        AlbumReleaseStore.addChangeListener(this.onChange);
-    }
-
-    componentDidMount() {
+	componentDidMount() {
         document.title = "Tree Machine Records | Discography";
 		this.paginateDiscography('', '', 1, 10);
     }
 
 	paginateDiscography(searchQuery, filter, pageNumber, pageSize) {
-		AlbumReleaseActions.search(
+		this.props.searchAlbumReleases(
 			{
 				'searchQuery': searchQuery,
 				'filter': filter,
 				'pageNumber': pageNumber,
 				'pageSize': pageSize
 			}
-		);
-	}
-
-	componentWillUnmount() {
-		AlbumReleaseStore.removeChangeListener(this.onChange);
+		).then((pagination) => {
+			this.setState({'albumReleases': this.props.albumReleases});
+			this.setState({'pagination': pagination});
+		});
 	}
 
 	filterDiscography(e) {
@@ -62,14 +69,7 @@ export default class DiscographyListPage extends React.Component {
 		scrollTo(0, 0);
 	}
 
-	onChange() {
-	    this.setState({
-	      albumReleases: AlbumReleaseStore.getAlbumReleases(),
-		  pagination: AlbumReleaseStore.getPagination()
-	    });
-	}
-
-    render() {
+	render() {
         return (
 			<div className="content-wrapper">
 				<div className="row">
@@ -114,3 +114,5 @@ export default class DiscographyListPage extends React.Component {
         );
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiscographyListPage);

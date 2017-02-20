@@ -1,11 +1,11 @@
 'use strict';
 
-import Loader from './components/Loader';
 import LoaderActions from './actions/LoaderActions';
-import LoaderStore from './stores/LoaderStore';
+import Loader from './components/Loader';
+import {loader} from './reducers';
 
 export {
-	Loader,
 	LoaderActions,
-	LoaderStore
-}
+	Loader,
+	loader
+};

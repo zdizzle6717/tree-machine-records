@@ -1,32 +1,37 @@
 'use strict';
 
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router';
 import Animation from 'react-addons-css-transition-group';
-import formatDate from '../../library/utils/FormatJSONDate';
-import OverlayStore from '../../stores/OverlayStore';
+import formatDate from '../../library/utilities/FormatJSONDate';
 import OverlayActions from '../../actions/OverlayActions';
 
-export default class SideBar extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'overlay': state.overlay
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'showOverlay': OverlayActions.show
+	}, dispatch);
+}
+
+class SideBar extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			'contacts': [],
 			'loadTimeoutComplete': false,
-			'overlay': true,
 			'socialLinks': [],
 			'featuredAlbums': []
 		}
-
-		this.toggleOverlay = this.toggleOverlay.bind(this);
-		this.onChange = this.onChange.bind(this);
 	}
-
-	componentWillMount() {
-        OverlayStore.addChangeListener(this.onChange);
-    }
 
 	componentDidMount() {
 		axios.get('/albumReleases/featuredAlbums/list').then((response) => {
@@ -132,24 +137,10 @@ export default class SideBar extends React.Component {
 		}
 	}
 
-	componentWillUnmount() {
-		OverlayStore.removeChangeListener(this.onChange);
-	}
-
-	toggleOverlay() {
-		OverlayActions.toggleOverlay();
-	}
-
-	onChange() {
-		this.setState({
-			overlay: OverlayStore.getOverlay()
-		})
-	}
-
 	render() {
 		return (
 			<div className="side-bar small-12 medium-4 large-3 columns text-center">
-				<div className="logo-static" key="logoStatic" onClick={this.toggleOverlay}>
+				<div className="logo-static" key="logoStatic" onClick={this.props.showOverlay}>
 					<img src="/images/logo_transparent.png" className="hover"/>
 				</div>
 				<aside>
@@ -245,3 +236,5 @@ SideBar.defaultProps = {
 	'showSpotlight': true,
 	'siteWideFeaturedImage': false
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

@@ -2,13 +2,27 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import defaultValidations from '../constants/defaultValidations'
 import classNames from 'classnames';
 import FormActions from '../actions/FormActions';
-import FormStore from '../stores/FormStore';
-import { addErrorMessage, removeErrorMessage } from '../utils/updateErrorMessages';
+import {addErrorMessage, removeErrorMessage, getInput} from '../utilities';
 
-export default class Input extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'forms': state.forms
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'addInput': FormActions.addInput,
+		'removeInput': FormActions.removeInput
+	}, dispatch);
+};
+
+class Input extends React.Component {
 	constructor(props, context) {
         super(props, context);
 
@@ -53,16 +67,17 @@ export default class Input extends React.Component {
 				'formName': this.state.formName
 			}
 			setTimeout(() => {
-				FormActions.removeInput(input);
+				this.props.removeInput(input);
 			});
 		}
 	}
 
 	// propsHaveLoaded is a check for the parent component state change after a service call is complete
+	// these checks account for the async delay and prevent race conditions
 	validateInit(props, propsHaveLoaded = false) {
 		let elem = ReactDOM.findDOMNode(this);
 		let formName = elem.closest('.form').getAttribute('name');
-		let existingInput = propsHaveLoaded ? false : FormStore.getInput(formName, props.name);
+		let existingInput = propsHaveLoaded ? false : getInput(props.forms, formName, props.name);
 		if (existingInput) {
 			this.setState(existingInput);
 			return;
@@ -88,10 +103,10 @@ export default class Input extends React.Component {
 		if (propsHaveLoaded) {
 			input.initial = false;
 		}
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
 		setTimeout(() => {
-			FormActions.addInput(input);
+			this.props.addInput(input);
 		});
 	}
 
@@ -116,9 +131,9 @@ export default class Input extends React.Component {
 			this.updateErrorMessages(input, (defaultValidations[this.props.validate].regex.test(value)), this.props.validate);
 		}
 		this.updateErrorMessages(input, !empty, 'requiredField', 'Required field');
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 		this.props.handleInputChange(e);
 	}
 
@@ -132,29 +147,29 @@ export default class Input extends React.Component {
 		}
 		input.errors = newErrorMessages;
 		input.valid = newErrorMessages.length === 0;
-		input = Object.assign(this.state, input);
+		input = Object.assign({}, this.state, input);
 		this.setState(input);
 		setTimeout(() => {
-			FormActions.addInput(input);
+			this.props.addInput(input);
 		});
 	}
 
 	handleMouseDown() {
-		let input = Object.assign(this.state, {'touched': true});
+		let input = Object.assign({}, this.state, {'touched': true});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	handleFocus() {
-		let input = Object.assign(this.state, {'focused': true, 'blurred': false});
+		let input = Object.assign({}, this.state, {'focused': true, 'blurred': false});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	handleBlur() {
-		let input = Object.assign(this.state, {'focused': false, 'blurred': true});
+		let input = Object.assign({}, this.state, {'focused': false, 'blurred': true});
 		this.setState(input);
-		FormActions.addInput(input);
+		this.props.addInput(input);
 	}
 
 	render() {
@@ -204,3 +219,5 @@ Input.defaultProps = {
 	'autoComplete': 'on',
 	'preserveState': false
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input);

@@ -2,11 +2,24 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import classNames from 'classnames';
 import FormActions from '../actions/FormActions';
-import FormStore from '../stores/FormStore';
 
-export default class Form extends React.Component {
+const mapStateToProps = (state) => {
+	return {
+		'forms': state.forms
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		'resetForm': FormActions.resetForm
+	}, dispatch)
+}
+
+class Form extends React.Component {
 	constructor() {
         super();
 
@@ -15,38 +28,26 @@ export default class Form extends React.Component {
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.onChange = this.onChange.bind(this);
     }
 
 	componentWillMount() {
 		if (!this.props.isParent && this.props.childForms) {
 			throw new Error('Form component cannot have children without also being a parent.')
 		}
-		FormStore.addChangeListener(this.onChange);
 	}
 
 	componentDidMount() {
-		// This component will mount before the previous form input components unmount and are cleared from the Form Store
-		// This accounts for a route change with the same formName on both routes
+		// This component will mount before the previous form's Input components unmount and are cleared from the Form Store
+		// This accounts for a route change with the same formName on both routes, preventing overlapping inputs
 		if (this.props.isParent) {
 			if (this.props.childForms) {
 				this.props.childForms.forEach((formName) => {
-					FormStore.resetForm(formName);
+					this.props.resetForm(formName);
 				})
 			}
-			FormStore.resetForm(this.props.name);
+			this.props.resetForm(this.props.name);
 		}
 	}
-
-	componentWillUnmount() {
-		FormStore.removeChangeListener(this.onChange);
-	}
-
-	onChange() {
-		this.setState({
-			valid: FormStore.getValidity(this.props.name)
-		});
-    }
 
 	handleSubmit(e) {
 		e.preventDefault();
@@ -54,6 +55,7 @@ export default class Form extends React.Component {
 	}
 
 	render() {
+		let formIsValid = this.props.forms[this.props.name] ? this.props.forms[this.props.name].isValid : false;
 		return (
 			<div>
 				{
@@ -64,7 +66,7 @@ export default class Form extends React.Component {
 							this.props.submitButton &&
 							<div className="row">
 								<div className="form-group small-12 columns text-right">
-									<button className="button info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !this.state.valid}>{this.props.submitText}</button>
+									<button className="button info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !formIsValid}>{this.props.submitText}</button>
 								</div>
 							</div>
 						}
@@ -75,7 +77,7 @@ export default class Form extends React.Component {
 							this.props.submitButton &&
 							<div className="row">
 								<div className="form-group small-12 columns text-right">
-									<button className="button info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !this.state.valid}>{this.props.submitText}</button>
+									<button className="button info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !formIsValid}>{this.props.submitText}</button>
 								</div>
 							</div>
 						}
@@ -103,3 +105,5 @@ Form.defaultProps = {
 	submitText: 'Submit',
 	isParent: true
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -5,7 +5,9 @@ import axios from 'axios';
 import {Link} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
 import SideBar from '../pieces/SideBar';
-import AccessControl from '../../library/authentication/components/AccessControl';
+import roleConfig from '../../../roleConfig';
+import {AccessControl as createAccessControl} from '../../library/authentication';
+const AccessControl = createAccessControl(roleConfig);
 
 export default class PlaylistPage extends React.Component {
     constructor(props, context) {
@@ -62,7 +64,7 @@ export default class PlaylistPage extends React.Component {
 						</table>
 
 						<AccessControl publicOnly={true} access={['subscriber']} customClasses="text-center">
-							<h3 className="text-center">Login for a free download of each track from the current playlist.</h3>
+							<h3 className="text-center"><Link key="login" to="login">Login</Link> for a free download of each track from the current playlist.</h3>
 						</AccessControl>
 		            </div>
 					<SideBar/>

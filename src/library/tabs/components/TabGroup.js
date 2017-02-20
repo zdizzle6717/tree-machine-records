@@ -18,15 +18,15 @@ export default class TabGroup extends React.Component {
 			setTimeout(() => {
 				this.selectTab(i);
 			});
-		}, 10);
+		});
 		setTimeout(() => {
 			this.selectTab(this.props.selected);
-		}, 10);
+		});
 	}
 
 	selectTab(index) {
 		this.setState({
-			selected: index
+			'selected': index
 		})
 	}
 
