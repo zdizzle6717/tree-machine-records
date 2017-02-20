@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
-import formatDate from '../../library/utilities/FormatJSONDate';
+import formatDate from '../../library/utilities/formatJSONDate';
 import SideBar from '../pieces/SideBar';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
 import ArtistActions from '../../actions/ArtistActions';

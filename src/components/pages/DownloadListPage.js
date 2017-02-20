@@ -38,7 +38,6 @@ class DownloadListPage extends React.Component {
 
 	configureArtists() {
 		let artists = this.props.artists;
-		console.log(artists);
 		let photos = [];
 		artists.forEach((artist, i) => {
 			artist.Files.forEach((file) => {

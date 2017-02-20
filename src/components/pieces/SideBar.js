@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router';
 import Animation from 'react-addons-css-transition-group';
-import formatDate from '../../library/utilities/FormatJSONDate';
+import formatDate from '../../library/utilities/formatJSONDate';
 import OverlayActions from '../../actions/OverlayActions';
 
 const mapStateToProps = (state) => {

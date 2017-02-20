@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
-import formatDate from '../../library/utilities/FormatJSONDate';
+import formatDate from '../../library/utilities/formatJSONDate';
 
 export default class DiscographyCard extends React.Component {
 	constructor() {

@@ -7,7 +7,7 @@ import Animation from 'react-addons-css-transition-group';
 import SideBar from '../pieces/SideBar';
 import { Form, Input } from '../../library/validations';
 import PaginationControls from '../../library/pagination/components/PaginationControls';
-import scrollTo from '../../library/utilities/ScrollTo';
+import scrollTo from '../../library/utilities/scrollTo';
 import DiscographyCard from '../pieces/DiscographyCard';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';
 

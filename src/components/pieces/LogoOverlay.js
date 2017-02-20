@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import Animation from 'react-addons-css-transition-group';
 import { Link, browserHistory } from 'react-router';
 import OverlayActions from '../../actions/OverlayActions';
-import scrollTo from '../../library/utilities/ScrollTo';
+import scrollTo from '../../library/utilities/scrollTo';
 
 const mapStateToProps = (state) => {
 	return {

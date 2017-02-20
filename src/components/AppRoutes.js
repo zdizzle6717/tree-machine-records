@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import store from '../store';
 import routes from '../routes';
 import authorizedRoutesConfig from '../constants/authorizedRoutesConfig';
-import scrollTo from '../library/utilities/ScrollTo';
+import scrollTo from '../library/utilities/scrollTo';
 import {UserActions, checkAuthorization} from '../library/authentication';
 import {AlertActions} from '../library/alerts';
 import roleConfig from '../../roleConfig';
