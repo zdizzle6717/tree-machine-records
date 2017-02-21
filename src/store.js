@@ -24,14 +24,23 @@ if(typeof(Storage) !== "undefined" && typeof(window) !== 'undefined') {
 }
 
 
-// Create Store
+// Create Store (Development Chrome)
+// const store = createStore(
+// 	rootReducer,
+// 	preLoadedState,
+// 	composeEnhancers(applyMiddleware(
+// 		thunkMiddleware, // let's us dispatch functions
+// 		loggerMiddleware // middleware that logs actions (development only)
+// 	))
+// );
+
+// Create Store (Production)
 const store = createStore(
 	rootReducer,
 	preLoadedState,
-	composeEnhancers(applyMiddleware(
-		thunkMiddleware // let's us dispatch functions
-		// loggerMiddleware // middleware that logs actions (development only)
-	))
+	applyMiddleware(
+		thunkMiddleware
+	)
 );
 
 export default store;
