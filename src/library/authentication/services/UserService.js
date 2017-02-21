@@ -2,6 +2,18 @@
 let axios = require('axios');
 
 export default {
+	get: (id) => {
+		return axios.get('/users/' + id)
+			.then(function(response) {
+				return response.data;
+			});
+	},
+	getAll: () => {
+		return axios.get('/users')
+			.then(function(response) {
+				return response.data;
+			});
+	},
 	create: (credentials) => {
 		return axios.post('/users', credentials)
 			.then(function(response) {

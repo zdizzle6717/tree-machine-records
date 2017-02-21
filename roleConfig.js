@@ -9,21 +9,21 @@ module.exports = [
 	{
 		'name': 'subscriber',
 		'roleFlags': 1,
-		'homeState': '/',
+		'homeState': '/profile',
 	},
 	{
 		'name': 'artist',
 		'roleFlags': 2,
-		'homeState': '/artists',
+		'homeState': '/profile',
 	},
 	{
 		'name': 'siteAdmin',
 		'roleFlags': 3,
-		'homeState': '/',
+		'homeState': '/profile',
 	},
 	{
 		'name': 'recordStore',
 		'roleFlags': 4,
-		'homeState': '/',
+		'homeState': '/profile',
 	}
 ];

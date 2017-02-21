@@ -71,7 +71,6 @@ class Header extends React.Component {
 		const alerts = {
 			'logoutSuccess': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Logout Success',
 					message: 'You have been successfully logged out.',
 					type: 'success',

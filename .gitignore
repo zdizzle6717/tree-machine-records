@@ -39,10 +39,11 @@ jspm_packages
 # MAC
 .DS_Store
 
+
 # Database Connections and Credentials
 **/apiRoutes.js
 **/js/app.js
-server/config/config.json
+server/config
 
 # Upload folders
 

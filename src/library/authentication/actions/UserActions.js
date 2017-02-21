@@ -51,6 +51,7 @@ export default {
 			dispatch(_initiateRequest(UserConstants.INITIATE_USER_REQUEST));
 			return UserService.getAll().then((users) => {
 				dispatch(_returnResponse(UserConstants.GET_USERS, users));
+				return users;
 			});
 		};
 	},

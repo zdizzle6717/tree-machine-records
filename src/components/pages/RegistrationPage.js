@@ -70,7 +70,6 @@ class RegistrationPage extends React.Component {
 		const alerts = {
 			'registrationSuccess': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Registration Success',
 					message: 'You have successfully registered an account and were automatically logged in.',
 					type: 'success',
@@ -79,7 +78,6 @@ class RegistrationPage extends React.Component {
 			},
 			'invalidUsername': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Invalid Username',
 					message: 'An account with that username is already in use.',
 					type: 'error',
@@ -88,7 +86,6 @@ class RegistrationPage extends React.Component {
 			},
 			'invalidEmail': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Invalid Email',
 					message: 'An account with that email is already in use.',
 					type: 'error',

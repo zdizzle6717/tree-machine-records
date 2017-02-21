@@ -86,7 +86,6 @@ class LoginPage extends React.Component {
 		const alerts = {
 			'loginSuccess': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Login Success',
 					message: 'You have been successfully authenticated.',
 					type: 'success',
@@ -95,7 +94,6 @@ class LoginPage extends React.Component {
 			},
 			'incorrectPassword': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Incorrect Password',
 					message: 'The password you entered is incorrect.',
 					type: 'error',
@@ -104,7 +102,6 @@ class LoginPage extends React.Component {
 			},
 			'incorrectUsername': () => {
 				this.props.addAlert({
-					show: true,
 					title: 'Incorrect Email/Username',
 					message: 'No user was found with that email or username.',
 					type: 'error',
