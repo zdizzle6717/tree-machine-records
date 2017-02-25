@@ -136,12 +136,6 @@ module.exports = [
                 payload: {
 					caption: Joi.optional(),
                     catalogueNumber: Joi.optional(),
-                    Files: Joi.array().items(Joi.object().keys({
-						'identifier': Joi.string().valid('albumCover').required(),
-						'name': Joi.optional(),
-						'size': Joi.number().required(),
-						'type': Joi.optional()
-					})),
 					iTunesUrl: Joi.optional(),
 					param: Joi.string().required(),
                     releaseDate: Joi.date().required(),

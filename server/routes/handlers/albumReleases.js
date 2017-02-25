@@ -207,54 +207,22 @@ let albumReleases = {
             });
     },
     update: (req, res) => {
-		models.File.find({
+		models.AlbumRelease.find({
                 where: {
-                    AlbumReleaseId: req.params.id
+                    id: req.params.id
                 }
-            }).then((file) => {
-				file.updateAttributes({
-					identifier: req.payload.Files[0].identifier,
-					name: req.payload.Files[0].name,
-					size: req.payload.Files[0].size,
-					type: req.payload.Files[0].type
-				}).then(() => {
-					models.AlbumRelease.find({
-			                where: {
-			                    id: req.params.id
-			                }
-			            })
-			            .then((albumRelease) => {
-			                if (albumRelease) {
-			                    albumRelease.updateAttributes({
-									caption: req.payload.caption,
-									catalogueNumber: req.payload.catalogueNumber,
-									iTunesUrl: req.payload.iTunesUrl,
-									param: req.payload.param,
-									releaseDate: req.payload.releaseDate,
-									spotifyUrl: req.payload.spotifyUrl,
-									summary: req.payload.summary,
-									title: req.payload.title
-			                    }).then((response) => {
-									models.AlbumRelease.find({
-							                where: {
-							                    id: response.id
-							                },
-											include: [
-												{
-													model: models.File
-												}
-											]
-							            }).then((albumRelease) => {
-											res(albumRelease).code(200);
-										});
-			                    }).catch(() => {
-			                        res().code(406);
-			                    });
-			                }
-			                else {
-			                    res().code(404);
-			                }
-			            });
+            }).then((albumRelease) => {
+				albumRelease.updateAttributes({
+					caption: req.payload.caption,
+					catalogueNumber: req.payload.catalogueNumber,
+					iTunesUrl: req.payload.iTunesUrl,
+					param: req.payload.param,
+					releaseDate: req.payload.releaseDate,
+					spotifyUrl: req.payload.spotifyUrl,
+					summary: req.payload.summary,
+					title: req.payload.title
+				}).then((albumRelease) => {
+					res(albumRelease).code(200);
 				})
 			})
 	},
