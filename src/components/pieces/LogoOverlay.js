@@ -8,6 +8,8 @@ import { Link, browserHistory } from 'react-router';
 import OverlayActions from '../../actions/OverlayActions';
 import scrollTo from '../../library/utilities/scrollTo';
 
+let overlayTimeout;
+
 const mapStateToProps = (state) => {
 	return {
 		'overlay': state.overlay
@@ -25,6 +27,19 @@ const mapDispatchToProps = (dispatch) => {
 class LogoOverlay extends React.Component {
 	constructor() {
 		super();
+
+		this.hideOverlay = this.hideOverlay.bind(this);
+	}
+
+	componentDidMount() {
+		overlayTimeout = setTimeout(() => {
+			this.props.hideOverlay();
+		}, 2000);
+	}
+
+	hideOverlay() {
+		clearTimeout(overlayTimeout);
+		this.props.hideOverlay();
 	}
 
 	render() {
@@ -34,7 +49,7 @@ class LogoOverlay extends React.Component {
 					transitionEnter={true} transitionEnterTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
 					{
 						this.props.overlay &&
-						<div className="logo-overlay" key="logoOverlay" onClick={this.props.hideOverlay}>
+						<div className="logo-overlay" key="logoOverlay" onClick={this.hideOverlay}>
 							<img src="/images/logo_transparent.png" className="hover"/>
 								<svg viewBox="0 0 800 600">
 								  <symbol id="s-text">

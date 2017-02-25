@@ -44,12 +44,6 @@ class Layout extends React.Component {
 		}
     }
 
-	componentDidMount() {
-		setTimeout(() => {
-			this.props.hideOverlay();
-		}, 2500);
-	}
-
 	handleScroll(e) {
 		if (typeof(window) !== 'undefined') {
 			let pageYOffset = window.pageYOffset || document.documentElement.scrollTop;

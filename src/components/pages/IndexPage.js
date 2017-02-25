@@ -63,7 +63,7 @@ class IndexPage extends React.Component {
 						<article>
 							<div className="row">
 								<div className="small-12 columns home-video">
-									<Iframe url={`https://www.youtube.com/embed/G3g0TypFrAI?showinfo=0`} width="100%" height="360px" position="relative"/>
+									<Iframe url={`https://www.youtube.com/embed/Ersysljbgg0?showinfo=0`} width="100%" height="360px" position="relative"/>
 								</div>
 							</div>
 						</article>
