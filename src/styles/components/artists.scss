@@ -1,51 +1,49 @@
 .artists-list {
-    margin-top: 10px;
+	margin-top: 10px;
 
-    .artist-tile {
+	.artist-tile {
 		display: none;
-        margin-bottom: 15px;
+		margin-bottom: 15px;
 
 		&.show {
 			display: block;
 		}
 
-        .background-image {
-            width: 100%;
-            height: auto;
-            transition: all 250ms linear;
-            background-size: cover !important;
-            box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.5);
+		.background-image {
+			width: 100%;
+			height: auto;
+			transition: all 250ms linear;
+			background-size: cover !important;
+			box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.5);
 
-            &:active {
-                border-radius: 5rem;
-            }
+			&:active {
+				border-radius: 5rem;
+			}
 
-            img {
-                visibility: hidden;
-                width: 100%;
-                height: auto;
-            }
-        }
+			img {
+				visibility: hidden;
+				width: 100%;
+				height: auto;
+			}
+		}
 
-        h5 {
-            text-decoration: none;
+		h5 {
+			text-decoration: none;
 			margin-top: 5px;
 			font-size: 1.1rem;
 			letter-spacing: 3px;
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-    }
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 }
-
 
 .artist-page {
 	.artist-disc-title {
 		border-bottom: 2px solid $black;
-		margin: 0 1.4rem 1.4rem 1.4rem;
+		margin: 0 1.4rem 1.4rem;
 	}
 
 	.artist-disc-items {
@@ -55,31 +53,33 @@
 			box-shadow: $standard-shadow;
 			max-width: 200px;
 			width: 100%;
-			margin: 0 .7rem 1.4rem .7rem;
+			margin: 0 0.7rem 1.4rem;
 		}
 	}
 }
 
+.media-select,
+.photo-select {
+	float: left;
+	line-height: 0;
+	column-count: 3;
+	-moz-column-count: 3;
+	-webkit-column-count: 3;
+	column-gap: 10px;
+	-moz-column-gap: 10px;
+	-webkit-column-gap: 10px;
+	width: 100%;
+	margin: $push 0;
 
-.photo-select, .media-select {
-    float: left;
-    line-height: 0;
-    column-count: 3;
-    -moz-column-count: 3;
-    -webkit-column-count: 3;
-    column-gap: 10px;
-    -moz-column-gap: 10px;
-    -webkit-column-gap: 10px;
-    width: 100%;
-    margin: $push 0;
+	iframe {
+		display: inherit;
+		width: 100%;
+	}
 
-    iframe {
-        display: inherit;
-        width: 100%;
-    }
-
-    .photo-artist, .media-artist, .download-tile {
-        width: 100%;
+	.download-tile,
+	.media-artist,
+	.photo-artist {
+		width: 100%;
 
 		a {
 			width: 100%;
@@ -105,25 +105,25 @@
 					}
 
 					span {
-						opacity: .75;
-					    font-size: 9rem;
-					    text-shadow: 0 1px 3px black;
+						opacity: 0.75;
+						font-size: 9rem;
+						text-shadow: 0 1px 3px black;
 					}
 				}
 			}
 		}
-    }
+	}
 }
 
 .media-block {
-    iframe {
-        width: 100%;
-        margin-bottom: .7rem;
-    }
+	iframe {
+		width: 100%;
+		margin-bottom: 0.7rem;
+	}
 }
 
 .featured-track {
-    margin: .7rem 0px 1.4rem;
+	margin: 0.7rem 0 1.4rem;
 
 	iframe {
 		position: relative;
@@ -131,21 +131,20 @@
 }
 
 .photos-link-image {
-    width: 100%;
+	width: 100%;
 }
 
 .artist-image,
 .discography-image {
-    float: left;
-    max-width: 650px;
-    width: 70%;
-    margin: 0 1.4rem 1.4rem 0;
+	float: left;
+	max-width: 650px;
+	width: 70%;
+	margin: 0 1.4rem 1.4rem 0;
 
 	img {
 		max-width: 600px;
 		width: 100%;
 	}
-
 	@include breakpoint(medium down) {
 		max-width: 100%;
 		width: 100%;
@@ -155,20 +154,19 @@
 		}
 	}
 }
-
-
 @media screen and (max-width: 900px) {
-    .photo-select, .media-select {
-        column-count: 2;
-        -moz-column-count: 2;
-        -webkit-column-count: 2;
-    }
+	.media-select,
+	.photo-select {
+		column-count: 2;
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+	}
 }
-
 @media screen and (max-width: 480px) {
-    .photo-select, .media-select {
-        column-count: 1;
-        -moz-column-count: 1;
-        -webkit-column-count: 1;
-    }
+	.media-select,
+	.photo-select {
+		column-count: 1;
+		-moz-column-count: 1;
+		-webkit-column-count: 1;
+	}
 }

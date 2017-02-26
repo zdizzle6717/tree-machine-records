@@ -10,6 +10,14 @@ footer {
 	z-index: 50;
 
 	.menu {
+		margin-left: 40px;
+
+		@include breakpoint(small only) {
+			margin: 0;
+			display: flex;
+    	justify-content: center;
+		}
+
 		li {
 			a {
 				color: $black;
@@ -43,6 +51,13 @@ footer {
 
     .copyright {
         margin-right: 40px;
+
+				@include breakpoint(small only) {
+					margin-right: 40px;
+					margin-left: 40px;
+					display: flex;
+		    	justify-content: center;
+				}
     }
 }
 

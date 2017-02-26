@@ -1,4 +1,5 @@
 // Text
+
 .text-small {
 	font-size: 80%;
 }
@@ -10,7 +11,6 @@
 .text-bold {
 	font-weight: 700 !important;
 }
-
 // Collapse
 .collapse {
 	padding: 0 !important;
@@ -19,19 +19,17 @@
 .collapse-margin {
 	margin: 0 !important;
 }
-
-
 // Miscellaneous
 .hover {
 	cursor: pointer;
 }
 
 .shadow {
-    box-shadow: $standard-shadow;
+	box-shadow: $standard-shadow;
 }
 
 .hidden {
-  display: none !important;
+	display: none !important;
 }
 
 .pad {
@@ -39,46 +37,47 @@
 }
 
 .scroll-top {
-    background: #1680bc;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    padding: 7px;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+	background: #1680bc;
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	padding: 7px;
+	border-radius: 50%;
+	width: 55px;
+	height: 55px;
+	box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
 	z-index: 80;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	transition-duration: 400ms;
 
-    &:active {
-        box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0.5);
-    }
+	&:hover {
+		transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+	}
 
+	&:active {
+		box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+	}
 	@media screen and (max-width: 700px) {
 		width: 45px;
 		height: 45px;
 	}
 }
-
 // Foundation overrides
 .column:last-child:not(:first-child),
 .columns:last-child:not(:first-child) {
-    float: left;
+	float: left;
 }
-
 @media screen and (min-width: 481px) {
 	.collapse-large {
 		padding: 0 !important;
 	}
 }
-
 @media screen and (max-width: 640px) {
 	.collapse-small {
 		padding: 0;
 	}
 }
-
 // Margins
 // push-top, push-right, push-bottom, push-left
 $sides: 'top', 'right', 'bottom', 'left';
@@ -92,7 +91,6 @@ $sides: 'top', 'right', 'bottom', 'left';
 		}
 	}
 }
-
 // Margins
 // drag-top, drag-bottom, drag-left, drag-right
 @each $side in $sides {
