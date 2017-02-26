@@ -40,7 +40,7 @@ export default class GooeyMenuButton extends React.Component {
                     <defs>
                         <filter id="shadowed-goo">
 
-                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="6"/>
+                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="5"/>
                             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/>
                             <feGaussianBlur in="goo" stdDeviation="4" result="shadow"/>
                             <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow"/>
@@ -49,7 +49,7 @@ export default class GooeyMenuButton extends React.Component {
                             <feBlend in2="goo" in="SourceGraphic" result="mix"/>
                         </filter>
                         <filter id="goo">
-                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="6"/>
+                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="5"/>
                             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/>
                             <feBlend in2="goo" in="SourceGraphic" result="mix"/>
                         </filter>
