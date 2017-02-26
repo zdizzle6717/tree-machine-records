@@ -4,17 +4,17 @@
 	align-items: center;
 	height: 100%;
 	z-index: 80;
-	width: 50px;
+	width: 55px;
 	float: left;
-	margin-left: -47px;
+	margin-left: -50px;
 	top: 80px;
 	bottom: 0;
 	left: 0;
-    transition: all 250ms;
+	transition: all 250ms;
 
-    .nav-controls {
-        display: none;
-        transition: all 250ms;
+	.nav-controls {
+		display: none;
+		transition: all 250ms;
 		background: $black;
 		height: 330px;
 		display: flex;
@@ -22,7 +22,7 @@
 		justify-content: center;
 		align-items: center;
 		color: $white;
-		font-size: .9rem;
+		font-size: 0.9rem;
 		width: 50px;
 		float: left;
 		padding: 20px 0;
@@ -47,8 +47,8 @@
 			font-size: 1.5rem;
 			transition: all 250ms;
 
-			&:hover,
-			&.active {
+			&.active,
+			&:hover {
 				font-weight: bolder;
 				transform: scale(1.2);
 			}
@@ -58,36 +58,33 @@
 				font-size: 1.95rem;
 			}
 		}
-    }
+	}
 
-    &:hover,
-	&.active {
-        margin-left: 0px;
-        cursor: pointer;
+	&.active,
+	&:hover {
+		margin-left: 0;
+		cursor: pointer;
 
-        .nav-controls {
+		.nav-controls {
 			display: flex;
-        }
-    }
+		}
+	}
 
 	.row {
 		width: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	    flex: 1;
+		flex: 1;
 	}
 }
-
-
 @media screen and (max-width: 500px) {
-    .side-nav {
-        display: none;
-    }
+	.side-nav {
+		display: none;
+	}
 }
-
 @media screen and (max-height: 500px) {
-    .side-nav {
-        display: none;
-    }
+	.side-nav {
+		display: none;
+	}
 }

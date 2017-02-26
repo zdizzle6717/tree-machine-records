@@ -34,6 +34,35 @@ class SideBar extends React.Component {
 	}
 
 	componentDidMount() {
+		let socialLinks = [
+			{
+				'name': 'facebook',
+				'url': 'https://www.facebook.com/treemachinerecords/'
+			},
+			{
+				'name': 'soundcloud',
+				'url': 'https://soundcloud.com/treemachinerecords'
+			},
+			{
+				'name': 'instagram',
+				'url': 'https://instagram.com/treemachinerecords'
+			},
+			{
+				'name': 'tumblr',
+				'url': 'http://treemachinerecords.tumblr.com/'
+			},
+			{
+				'name': 'twitter',
+				'url': 'https://twitter.com/treemachinerex'
+			},
+			{
+				'name': 'spotify',
+				'url': 'https://open.spotify.com/user/treemachinerecs'
+			},
+		];
+		this.setState({
+			'socialLinks': socialLinks
+		});
 		axios.get('/albumReleases/featuredAlbums/list').then((response) => {
 			let featuredAlbums = response.data;
 			this.setState({
@@ -72,8 +101,8 @@ class SideBar extends React.Component {
 				'url': 'https://twitter.com/treemachinerex'
 			},
 			{
-				'name': 'youtube',
-				'url': 'https://www.youtube.com/channel/UCdU2YXyNj77L_e9KVG5xpwA'
+				'name': 'spotify',
+				'url': 'https://open.spotify.com/user/treemachinerecs'
 			},
 		];
 		if (nextProps.featuredImage && nextProps.artistParam) {
@@ -110,7 +139,7 @@ class SideBar extends React.Component {
 				{
 					'name': 'spotify',
 					'url': nextProps.socialLinks.spotifyUrl ? nextProps.socialLinks.spotifyUrl : null
-				},
+				}
 			];
 		}
 		this.setState({
@@ -147,7 +176,7 @@ class SideBar extends React.Component {
 					<div className="row small-up-3 push-top-20px">
 						<Animation transitionName="slide-top" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
 							{
-								this.props.socialLinks &&
+								this.props.socialLinks && this.props.artistName &&
 								<p className="lead" key={'linksDescriptor'}>{`${this.props.artistName}'s Links`}</p>
 							}
 						</Animation>
@@ -234,7 +263,15 @@ SideBar.propTypes = {
 
 SideBar.defaultProps = {
 	'showSpotlight': true,
-	'siteWideFeaturedImage': false
+	'siteWideFeaturedImage': false,
+	'socialLinks': {
+		'facebookUrl': 'https://www.facebook.com/treemachinerecords/',
+		'soundcloudUrl': 'https://soundcloud.com/treemachinerecords',
+		'instagramUrl': 'https://instagram.com/treemachinerecords',
+		'tumblrUrl': 'http://treemachinerecords.tumblr.com/',
+		'twitterUrl': 'https://twitter.com/treemachinerex',
+		'spotifyUrl': 'https://open.spotify.com/user/treemachinerecs'
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

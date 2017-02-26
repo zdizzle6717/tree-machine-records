@@ -59,6 +59,7 @@ class CinematographyListPage extends React.Component {
         return (
 			<div className="content-wrapper">
 				<div className="row">
+					<h1>Cinematography</h1>
 					<div className="photo-select">
 						{
 							this.state.photos.map((photo, i) =>

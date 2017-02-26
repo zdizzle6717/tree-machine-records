@@ -59,6 +59,7 @@ class DownloadListPage extends React.Component {
         return (
 			<div className="content-wrapper">
 				<div className="row">
+					<h1>Digital Downloads</h1>
 					<div className="photo-select">
 						{
 							this.state.photos.map((photo, i) =>

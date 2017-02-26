@@ -10,6 +10,7 @@ import Footer from './pieces/Footer';
 import Header from './pieces/Header';
 import SideNav from './pieces/SideNav';
 import ScrollToTopButton from './pieces/ScrollToTopButton';
+import GooeyMenuButton from './pieces/GooeyMenuButton';
 import OverlayActions from '../actions/OverlayActions';
 import {Alerts} from '../library/alerts'
 import {Loader} from '../library/loader';
@@ -76,7 +77,8 @@ class Layout extends React.Component {
 					{React.cloneElement(this.props.children, { key: path })}
 					</Animation>
 					<Alerts/>
-						<ScrollToTopButton duration={400}/>
+						<ScrollToTopButton/>
+						<GooeyMenuButton duration={400}/>
 						<Loader type="custom">
 							<div className="logo-overlay" key="logoOverlay" onClick={this.toggleOverlay}>
 								<svg viewBox="0 0 800 600">

@@ -8,6 +8,9 @@
 // Variables
 @import 'variables';
 
+// Functions
+@import 'functions/math';
+
 // Helpers
 @import 'helpers';
 
@@ -24,6 +27,7 @@
 @import 'components/discography';
 @import 'components/footer';
 @import 'components/forms';
+@import 'components/gooey-menu';
 @import 'components/header';
 @import 'components/logo-overlay';
 @import 'components/map';
