@@ -10,7 +10,7 @@ footer {
 	z-index: 50;
 
 	.menu {
-		margin-left: 40px;
+		margin-left: 120px;
 
 		@include breakpoint(small only) {
 			margin: 0;
