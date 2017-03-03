@@ -107,7 +107,7 @@ article {
 
 .content-container {
 	min-height: calc(100vh - 116px);
-	margin: 0 1rem;
+	margin: 0 3rem;
 
 	.content-wrapper {
 		padding: 28px 0;
@@ -147,7 +147,13 @@ fieldset {
     justify-content: center;
 }
 
-@media screen and (max-width: 800px) {
+@include breakpoint(medium down) {
+	.content-container {
+		margin: 0 1rem;
+	}
+}
+
+@include breakpoint(small only) {
 	.content-container {
 		margin: 0 .5rem;
 	}
