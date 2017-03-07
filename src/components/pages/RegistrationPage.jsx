@@ -122,6 +122,7 @@ class RegistrationPage extends React.Component {
 								<option value="subscriber">Fan</option>
 								<option value="artist">Artist</option>
 								<option value="recordStore">Record Store</option>
+								<option value="recordLabel">Record Label</option>
 							</Select>
 							<div className="row">
 								<div className="form-group small-12 columns">

@@ -17,13 +17,18 @@ module.exports = [
 		'homeState': '/profile',
 	},
 	{
-		'name': 'siteAdmin',
-		'roleFlags': 3,
+		'name': 'recordStore',
+		'roleFlags': 4,
 		'homeState': '/profile',
 	},
 	{
-		'name': 'recordStore',
-		'roleFlags': 4,
+		'name': 'recordLabel',
+		'roleFlags': 12,
+		'homeState': '/profile',
+	},
+	{
+		'name': 'siteAdmin',
+		'roleFlags': 15,
 		'homeState': '/profile',
 	}
 ];
