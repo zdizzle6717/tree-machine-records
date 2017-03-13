@@ -27,6 +27,15 @@ export default {
 			});
 		}
 	},
+	getById: (id) => {
+		return (dispatch) => {
+			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST, id));
+			return ArtistService.getById(id).then((artist) => {
+				dispatch(_returnResponse(ArtistConstants.GET_ARTIST, artist));
+				return artist;
+			});
+		}
+	},
 	getAll: () => {
 		return (dispatch) => {
 			dispatch(_initiateRequest(ArtistConstants.INITIATE_ARTIST_REQUEST));

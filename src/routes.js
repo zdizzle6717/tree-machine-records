@@ -20,6 +20,10 @@ import PlaylistPage from './components/pages/PlaylistPage';
 import SearchPage from './components/pages/SearchPage';
 import SiteMapPage from './components/pages/SiteMapPage';
 
+// Admin Pages
+import EditAlbumReleasePage from './components/pages/admin/EditAlbumReleasePage';
+import EditMerchPage from './components/pages/admin/EditMerchPage';
+
 // Artist Pages
 import ArtistCinematographyPage from './components/pages/artist/ArtistCinematographyPage';
 import ArtistDigitalDownloadsPage from './components/pages/artist/ArtistDigitalDownloadsPage';
@@ -53,7 +57,13 @@ const routes = (
 		</Route>
 		<Route path="photography" component={PhotographyListPage}/>
 		<Route path="playlist" component={PlaylistPage}/>
-		<Route path="profile" component={ProfilePage}/>
+		<Route path="profile">
+			<IndexRoute component={ProfilePage}/>
+			<Route path="discography/create" component={EditAlbumReleasePage}/>
+			<Route path="discography/edit/:discographyParam" component={EditAlbumReleasePage}/>
+			<Route path="merch/create" component={EditMerchPage}/>
+			<Route path="merch/edit/:merchId" component={EditMerchPage}/>
+		</Route>
 		<Route path="register" component={RegistrationPage}/>
 		<Route path="search" component={SearchPage}/>
 		<Route path="site-map" component={SiteMapPage}/>

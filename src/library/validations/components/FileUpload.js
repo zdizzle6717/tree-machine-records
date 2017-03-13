@@ -10,6 +10,7 @@ import FormActions from '../actions/FormActions';
 import {addErrorMessage, removeErrorMessage, getInput, range} from '../utilities';
 
 // TODO: Drag & Drop functionality
+// TODO: Add optional handleRemoveFile call
 
 const mapStateToProps = (state) => {
 	return {
@@ -299,7 +300,8 @@ class FileUpload extends React.Component {
 			'pristine': this.state.pristine,
 			'focused': this.state.focused,
 			'blurred': this.state.blurred,
-			'dirty': !this.state.pristine
+			'dirty': !this.state.pristine,
+			'disabled': this.props.disabled
 		});
 
 		let errorClasses = classNames({
@@ -323,7 +325,7 @@ class FileUpload extends React.Component {
 					<label htmlFor={this.props.name} onMouseDown={this.handleMouseDown} >Browse Files...</label>
 					<div className="file-count">{ this.state.files.length || 0}{this.props.required ? '/' : ''}
 						{this.props.required ? this.props.required : ''}</div>
-					<input type="file" name={this.props.name} id={this.props.name} onChange={this.validateFiles} onFocus={this.handleFocus} onBlur={this.handleBlur} accept={this.props.accept} multiple={this.props.multiple}/>
+					<input type="file" name={this.props.name} id={this.props.name} onChange={this.validateFiles} onFocus={this.handleFocus} onBlur={this.handleBlur} accept={this.props.accept} multiple={this.props.multiple} disabled={this.props.disabled}/>
 				</div>
 				<div className="file-info">
 					<div className={fileContainerClasses}>
@@ -371,6 +373,7 @@ FileUpload.propTypes = {
 	'name': React.PropTypes.string.isRequired,
 	'fileName': React.PropTypes.string,
 	'handleFileUpload': React.PropTypes.func.isRequired,
+	'handleRemoveFile': React.PropTypes.func,
 	'accept': React.PropTypes.string,
 	'typeOfModel': React.PropTypes.string.isRequired,
 	'multiple': React.PropTypes.bool,

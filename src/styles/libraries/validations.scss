@@ -118,3 +118,17 @@ select.dirty.invalid {
 .error-message {
 	color: $alert-500;
 }
+
+.date-picker {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+
+	// select {
+// 	margin-right: 10px;
+//
+// 	&:nth-child(3) {
+// 		margin-right: 0;
+// 	}
+// }
+}

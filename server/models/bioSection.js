@@ -6,9 +6,9 @@ module.exports = function(sequelize, DataTypes) {
     sourceUrl: DataTypes.STRING,
   }, {
     classMethods: {
-        associate: function(models) {
-            BioSection.belongsTo(models.Artist);
-        }
+      associate: function(models) {
+        BioSection.belongsTo(models.Artist);
+      }
     }
   });
   return BioSection;

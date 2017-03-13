@@ -14,7 +14,7 @@ function buildTemplate(data) {
 			<h4 style="font-size:16px">Enjoy access to free downloads from select artists! We also send out an update each month or so with details about new releases,
 			events, touring schedules, etc. Thanks for supporting the record label. You keep us going.</h4>
 
-			<p style="font-size:14px; line-height: 20px;">Records last a lifetime, and it's their physicallity that helps strengthen memories of good times and moments passed. We're continuing
+			<p style="font-size:14px; line-height: 20px;">Records last a lifetime, and it's their physicality that helps strengthen memories of good times and moments passed. We're continuing
 			to build out the website and helping to bring you closer to the artists that you love. If you have any recommendations or think we could do something better to improve the experience
 			of connecting with the musicians involved, don't hesitate to get in touch through e-mail or social media.</p>
 

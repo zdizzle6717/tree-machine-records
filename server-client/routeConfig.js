@@ -46,7 +46,7 @@ export default [
 		'view': 'playlist'
 	},
 	{
-		'route': '/profile',
+		'route': '/profile*',
 		'view': 'profile'
 	},
 	{

@@ -2,9 +2,14 @@
 
 module.exports = [
 	{
-		'name': 'diitalDownloads',
+		'name': 'digitalDownloads',
 		'path': 'digital-downloads',
 		'accessControl': ['subscriber']
+	},
+	{
+		'name': 'editDiscography',
+		'path': 'edit-discography',
+		'accessControl': ['siteAdmin']
 	},
 	{
 		'name': 'profile',

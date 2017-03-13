@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    recordLabel: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     recordStore: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

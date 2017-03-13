@@ -1,84 +1,82 @@
 'use strict';
 
 const models = require('../../models');
-const Boom = require('boom');
 
-
-// BioSection Route Configs
-let bioSections = {
-    get: (req, res) => {
-        models.BioSection.find({
-                where: {
-                    id: req.params.id
-                }
-            })
-            .then((bioSection) => {
-                if (bioSection) {
-                    res(bioSection).code(200);
-                }
-                else {
-                    res().code(404);
-                }
-            });
-    },
-    getAll: (req, res) => {
-        models.BioSection.findAll(
-			{
-				limit: 50
-			}
-		)
-        .then((bioSections) => {
-	    	res(bioSections).code(200);
-		});
-    },
-    create: (req, res) => {
-		models.BioSection.create({
-				bandEmail: req.payload.bandEmail,
-				bandPhone: req.payload.bandPhone,
-				bandMailingAddress: req.payload.bandMailingAddress,
-				bookingManagerEmail: req.payload.bookingManagerEmail,
-				bookingManagerPhone: req.payload.bookingManagerPhone,
-				generalManagerEmail: req.payload.generalManagerEmail,
-				generalManagerPhone: req.payload.generalManagerPhone
-            })
-            .then((bioSection) => {
-				res(bioSection).code(200);
-			});
-    },
-    update: (req, res) => {
-		models.File.find({
-                where: {
-                    id: req.params.id
-                }
-            }).then((bioSection) => {
-				bioSection.updateAttributes({
-					bandEmail: req.payload.bandEmail,
-					bandPhone: req.payload.bandPhone,
-					bandMailingAddress: req.payload.bandMailingAddress,
-					bookingManagerEmail: req.payload.bookingManagerEmail,
-					bookingManagerPhone: req.payload.bookingManagerPhone,
-					generalManagerEmail: req.payload.generalManagerEmail,
-					generalManagerPhone: req.payload.generalManagerPhone
-				}).then((bioSection) => {
-					res(bioSection).code(200);
-				})
-			})
-	},
-    delete: (req, res) => {
-        models.BioSection.destroy({
-                where: {
-                    id: req.params.id
-                }
-            })
-            .then((bioSection) => {
-                if (bioSection) {
-                    res().code(200);
-                }
-                else {
-                    res().code(404);
-                }
-            });
-    }
+// ContactList Route Configs
+let contactLists = {
+  get: (request, reply) => {
+    models.ContactList.find({
+        'where': {
+          'id': request.params.id
+        }
+      })
+      .then((contactList) => {
+        if (contactList) {
+          reply(contactList).code(200);
+        } else {
+          reply().code(404);
+        }
+      });
+  },
+  getAll: (request, reply) => {
+    models.ContactList.findAll({
+        'limit': 50
+      })
+      .then((contactLists) => {
+        reply(contactLists).code(200);
+      });
+  },
+  create: (request, reply) => {
+    models.ContactList.create({
+        'bandEmail': request.payload.bandEmail,
+        'bandPhone': request.payload.bandPhone,
+        'bandMailingAddress': request.payload.bandMailingAddress,
+        'bookingManagerEmail': request.payload.bookingManagerEmail,
+        'bookingManagerPhone': request.payload.bookingManagerPhone,
+        'generalManagerEmail': request.payload.generalManagerEmail,
+        'generalManagerPhone': request.payload.generalManagerPhone
+      })
+      .then((contactList) => {
+        reply(contactList).code(200);
+      });
+  },
+  update: (request, reply) => {
+    models.File.find({
+      'where': {
+        'id': request.params.id
+      }
+    }).then((contactList) => {
+      contactList.updateAttributes({
+        'bandEmail': request.payload.bandEmail,
+        'bandPhone': request.payload.bandPhone,
+        'bandMailingAddress': request.payload.bandMailingAddress,
+        'bookingManagerEmail': request.payload.bookingManagerEmail,
+        'bookingManagerPhone': request.payload.bookingManagerPhone,
+        'generalManagerEmail': request.payload.generalManagerEmail,
+        'generalManagerPhone': request.payload.generalManagerPhone
+      }).then((contactList) => {
+				if (contactList) {
+					reply(contactList).code(200);
+				} else {
+					reply().code(404);
+				}
+      });
+    });
+  },
+  delete: (request, reply) => {
+    models.ContactList.destroy({
+        'where': {
+          'id': request.params.id
+        }
+      })
+      .then((contactList) => {
+        if (contactList) {
+          reply().code(200);
+        } else {
+          reply().code(404);
+        }
+      });
+  }
 };
 
-module.exports = bioSections;
+module.exports = contactLists;

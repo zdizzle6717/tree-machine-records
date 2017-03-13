@@ -1,80 +1,78 @@
 'use strict';
 
 const models = require('../../models');
-const Boom = require('boom');
-
 
 // MediaMention Route Configs
 let mediaMentions = {
-    get: (req, res) => {
-        models.MediaMention.find({
-                where: {
-                    id: req.params.id
-                }
-            })
-            .then((mediaMention) => {
-                if (mediaMention) {
-                    res(mediaMention).code(200);
-                }
-                else {
-                    res().code(404);
-                }
-            });
-    },
-    getAll: (req, res) => {
-        models.MediaMention.findAll(
-			{
-				limit: 50
-			}
-		)
-        .then((mediaMentions) => {
-	    	res(mediaMentions).code(200);
-		});
-    },
-    create: (req, res) => {
-		models.MediaMention.create({
-				author: req.payload.author,
-				date: req.payload.date,
-				linkUrl: req.payload.linkUrl,
-				title: req.payload.title,
-				text: req.payload.bookingManagerPhone
-            })
-            .then((mediaMention) => {
-				res(mediaMention).code(200);
-			});
-    },
-    update: (req, res) => {
-		models.File.find({
-                where: {
-                    id: req.params.id
-                }
-            }).then((mediaMention) => {
-				mediaMention.updateAttributes({
-					author: req.payload.author,
-					date: req.payload.date,
-					linkUrl: req.payload.linkUrl,
-					title: req.payload.title,
-					text: req.payload.bookingManagerPhone
-				}).then((mediaMention) => {
-					res(mediaMention).code(200);
-				})
-			})
-	},
-    delete: (req, res) => {
-        models.MediaMention.destroy({
-                where: {
-                    id: req.params.id
-                }
-            })
-            .then((mediaMention) => {
-                if (mediaMention) {
-                    res().code(200);
-                }
-                else {
-                    res().code(404);
-                }
-            });
-    }
+  get: (request, reply) => {
+    models.MediaMention.find({
+        'where': {
+          'id': request.params.id
+        }
+      })
+      .then((mediaMention) => {
+        if (mediaMention) {
+          reply(mediaMention).code(200);
+        } else {
+          reply().code(404);
+        }
+      });
+  },
+  getAll: (request, reply) => {
+    models.MediaMention.findAll({
+        'limit': 50
+      })
+      .then((mediaMentions) => {
+        reply(mediaMentions).code(200);
+      });
+  },
+  create: (request, reply) => {
+    models.MediaMention.create({
+        'author': request.payload.author,
+        'date': request.payload.date,
+        'linkUrl': request.payload.linkUrl,
+        'title': request.payload.title,
+        'text': request.payload.bookingManagerPhone
+      })
+      .then((mediaMention) => {
+        reply(mediaMention).code(200);
+      });
+  },
+  update: (request, reply) => {
+    models.File.find({
+      'where': {
+        'id': request.params.id
+      }
+    }).then((mediaMention) => {
+      mediaMention.updateAttributes({
+        'author': request.payload.author,
+        'date': request.payload.date,
+        'linkUrl': request.payload.linkUrl,
+        'title': request.payload.title,
+        'text': request.payload.bookingManagerPhone
+      }).then((mediaMention) => {
+				if (mediaMention) {
+					reply(mediaMention).code(200);
+				} else {
+					reply().code(404);
+				}
+      });
+    });
+  },
+  delete: (request, reply) => {
+    models.MediaMention.destroy({
+        'where': {
+          'id': request.params.id
+        }
+      })
+      .then((mediaMention) => {
+        if (mediaMention) {
+          reply().code(200);
+        } else {
+          reply().code(404);
+        }
+      });
+  }
 };
 
 module.exports = mediaMentions;

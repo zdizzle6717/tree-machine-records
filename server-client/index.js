@@ -130,7 +130,7 @@ app.get('*', (req, res) => {
 
 			const state = JSON.stringify(store.getState());
 
-			return res.render('notFound', {markup, state});
+			return res.render('not-found', {markup, state});
 		}).catch((err) => {
 			console.warn(err);
 			let markup = '';

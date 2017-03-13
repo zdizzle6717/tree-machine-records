@@ -12,6 +12,12 @@ export default {
 				return response.data;
 			});
 	},
+	getById: (id) => {
+		return axios.get('/artists/byId/' + id)
+			.then(function(response) {
+				return response.data;
+			});
+	},
 	getAll: () => {
 		return axios.get('/artists')
 			.then(function(response) {

@@ -8,6 +8,6 @@ import moment from 'moment-timezone';
 const formatDate = (input, timezone = 'Etc/GMT', format = 'D MMM YYYY') => {
 	let output = moment.tz(input, timezone).format(format);
 	return output;
-};
+}
 
 export default formatDate;

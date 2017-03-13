@@ -203,7 +203,6 @@ Input.propTypes = {
 	'autoComplete': React.PropTypes.string,
 	'type': React.PropTypes.string.isRequired,
 	'name': React.PropTypes.string.isRequired,
-	'value': React.PropTypes.string,
 	'placeholder': React.PropTypes.string,
 	'min': React.PropTypes.number,
 	'max': React.PropTypes.number,

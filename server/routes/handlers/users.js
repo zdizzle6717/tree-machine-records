@@ -1,83 +1,138 @@
 'use strict';
 
 const models = require('../../models');
-const fs = require('fs-extra');
 const env = require('../../../envVariables.js');
 const Boom = require('boom');
 const createToken = require('../../utils/createToken');
 const userFunctions = require('../../utils/userFunctions');
 const nodemailer = require('nodemailer');
 const generator = require('xoauth2').createXOAuth2Generator(env.email.XOAuth2);
+const buildAccountActivation = require('../../emailTemplates/pendingAccountActivation');
 const buildRegistrationEmail = require('../../emailTemplates/registrationSuccess');
 
 // listen for token updates
 // you probably want to store these to a db
-generator.on('token', function(token) {});
+generator.on('token', (token) => {
+	console.log(token);
+});
 
 let transporter = nodemailer.createTransport(({
-  service: 'Gmail',
-  auth: {
-    xoauth2: generator
+  'service': 'Gmail',
+  'auth': {
+    'xoauth2': generator
   }
 }));
 
 // App users
 let users = {
-  create: (req, res) => {
-    userFunctions.hashPassword(req.payload.password, (err, hash) => {
+  create: (request, reply) => {
+    userFunctions.hashPassword(request.payload.password, (err, hash) => {
       models.User.create({
-          email: req.payload.email,
-          username: req.payload.username,
-          password: hash,
-          [request.payload.role]: true
+          'email': request.payload.email,
+          'username': request.payload.username,
+          'password': hash,
+					'subscriber': true,
+          [request.payload.role]: request.payload.role === 'artist' || request.payload.role === 'recordLabel' ? false : true
         })
         .then((user) => {
-          let customerMailConfig = {
-            from: env.email.user,
-            to: user.email,
-            subject: `Welcome to Tree Machine Records!`,
-            html: buildRegistrationEmail(user)
-          };
-
-          transporter.sendMail(customerMailConfig, function(error, info) {
-            if (error) {
-              console.log(error);
-              reply('Somthing went wrong');
-            } else {
-              res({
-                id: user.id,
-                email: user.email,
-                username: user.username,
-                roleFlags: userFunctions.getUserRoleFlags(user),
-                id_token: createToken(user)
-              }).code(201);
-            };
-          });
+					let newUserMailConfig;
+					if (request.payload.role === 'artist' || request.payload.role === 'recordLabel') {
+						newUserMailConfig = {
+							'from': env.email.user,
+							'to': user.email,
+							'subject': 'Welcome to Tree Machine Records!',
+							'html': buildAccountActivation(user)
+						};
+						transporter.sendMail({
+							'from': env.email.user,
+							'to': env.email.user,
+							'subject': 'New Artist/Label Account Request',
+							'html': buildAccountActivation(user)
+						}, () => {
+							console.log('Account Application: CCd to admin');
+						});
+					} else {
+						newUserMailConfig = {
+	            'from': env.email.user,
+	            'to': user.email,
+	            'subject': `Welcome to Tree Machine Records!`,
+	            'html': buildRegistrationEmail(user)
+	          };
+					}
+					transporter.sendMail(newUserMailConfig, (error, info) => {
+						if (error) {
+							console.log(error);
+							reply('Something went wrong');
+						} else {
+							console.log(info.messageId + ': New email sent.');
+							reply({
+								'id': user.id,
+								'email': user.email,
+								'username': user.username,
+								'roleFlags': userFunctions.getUserRoleFlags(user),
+								'id_token': createToken(user)
+							}).code(201);
+						}
+					});
         })
         .catch((response) => {
           throw Boom.badRequest(response);
-        })
+        });
     });
   },
-  authenticate: (req, res) => {
-    res({
-      id: req.pre.user.id,
-      email: req.pre.user.email,
-      username: req.pre.user.username,
-      roleFlags: userFunctions.getUserRoleFlags(req.pre.user),
-      id_token: createToken(req.pre.user)
+  authenticate: (request, reply) => {
+    reply({
+      'id': request.pre.user.id,
+      'email': request.pre.user.email,
+      'username': request.pre.user.username,
+      'roleFlags': userFunctions.getUserRoleFlags(request.pre.user),
+      'id_token': createToken(request.pre.user)
     }).code(201);
   },
-  getAll: (req, res) => {
+  getAll: (request, reply) => {
     models.User.findAll({
-        attributes: ['username', 'email', 'createdAt'],
-        limit: 50,
-        order: '"updatedAt" DESC'
+        'attributes': ['username', 'email', 'createdAt'],
+        'limit': 50,
+        'order': '"updatedAt" DESC'
       })
       .then((users) => {
-        res(users).code(200);
+        reply(users).code(200);
+      });
+  },
+	update: (request, reply) => {
+    models.User.find({
+      'where': {
+        'id': request.params.id
+      }
+    }).then((user) => {
+      if (user) {
+        user.updateAttributes({
+          'subscriber': request.payload.subscriber,
+					'artist': request.payload.artist,
+					'recordStore': request.payload.recordStore,
+					'recordLabel': request.payload.recordLabel
+        }).then((user) => {
+          reply(user).code(200);
+        });
+      } else {
+        reply().code(404);
+      }
+    });
+  },
+	delete: (request, reply) => {
+    models.User.destroy({
+        'where': {
+          'id': request.params.id
+        }
+      })
+      .then((user) => {
+        if (user) {
+          reply().code(200);
+        } else {
+          reply().code(404);
+        }
       });
   }
-}
+};
 
 module.exports = users;

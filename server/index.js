@@ -3,13 +3,12 @@
 require('babel-core/register');
 
 const Hapi = require('hapi');
-const Boom = require('boom');
 const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
-const HapiAuthJwt = require('hapi-auth-jwt');
+const HapiAuthJwt = require('hapi-auth-jwt2');
 let models = require('./models');
-let env = require('../envVariables')
+let env = require('../envVariables');
 
 // Create Server
 const server = new Hapi.Server();
@@ -29,6 +28,18 @@ const options = {
     }, {
         'name': 'directors'
     }],
+};
+
+const validateUser = (decodedToken, request, callback) => {
+	// TODO: Investigate ways to improve validation and allow access based on specific request and related user details
+	let error;
+	let credentials = {
+		'id': decodedToken.id,
+		'username': decodedToken.username,
+		'scope': decodedToken.scope
+	};
+
+	return callback(error, true, credentials);
 };
 
 // Register Swagger Plugin ( Use for documentation and testing purpose )
@@ -56,6 +67,7 @@ server.register([
 server.register(HapiAuthJwt, (err) => {
 	server.auth.strategy('jsonWebToken', 'jwt', {
 		key: env.secret,
+		validateFunc: validateUser,
 		verifyOptions: {
 			algorithms: ['HS256']
 		}
