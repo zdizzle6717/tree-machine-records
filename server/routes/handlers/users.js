@@ -31,7 +31,6 @@ let users = {
           'email': request.payload.email,
           'username': request.payload.username,
           'password': hash,
-					'subscriber': true,
           [request.payload.role]: request.payload.role === 'artist' || request.payload.role === 'recordLabel' ? false : true
         })
         .then((user) => {
