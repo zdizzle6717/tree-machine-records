@@ -28,6 +28,7 @@ let contactLists = {
   },
   create: (request, reply) => {
     models.ContactList.create({
+        'ArtistId': request.payload.ArtistId,
         'bandEmail': request.payload.bandEmail,
         'bandPhone': request.payload.bandPhone,
         'bandMailingAddress': request.payload.bandMailingAddress,

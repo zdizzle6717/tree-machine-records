@@ -104,11 +104,17 @@ class ProfilePage extends React.Component {
                     <div className="small-12 medium-3 columns">
 						<h3>Actions</h3>
 						<AccessControl access={['siteAdmin']}>
-							<Link key="create-discography" to="profile/discography/create">
+							<Link key="create-discography" to="admin/discography/create">
 								<h5>Create Album Release</h5>
 							</Link>
-							<Link key="create-merch" to="profile/merch/create">
+							<Link key="create-merch" to="admin/merch/create">
 								<h5>Create Merch</h5>
+							</Link>
+							<Link key="create-bio-section" to="admin/bio-section/create">
+								<h5>Create Bio Section</h5>
+							</Link>
+							<Link key="create-contact-list" to="admin/contact-list/create">
+								<h5>Create Contact List</h5>
 							</Link>
 							<hr/>
 						</AccessControl>

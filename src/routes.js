@@ -23,6 +23,8 @@ import SiteMapPage from './components/pages/SiteMapPage';
 // Admin Pages
 import EditAlbumReleasePage from './components/pages/admin/EditAlbumReleasePage';
 import EditMerchPage from './components/pages/admin/EditMerchPage';
+import EditBioSectionPage from './components/pages/admin/EditBioSectionPage';
+import EditContactListPage from './components/pages/admin/EditContactListPage';
 
 // Artist Pages
 import ArtistCinematographyPage from './components/pages/artist/ArtistCinematographyPage';
@@ -38,6 +40,17 @@ const routes = (
 	<Route path="/" component={Layout}>
 		<IndexRoute component={IndexPage}/>
 		<Route path="about" component={AboutPage}/>
+		<Route path="admin">
+			<IndexRoute component={ProfilePage}/>
+			<Route path="discography/create" component={EditAlbumReleasePage}/>
+			<Route path="discography/edit/:discographyParam" component={EditAlbumReleasePage}/>
+			<Route path="merch/create" component={EditMerchPage}/>
+			<Route path="merch/edit/:merchId" component={EditMerchPage}/>
+			<Route path="bio-section/create" component={EditBioSectionPage}/>
+			<Route path="bio-section/edit/:bioSectionId" component={EditBioSectionPage}/>
+			<Route path="contact-list/create" component={EditContactListPage}/>
+			<Route path="contact-list/edit/:contactListId" component={EditContactListPage}/>
+		</Route>
 		<Route path="archive" component={ArchivePage}/>
 		<Route path="artists">
 			<IndexRoute component={ArtistListPage}/>
@@ -59,10 +72,6 @@ const routes = (
 		<Route path="playlist" component={PlaylistPage}/>
 		<Route path="profile">
 			<IndexRoute component={ProfilePage}/>
-			<Route path="discography/create" component={EditAlbumReleasePage}/>
-			<Route path="discography/edit/:discographyParam" component={EditAlbumReleasePage}/>
-			<Route path="merch/create" component={EditMerchPage}/>
-			<Route path="merch/edit/:merchId" component={EditMerchPage}/>
 		</Route>
 		<Route path="register" component={RegistrationPage}/>
 		<Route path="search" component={SearchPage}/>

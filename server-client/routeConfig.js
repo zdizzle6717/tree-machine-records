@@ -10,6 +10,10 @@ export default [
 		'view': 'about'
 	},
 	{
+		'route': '/admin*',
+		'view': 'admin'
+	},
+	{
 		'route': '/archive',
 		'view': 'archive'
 	},

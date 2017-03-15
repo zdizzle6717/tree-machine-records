@@ -47,6 +47,7 @@ module.exports = [
       'notes': 'Create a new contactList',
       'validate': {
         'payload': {
+          'ArtistId': Joi.number(),
           'bandEmail': Joi.string(),
           'bandPhone': Joi.string(),
           'bandMailingAddress': Joi.string(),

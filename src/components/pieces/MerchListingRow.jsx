@@ -30,7 +30,7 @@ export default class MerchListingRow extends React.Component {
 				<td className="text-center">
 					<div className="action-buttons">
 						<AccessControl access={['siteAdmin']}>
-							<Link key="merchEdit" to={`/profile/merch/edit/${this.props.id}`} className="action"><i className="fa fa-pencil-square-o"></i></Link>
+							<Link key="merchEdit" to={`/admin/merch/edit/${this.props.id}`} className="action"><i className="fa fa-pencil-square-o"></i></Link>
 						</AccessControl>
 					</div>
 				</td>
