@@ -11,9 +11,11 @@ function buildTemplate(data) {
 
 			<p style="font-size:14px; line-height: 20px;">Thank you for collaborating with Tree Machine Records,</p>
 
-			<h4 style="font-size:16px">As an artist, you will have access to update information and media associate with your artist page including photos and digital audio downloads.</h4>
+			<h4 style="font-size:17px">Artist Account</h4>
+			<h4 style="font-size:15px">As an artist, you will have access to update information and media associated with your artist page including photos and digital audio downloads.</h4>
 
-			<h4>As a record label, you can login to update your profile and add merch to our distribution center.  A label associate will contact you in the next few days to discuss a basic agreement for listing your vinyl, cassettes, CD's, etc. in the distribution center.  We make it easier for record stores (across the U.S.) to find new releases and purchase records for retail.</h4>
+			<h4 style="font-size:17px">Record Label Account</h4>
+			<h4 style="font-size:15px">As a record label, you can login to update your profile and add merch to our distribution center.  A label associate will contact you in the next few days to discuss a basic agreement for listing your vinyl, cassettes, CD's, etc. in the distribution center.  We make it easier for record stores (across the U.S.) to find new releases and purchase records for retail.</h4>
 
 			<p style="font-size:14px; line-height: 20px;">Records last a lifetime, and it's their physicality that helps strengthen memories of good times and moments passed. We're continuing
 			to build out the website and helping to bring you closer to the artists that you love. If you have any recommendations or think we could do something better to improve the experience, don't hesitate to get in touch through e-mail or social media.</p>
