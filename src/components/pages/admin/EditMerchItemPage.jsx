@@ -11,6 +11,7 @@ import {AlertActions} from '../../../library/alerts';
 import AlbumReleaseActions from '../../../actions/AlbumReleaseActions';
 import ArtistActions from '../../../actions/ArtistActions';
 import MerchItemActions from '../../../actions/MerchItemActions';
+import MerchItemService from '../../../services/MerchItemService';
 import FileService from '../../../services/FileService';
 
 // TODO: Add additional file upload specifically for digital downloads (auto set file/folder permisions, etc.)
@@ -27,11 +28,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		'addAlert': AlertActions.addAlert,
-		'getArtist': ArtistActions.get,
+		'getAlbumRelease': AlbumReleaseActions.get,
+		'getArtist': ArtistActions.getById,
 		'getArtists': ArtistActions.getAll,
-		'getMerch': MerchItemActions.get,
-		'createMerch': MerchItemActions.create,
-		'updateMerch': MerchItemActions.update
+		'getMerch': MerchItemActions.get
 	}, dispatch);
 }
 
@@ -42,7 +42,8 @@ class EditMerchItemPage extends React.Component {
         this.state = {
 			'merchItem': {
 				'isDisplayed': false,
-				'isFeatured': false
+				'isFeatured': false,
+				'Files': []
 			},
 			'newMerchItem': false,
 			'selectedArtist': undefined,
@@ -65,9 +66,19 @@ class EditMerchItemPage extends React.Component {
 		this.props.getArtists();
 		if (this.props.params.merchId) {
 			this.props.getMerch(this.props.params.merchId).then((merchItem) => {
-				this.setState({
-					'merchItem': merchItem
-				});
+				if (merchItem.ArtistId) {
+					this.props.getArtist(merchItem.ArtistId).then((artist) => {
+						this.setState({
+							'selectedArtist': artist.param,
+							'albumReleases': artist.AlbumReleases,
+							'merchItem': merchItem
+						});
+					});
+				} else {
+					this.setState({
+						'merchItem': merchItem
+					});
+				}
 			}).catch(() => {
 				this.showAlert('merchItemNotFound');
 				browserHistory.push('/profile');
@@ -81,9 +92,12 @@ class EditMerchItemPage extends React.Component {
 
 	handleArtistChange(e) {
 		let artistParam = e.target.value;
+		let merchItem = this.state.merchItem;
 		this.props.getArtist(artistParam).then((artist) => {
+			merchItem.ArtistId = artist.id;
 			this.setState({
 				'albumReleases': artist.AlbumReleases,
+				'merchItem': merchItem,
 				'selectedArtist': artistParam
 			});
 		});
@@ -134,7 +148,7 @@ class EditMerchItemPage extends React.Component {
 	handleSubmit(e) {
 		let merchItem = this.state.merchItem;
 		if (this.state.newMerchItem) {
-			this.props.createMerch(merchItem).then((response) => {
+			MerchItemService.create(merchItem).then((response) => {
 				let promises = [];
 				this.state.merchItem.Files.forEach((file, i) => {
 					promises.push(FileService.create({
@@ -152,7 +166,7 @@ class EditMerchItemPage extends React.Component {
 				});
 			});
 		} else {
-			this.props.updateMerch(merchItem.id, merchItem).then((response) => {
+			MerchItemService.update(merchItem.id, merchItem).then((response) => {
 				let promises = [];
 				let newFiles = this.state.newFiles;
 				if (newFiles.length > 0) {

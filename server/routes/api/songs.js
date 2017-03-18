@@ -78,15 +78,11 @@ module.exports = [
       'notes': 'Create a new song',
       'validate': {
         'payload': {
-          'AlbumReleaseId': Joi.number().required(),
+					'AlbumReleaseId': Joi.number().required(),
+          'ArtistId': Joi.number().required(),
           'title': Joi.string().required(),
           'fileName': Joi.string().required(),
-          'File': Joi.object().keys({
-            'identifier': Joi.string().valid('song').required(),
-            'name': Joi.string().required(),
-            'size': Joi.number().required(),
-            'type': Joi.optional()
-          })
+          'File': Joi.optional()
         }
       },
       'cors': {
@@ -107,8 +103,14 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'id': Joi.optional(),
+					'createdAt': Joi.optional(),
+					'updatedAt': Joi.optional(),
+					'AlbumReleaseId': Joi.optional(),
+					'ArtistId': Joi.optional(),
           'title': Joi.string().required(),
-          'fileName': Joi.string().required()
+          'fileName': Joi.string().required(),
+					'File': Joi.optional()
         }
       },
       'cors': {

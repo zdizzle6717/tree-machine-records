@@ -67,6 +67,7 @@ module.exports = [
       'validate': {
         'payload': {
 					'AlbumReleaseId': Joi.optional(),
+					'ArtistId': Joi.optional(),
           'title': Joi.string().required(),
           'price': Joi.string().required(),
           'shortDescription': Joi.string().required(),
@@ -104,6 +105,7 @@ module.exports = [
           'price': Joi.string().required(),
           'shortDescription': Joi.string().required(),
           'description': Joi.string().required(),
+					'Files': Joi.optional(),
           'sku': Joi.string().required(),
           'qty': Joi.number().required(),
           'format': Joi.string().valid('vinyl', 'cds', 'cassettes', 'apparel', 'posters', 'stickers', 'lighters', 'other').required(),

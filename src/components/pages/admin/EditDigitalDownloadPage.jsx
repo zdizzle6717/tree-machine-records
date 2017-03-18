@@ -22,7 +22,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		'addAlert': AlertActions.addAlert,
-		'getArtist': ArtistActions.get,
+		'getAlbumRelease': AlbumReleaseActions.get,
+		'getArtist': ArtistActions.getById,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
 }
@@ -34,10 +35,11 @@ class EditDigitalDownloadPage extends React.Component {
         this.state = {
 			'digitalDownload': {},
 			'newDigitalDownload': false,
-			'selectedArtist': undefined,
 			'albumReleases': [],
 			'pastedCodes': '',
-			'newFilesUploaded': false
+			'newFilesUploaded': false,
+			'selectedArtist': '',
+			'fileUploaded': false
         }
 
 		this.handleArtistChange = this.handleArtistChange.bind(this);
@@ -54,8 +56,13 @@ class EditDigitalDownloadPage extends React.Component {
         document.title = 'Tree Machine Records | Edit Digital Download';
 		if (this.props.params.digitalDownloadId) {
 			DigitalDownloadService.get(this.props.params.digitalDownloadId).then((digitalDownload) => {
-				this.setState({
-					'digitalDownload': digitalDownload
+				this.props.getArtist(song.ArtistId).then((artist) => {
+					this.setState({
+						'albumReleases': artist.AlbumReleases,
+						'selectedArtist': artist.param,
+						'digitalDownload': digitalDownload,
+						'fileUploaded': true
+					});
 				});
 			}).catch(() => {
 				this.showAlert('digitalDownloadNotFound');
@@ -69,11 +76,13 @@ class EditDigitalDownloadPage extends React.Component {
     }
 
 	handleArtistChange(e) {
-		let artistParam = e.target.value;
-		this.props.getArtist(artistParam).then((artist) => {
+		let digitalDownload = this.state.digitalDownload;
+		digitalDownload.ArtistId = e.target.value;
+		this.props.getArtist(e.target.value).then((artist) => {
 			this.setState({
 				'albumReleases': artist.AlbumReleases,
-				'selectedArtist': artistParam
+				'digitalDownload': digitalDownload,
+				'selectedArtist': artist.param
 			});
 		});
 	}
@@ -105,7 +114,8 @@ class EditDigitalDownloadPage extends React.Component {
 			this.setState({
 				'digitalDownload': digitalDownload,
 				'newFilesUploaded': true,
-				'skuIsDisabled': true
+				'skuIsDisabled': true,
+				'fileUploaded': true
 			});
 		});
 	}
@@ -211,18 +221,18 @@ class EditDigitalDownloadPage extends React.Component {
 							</div>
 							<div className="form-group small-12 medium-4 columns">
 								<label className="required">Artist</label>
-								<Select name="selectedArtist" value={this.state.selectedArtist} handleInputChange={this.handleArtistChange} required={true}>
+								<Select name="ArtistId" value={this.state.digitalDownload.ArtistId} handleInputChange={this.handleArtistChange} required={true} disabled={this.state.fileUploaded}>
 									<option value="">--Select--</option>
 									{
 										this.props.artists.map((artist, i) =>
-											<option key={i} value={artist.param}>{artist.name}</option>
+											<option key={i} value={artist.id}>{artist.name}</option>
 										)
 									}
 								</Select>
 							</div>
 							<div className="form-group small-12 medium-4 columns">
 								<label className="required">Release Title</label>
-								<Select name="AlbumReleaseId" value={this.state.digitalDownload.AlbumReleaseId} handleInputChange={this.handleInputChange} required={true}>
+								<Select name="AlbumReleaseId" value={this.state.digitalDownload.AlbumReleaseId} handleInputChange={this.handleInputChange} required={true} disabled={this.state.fileUploaded}>
 									<option value="">--Select--</option>
 									{
 										this.state.albumReleases.map((albumRelease, i) =>
@@ -235,7 +245,7 @@ class EditDigitalDownloadPage extends React.Component {
 						<div className="row">
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Digital Download File</label>
-								<FileUpload name="digitalDownloadFile" value={this.state.digitalDownload.File} handleFileUpload={this.handleFileUpload} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
+								<FileUpload name="digitalDownloadFile" value={this.state.digitalDownload.File} handleFileUpload={this.handleFileUpload} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist || !this.state.digitalDownload.AlbumReleaseId}/>
 							</div>
 							<div className="form-group small-12 medium-6 columns">
 								<label>Download Codes (example: 'CODE123, CODE243, CODE543, etc.')</label>

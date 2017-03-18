@@ -66,7 +66,11 @@ let artists = {
     models.Artist.find({
         'where': {
           'id': request.params.id
-        }
+        },
+				'include': [{
+            'model': models.AlbumRelease
+          }
+				]
       })
       .then((artist) => {
         if (artist) {

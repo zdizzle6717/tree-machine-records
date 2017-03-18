@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../../models');
+import Boom from 'boom';
 
 // BioSection Route Configs
 let bioSections = {
@@ -27,18 +28,26 @@ let bioSections = {
       });
   },
   create: (request, reply) => {
-    models.BioSection.create({
-        'ArtistId': request.payload.ArtistId,
-        'content': request.payload.content,
-        'sourceName': request.payload.sourceName,
-        'sourceUrl': request.payload.sourceUrl
-      })
-      .then((bioSection) => {
-        reply(bioSection).code(200);
-      });
+    models.BioSection.findOrCreate({
+			'where': {
+				'ArtistId': request.payload.ArtistId
+			},
+			'defaults': {
+	        'ArtistId': request.payload.ArtistId,
+	        'content': request.payload.content,
+	        'sourceName': request.payload.sourceName,
+	        'sourceUrl': request.payload.sourceUrl
+	      }
+		}).spread((bioSection, created) => {
+				if (!created) {
+					reply(Boom.badRequest('Artist already has a bio section.'));
+				} else {
+					reply(bioSection).code(200);
+				}
+    });
   },
   update: (request, reply) => {
-    models.File.find({
+    models.BioSection.find({
       'where': {
         'id': request.params.id
       }
@@ -48,11 +57,11 @@ let bioSections = {
         'sourceName': request.payload.sourceName,
         'sourceUrl': request.payload.sourceUrl
       }).then((bioSection) => {
-				if (bioSection) {
-					reply(bioSection).code(200);
-				} else {
-					reply(bioSection).code(404);
-				}
+        if (bioSection) {
+          reply(bioSection).code(200);
+        } else {
+          reply(bioSection).code(404);
+        }
       });
     });
   },

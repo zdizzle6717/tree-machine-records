@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../../models');
+import Boom from 'boom';
 
 // AlbumRelease Route Configs
 let albumReleases = {
@@ -156,19 +157,30 @@ let albumReleases = {
       });
   },
   create: (request, reply) => {
-    models.AlbumRelease.create({
-        'ArtistId': request.payload.ArtistId,
-        'caption': request.payload.caption,
-        'catalogueNumber': request.payload.catalogueNumber,
-        'iTunesUrl': request.payload.iTunesUrl,
-        'param': request.payload.param,
-        'releaseDate': request.payload.releaseDate,
-        'spotifyUrl': request.payload.spotifyUrl,
-        'summary': request.payload.summary,
-        'title': request.payload.title
-      })
-      .then((albumRelease) => {
-        reply(albumRelease).code(201);
+		models.AlbumRelease.findOrCreate({
+			'where': {
+				'$or': [
+					{ 'catalogueNumber': request.payload.catalogueNumber },
+					{ 'param': request.payload.param },
+				]
+			},
+			'defaults': {
+	        'ArtistId': request.payload.ArtistId,
+	        'caption': request.payload.caption,
+	        'catalogueNumber': request.payload.catalogueNumber,
+	        'iTunesUrl': request.payload.iTunesUrl,
+	        'param': request.payload.param,
+	        'releaseDate': request.payload.releaseDate,
+	        'spotifyUrl': request.payload.spotifyUrl,
+	        'summary': request.payload.summary,
+	        'title': request.payload.title
+	      }
+		}).spread((albumRelease, created) => {
+				if (!created) {
+					reply(Boom.badRequest('Make sure catalogueNumber and param do not already exist'));
+				} else {
+					reply(albumRelease).code(201);
+				}
       });
   },
   update: (request, reply) => {

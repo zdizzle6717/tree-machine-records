@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		'addAlert': AlertActions.addAlert,
-		'getArtist': ArtistActions.get,
+		'getArtist': ArtistActions.getById,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
 }
@@ -53,8 +53,12 @@ class EditSongPage extends React.Component {
         document.title = 'Tree Machine Records | Edit Song';
 		if (this.props.params.songId) {
 			SongService.get(this.props.params.songId).then((song) => {
-				this.setState({
-					'song': song
+				this.props.getArtist(song.ArtistId).then((artist) => {
+					this.setState({
+						'albumReleases': artist.AlbumReleases,
+						'selectedArtist': artist.param,
+						'song': song
+					});
 				});
 			}).catch(() => {
 				this.showAlert('songNotFound');
@@ -69,10 +73,13 @@ class EditSongPage extends React.Component {
 
 	handleArtistChange(e) {
 		let artistParam = e.target.value;
+		let song = this.state.song;
 		this.props.getArtist(artistParam).then((artist) => {
+			song.ArtistId = artist.id;
 			this.setState({
 				'albumReleases': artist.AlbumReleases,
-				'selectedArtist': artistParam
+				'selectedArtist': artistParam,
+				'song': song
 			});
 		});
 	}
@@ -116,7 +123,7 @@ class EditSongPage extends React.Component {
 		if (this.state.newSong) {
 			SongService.create(song).then((response) => {
 				FileService.create({
-					'AlbumReleaseId': response.id,
+					'SongId': response.id,
 					'identifier': 'download',
 					'locationUrl': `artists/${this.state.selectedArtist}/song/${this.state.song.File.name}`,
 					'name': this.state.song.File.name,
@@ -131,7 +138,7 @@ class EditSongPage extends React.Component {
 			SongService.update(song.id, song).then((response) => {
 				if (this.state.newFilesUploaded) {
 					FileService.create({
-						'AlbumReleaseId': response.id,
+						'SongId': response.id,
 						'identifier': 'download',
 						'locationUrl': `artists/${this.state.selectedArtist}/song/${this.state.song.File.name}`,
 						'name': this.state.song.File.name,
@@ -222,7 +229,7 @@ class EditSongPage extends React.Component {
 						<div className="row">
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Song File</label>
-								<FileUpload name="songFile" value={this.state.song.File} handleFileUpload={this.handleFileUpload} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
+								<FileUpload name="songFile" value={this.state.song.File} handleFileUpload={this.handleFileUpload} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
 							</div>
 						</div>
 					</Form>

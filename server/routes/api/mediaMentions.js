@@ -49,11 +49,11 @@ module.exports = [
         'payload': {
           'ArtistId': Joi.number(),
           'AlbumReleaseId': Joi.optional(),
-          'author': Joi.string(),
-          'date': Joi.date(),
-          'linkUrl': Joi.string(),
+          'author': Joi.string().required(),
+          'date': Joi.date().required(),
+          'linkUrl': Joi.string().required(),
           'title': Joi.string(),
-          'text': Joi.string()
+          'text': Joi.string().required()
         }
       },
       'cors': {
@@ -74,7 +74,10 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'id': Joi.optional(),
 					'ArtistId': Joi.optional(),
+					'updatedAt': Joi.optional(),
+					'createdAt': Joi.optional(),
           'AlbumReleaseId': Joi.optional(),
           'author': Joi.string(),
           'date': Joi.date(),

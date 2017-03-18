@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
 		'getArtist': ArtistActions.getById,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
@@ -44,8 +45,11 @@ class EditMediaMentionPage extends React.Component {
         document.title = 'Tree Machine Records | Edit Media Mention';
 		if (this.props.params.mediaMentionId) {
 			MediaMentionService.get(this.props.params.mediaMentionId).then((mediaMention) => {
-				this.setState({
-					'mediaMention': mediaMention
+				this.props.getArtist(mediaMention.ArtistId).then((artist) => {
+					this.setState({
+						'albumReleases': artist.AlbumReleases,
+						'mediaMention': mediaMention
+					});
 				});
 			}).catch(() => {
 				this.showAlert('mediaMentionNotFound');
@@ -66,7 +70,7 @@ class EditMediaMentionPage extends React.Component {
 				'albumReleases': artist.AlbumReleases,
 				'mediaMention': mediaMention
 			});
-		})
+		});
 	}
 
 	handleInputChange(e) {
@@ -132,11 +136,11 @@ class EditMediaMentionPage extends React.Component {
 					}
 					<hr />
 					<Form name="mediaMentionForm" submitText={this.state.newMediaMention ? 'Create Media Mention' : 'Update Media Mention'} handleSubmit={this.handleSubmit}>
-						<div className="form-group small-12 medium-4 columns">
-							<label className="required">Title</label>
-							<Input type="text" name="title" value={this.state.mediaMention.title} handleInputChange={this.handleInputChange} required={true}/>
-						</div>
 						<div className="row">
+							<div className="form-group small-12 medium-4 columns">
+								<label className="required">Title</label>
+								<Input type="text" name="title" value={this.state.mediaMention.title} handleInputChange={this.handleInputChange} required={true}/>
+							</div>
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Artist</label>
 								<Select name="ArtistId" value={this.state.mediaMention.ArtistId} handleInputChange={this.handleArtistChange} required={true}>

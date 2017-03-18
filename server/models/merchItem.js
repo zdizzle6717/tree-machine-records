@@ -6,7 +6,10 @@ module.exports = function(sequelize, DataTypes) {
     price: DataTypes.STRING,
     shortDescription: DataTypes.STRING,
     description: DataTypes.STRING,
-    sku: DataTypes.STRING,
+    sku: {
+			type: DataTypes.STRING,
+			unique: true
+		},
     qty: DataTypes.INTEGER,
     format: DataTypes.STRING,
     isDisplayed: DataTypes.BOOLEAN,
@@ -15,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
         associate: function(models) {
             MerchItem.hasMany(models.File);
+            MerchItem.belongsTo(models.Artist);
             MerchItem.belongsTo(models.AlbumRelease);
         }
     }

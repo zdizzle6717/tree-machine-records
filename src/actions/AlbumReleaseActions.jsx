@@ -49,6 +49,7 @@ export default {
 			dispatch(_initiateRequest(AlbumReleaseConstants.INITIATE_ALBUM_RELEASE_REQUEST));
 			return AlbumReleaseService.create(data).then((albumRelease) => {
 				dispatch(_returnResponse(AlbumReleaseConstants.CREATE_ALBUM_RELEASE, albumRelease));
+				return albumRelease;
 			});
 		};
 	},

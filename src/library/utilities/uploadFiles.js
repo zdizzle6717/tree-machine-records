@@ -10,7 +10,6 @@ export default function(files, apiRoute = '/files/add', path = '', moreInfo = fa
 			'onUploadProgress': function(progressEvent) {
 				let percentCompleted = progressEvent.loaded / progressEvent.total;
 				let interval = setInterval(() => {
-					console.log(percentCompleted);
 					if (percentCompleted >= 1) {
 						clearInterval(interval);
 					}

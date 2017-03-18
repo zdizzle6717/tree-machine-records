@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
 }
@@ -136,7 +137,11 @@ class EditEmbeddableMediaPage extends React.Component {
 							</div>
 							<div className="form-group small-12 medium-4 columns">
 								<label className="required">Type</label>
-								<Input type="text" name="type" value={this.state.embeddableMedia.type} handleInputChange={this.handleInputChange} required={true}/>
+								<Select name="type" value={this.state.embeddableMedia.type} handleInputChange={this.handleInputChange} required={true}>
+									<option value="">--Select--</option>
+									<option value="featuredTrack">Featured Track</option>
+									<option value="video">Video</option>
+								</Select>
 							</div>
 						</div>
 						<div className="row">

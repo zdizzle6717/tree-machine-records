@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
 }
@@ -63,7 +64,6 @@ class EditBioSectionPage extends React.Component {
 		e.preventDefault();
 		let bioSection = this.state.bioSection;
 		bioSection.content.push('');
-		console.log(bioSection.content);
 		this.setState({
 			'bioSection': bioSection
 		});

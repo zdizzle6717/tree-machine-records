@@ -3,7 +3,10 @@
 module.exports = function(sequelize, DataTypes) {
   let AlbumRelease = sequelize.define("AlbumRelease", {
     caption: DataTypes.STRING,
-    catalogueNumber: DataTypes.STRING,
+    catalogueNumber: {
+			type: DataTypes.STRING,
+			unique: true
+		},
     iTunesUrl: DataTypes.STRING,
     param: {
       type: DataTypes.STRING,

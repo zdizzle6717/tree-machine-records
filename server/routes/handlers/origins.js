@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../../models');
+import Boom from 'boom';
 
 // Origin Route Configs
 let origins = {
@@ -27,20 +28,28 @@ let origins = {
       });
   },
   create: (request, reply) => {
-    models.Origin.create({
+    models.Origin.findOrCreate({
+      'where': {
+        'ArtistId': request.payload.ArtistId
+      },
+      'defaults': {
         'ArtistId': request.payload.ArtistId,
         'city': request.payload.city,
         'stateProvince': request.payload.stateProvince,
-        'stateProviceCode': request.payload.stateProviceCode,
+        'stateProvinceCode': request.payload.stateProvinceCode,
         'country': request.payload.country,
         'countryCode': request.payload.countryCode
-      })
-      .then((origin) => {
-        reply(origin).code(200);
-      });
+      }
+    }).spread((origin, created) => {
+			if (!created) {
+				reply(Boom.badRequest('Origin already exists for this artist'));
+			} else {
+				reply(origin).code(200);
+			}
+    });
   },
   update: (request, reply) => {
-    models.File.find({
+    models.Origin.find({
       'where': {
         'id': request.params.id
       }
@@ -48,15 +57,15 @@ let origins = {
       origin.updateAttributes({
         'city': request.payload.city,
         'stateProvince': request.payload.stateProvince,
-        'stateProviceCode': request.payload.stateProviceCode,
+        'stateProvinceCode': request.payload.stateProvinceCode,
         'country': request.payload.country,
         'countryCode': request.payload.countryCode
       }).then((origin) => {
-				if (origin) {
-					reply(origin).code(200);
-				} else {
-					reply().code(404);
-				}
+        if (origin) {
+          reply(origin).code(200);
+        } else {
+          reply().code(404);
+        }
       });
     });
   },

@@ -11,6 +11,7 @@ import {addErrorMessage, removeErrorMessage, getInput, range} from '../utilities
 
 // TODO: Drag & Drop functionality
 // TODO: Add optional handleRemoveFile call
+// TODO: Allow for single file as object, NOT array
 
 const mapStateToProps = (state) => {
 	return {

@@ -47,13 +47,13 @@ module.exports = [
       'validate': {
         'payload': {
           'ArtistId': Joi.number(),
-          'bandEmail': Joi.string(),
-          'bandPhone': Joi.string(),
-          'bandMailingAddress': Joi.string(),
-          'bookingManagerEmail': Joi.string(),
-          'bookingManagerPhone': Joi.string(),
+          'bandEmail': Joi.optional(),
+          'bandPhone': Joi.optional(),
+          'bandMailingAddress': Joi.optional(),
+          'bookingManagerEmail': Joi.optional(),
+          'bookingManagerPhone': Joi.optional(),
           'generalManagerEmail': Joi.string().required(),
-          'generalManagerPhone': Joi.string()
+          'generalManagerPhone': Joi.optional()
         }
       },
       'cors': {
@@ -74,13 +74,17 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
-          'bandEmail': Joi.string(),
-          'bandPhone': Joi.string(),
-          'bandMailingAddress': Joi.string(),
-          'bookingManagerEmail': Joi.string(),
-          'bookingManagerPhone': Joi.string(),
+					'id': Joi.optional(),
+					'ArtistId': Joi.optional(),
+					'createdAt': Joi.optional(),
+					'updatedAt': Joi.optional(),
+					'bandEmail': Joi.optional(),
+          'bandPhone': Joi.optional(),
+          'bandMailingAddress': Joi.optional(),
+          'bookingManagerEmail': Joi.optional(),
+          'bookingManagerPhone': Joi.optional(),
           'generalManagerEmail': Joi.string().required(),
-          'generalManagerPhone': Joi.string()
+          'generalManagerPhone': Joi.optional()
         }
       },
       'cors': {

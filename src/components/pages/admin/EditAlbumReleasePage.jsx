@@ -24,8 +24,8 @@ const mapDispatchToProps = (dispatch) => {
 		'getAlbumRelease': AlbumReleaseActions.get,
 		'getArtist': ArtistActions.getById,
 		'getArtists': ArtistActions.getAll,
-		'createAlbumRelease': ArtistActions.create,
-		'updateAlbumRelease': ArtistActions.update
+		'createAlbumRelease': AlbumReleaseActions.create,
+		'updateAlbumRelease': AlbumReleaseActions.update
 	}, dispatch);
 }
 
@@ -68,8 +68,11 @@ class EditAlbumReleasePage extends React.Component {
     }
 
 	handleArtistChange(e) {
+		let albumRelease = this.state.albumRelease;
+		albumRelease.ArtistId = e.target.value;
 		this.props.getArtist(e.target.value).then((artist) => {
 			this.setState({
+				'albumRelease': albumRelease,
 				'selectedArtist': artist.param
 			});
 		})

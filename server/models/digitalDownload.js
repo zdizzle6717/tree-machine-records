@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         DigitalDownload.hasOne(models.File);
         DigitalDownload.belongsTo(models.AlbumRelease);
+        DigitalDownload.belongsTo(models.Artist);
       }
     }
   });

@@ -78,6 +78,10 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'id': Joi.optional(),
+					'ArtistId': Joi.optional(),
+					'createdAt': Joi.optional(),
+					'updatedAt': Joi.optional(),
           'facebookUrl': Joi.optional(),
           'twitterUrl': Joi.optional(),
           'instagramUrl': Joi.optional(),

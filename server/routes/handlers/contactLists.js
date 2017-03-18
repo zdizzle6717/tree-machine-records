@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../../models');
+import Boom from 'boom';
 
 // ContactList Route Configs
 let contactLists = {
@@ -27,7 +28,11 @@ let contactLists = {
       });
   },
   create: (request, reply) => {
-    models.ContactList.create({
+    models.ContactList.findOrCreate({
+			'where': {
+				'ArtistId': request.payload.ArtistId
+			},
+			'defaults': {
         'ArtistId': request.payload.ArtistId,
         'bandEmail': request.payload.bandEmail,
         'bandPhone': request.payload.bandPhone,
@@ -36,13 +41,17 @@ let contactLists = {
         'bookingManagerPhone': request.payload.bookingManagerPhone,
         'generalManagerEmail': request.payload.generalManagerEmail,
         'generalManagerPhone': request.payload.generalManagerPhone
-      })
-      .then((contactList) => {
-        reply(contactList).code(200);
-      });
+      }
+		}).spread((contactList, created) => {
+			if (!created) {
+				reply(Boom.badRequest('Contact List already exists for this artist.'))
+			} else {
+				reply(contactList).code(200);
+			}
+    });
   },
   update: (request, reply) => {
-    models.File.find({
+    models.ContactList.find({
       'where': {
         'id': request.params.id
       }

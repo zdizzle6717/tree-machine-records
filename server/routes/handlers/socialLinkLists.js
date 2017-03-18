@@ -1,8 +1,7 @@
 'use strict';
 
 const models = require('../../models');
-const Boom = require('boom');
-
+import Boom from 'boom';
 
 // SocialLinkList Route Configs
 let socialLinkLists = {
@@ -29,21 +28,29 @@ let socialLinkLists = {
       });
   },
   create: (request, reply) => {
-    models.SocialLinkList.create({
-        'ArtistId': request.payload.ArtistId,
-        'facebookUrl': request.payload.facebookUrl,
-        'twitterUrl': request.payload.twitterUrl,
-        'instagramUrl': request.payload.instagramUrl,
-        'soundcloudUrl': request.payload.soundcloudUrl,
-        'bandcampUrl': request.payload.bandcampUrl,
-        'homepageUrl': request.payload.homepageUrl,
-        'tumblrUrl': request.payload.tumblrUrl,
-        'spotifyUrl': request.payload.spotifyUrl,
-        'youtubeUrl': request.payload.youtubeUrl,
-        'displayFlag': request.payload.displayFlag
-      })
-      .then((socialLinkList) => {
-        reply(socialLinkList).code(200);
+    models.SocialLinkList.findOrCreate({
+			'where': {
+				'ArtistId': request.payload.ArtistId
+			},
+			'defaults': {
+	        'ArtistId': request.payload.ArtistId,
+	        'facebookUrl': request.payload.facebookUrl,
+	        'twitterUrl': request.payload.twitterUrl,
+	        'instagramUrl': request.payload.instagramUrl,
+	        'soundcloudUrl': request.payload.soundcloudUrl,
+	        'bandcampUrl': request.payload.bandcampUrl,
+	        'homepageUrl': request.payload.homepageUrl,
+	        'tumblrUrl': request.payload.tumblrUrl,
+	        'spotifyUrl': request.payload.spotifyUrl,
+	        'youtubeUrl': request.payload.youtubeUrl,
+	        'displayFlag': request.payload.displayFlag
+	      }
+		}).spread((socialLinkList, created) => {
+			if (!created) {
+				reply(Boom.badRequest('Social Links already exist for this artist'));
+			} else {
+				reply(socialLinkList).code(200);
+			}
       });
   },
   update: (request, reply) => {

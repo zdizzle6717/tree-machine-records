@@ -110,47 +110,24 @@ let songs = {
   },
   create: (request, reply) => {
     models.Song.create({
+        'ArtistId': request.payload.ArtistId,
         'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
         'fileName': request.payload.fileName
       })
       .then((song) => {
-				models.File.create({
-					'SongId': song.id,
-					'identifier': request.payload.File.identifier,
-					'name': request.payload.File.name,
-					'size': request.payload.File.size,
-					'type': request.payload.File.type
-				}).then(() => {
-					models.Song.find({
-						'where': {
-							'id': song.id
-						},
-						'include': [{
-								'model': models.AlbumRelease,
-								'attributes': ['title', 'param'],
-								'include': [{
-									'model': models.Artist,
-									'attributes': ['name', 'param']
-								}]
-							},
-							{
-								'model': models.File
-							},
-						]
-					}).then((song) => {
-						reply(song).code(200);
-					});
-				});
+				reply(song).code(200);
       });
   },
   update: (request, reply) => {
-    models.File.find({
+    models.Song.find({
       'where': {
         'id': request.params.id
       }
     }).then((song) => {
       song.updateAttributes({
+				'ArtistId': request.payload.ArtistId,
+        'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
         'fileName': request.payload.fileName
       }).then((song) => {

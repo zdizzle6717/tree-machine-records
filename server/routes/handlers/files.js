@@ -124,8 +124,8 @@ let files = {
                   return;
                 }
                 // Set file folder permissions and owners/groups just for safe measure
-                fse.chownSync(resizePath, env.serverUID, env.serverGID);
-                fse.chmodSync(resizePath, '0775');
+                fse.chownSync(location, env.serverUID, env.serverGID);
+                fse.chmodSync(location, '0775');
                 counter++;
               });
             });

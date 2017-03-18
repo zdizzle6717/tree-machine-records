@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+// TODO: Make sure this doesn't update everytime the url changes slightly for video playback
+
 export default class Iframe extends React.Component {
 	constructor(props) {
 		super(props);

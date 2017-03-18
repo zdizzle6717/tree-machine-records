@@ -46,10 +46,12 @@ module.exports = [
       'notes': 'Create a new digitalDownload',
       'validate': {
         'payload': {
-          'AlbumReleaseId': Joi.number(),
+          'ArtistId': Joi.number().required(),
+          'AlbumReleaseId': Joi.number().required(),
           'title': Joi.string(),
           'fileName': Joi.string(),
-					'downloadCodes': Joi.array().items(Joi.string()).required()
+					'downloadCodes': Joi.array().items(Joi.string()).required(),
+					'File': Joi.optional()
         }
       },
       'cors': {
@@ -70,9 +72,15 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'id': Joi.optional(),
+					'createdAt': Joi.optional(),
+					'updatedAt': Joi.optional(),
+					'ArtistId': Joi.number().required(),
+          'AlbumReleaseId': Joi.number().required(),
 					'title': Joi.string(),
           'fileName': Joi.string(),
-					'downloadCodes': Joi.array().items(Joi.string()).required()
+					'downloadCodes': Joi.array().items(Joi.string()).required(),
+					'File': Joi.optional()
         }
       },
       'cors': {

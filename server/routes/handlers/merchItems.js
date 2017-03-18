@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../../models');
+import Boom from 'boom';
 
 // MerchItem Route Configs
 let merchItems = {
@@ -9,7 +10,7 @@ let merchItems = {
         'where': {
           'id': request.params.id
         },
-				'include': [{
+        'include': [{
             'model': models.AlbumRelease
           },
           {
@@ -30,10 +31,10 @@ let merchItems = {
         'limit': 50,
         'include': [{
             'model': models.AlbumRelease,
-						'include': [{
-							'model': models.Artist,
-							'attributes': ['name']
-						}]
+            'include': [{
+              'model': models.Artist,
+              'attributes': ['name']
+            }]
           },
           {
             'model': models.File
@@ -74,8 +75,13 @@ let merchItems = {
       });
   },
   create: (request, reply) => {
-    models.MerchItem.create({
-				'AlbumReleaseId': request.payload.AlbumReleaseId,
+    models.MerchItem.findOrCreate({
+      'where': {
+        'sku': request.payload.sku
+      },
+      'defaults': {
+        'ArtistId': request.payload.ArtistId,
+        'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
         'price': request.payload.price,
         'shortDescription': request.payload.shortDescription,
@@ -85,18 +91,24 @@ let merchItems = {
         'format': request.payload.format,
         'isDisplayed': request.payload.isDisplayed,
         'isFeatured': request.payload.isFeatured
-      })
-      .then((merchItem) => {
+      }
+    }).spread((merchItem, created) => {
+      if (!created) {
+				reply(Boom.badRequest('SKU must be a unique value'));
+      } else {
         reply(merchItem).code(200);
-      });
+      }
+    });
   },
   update: (request, reply) => {
-    models.File.find({
+    models.MerchItem.find({
       'where': {
         'id': request.params.id
       }
     }).then((merchItem) => {
       merchItem.updateAttributes({
+				'ArtistId': request.payload.ArtistId,
+        'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
         'price': request.payload.price,
         'shortDescription': request.payload.shortDescription,
@@ -107,11 +119,11 @@ let merchItems = {
         'isDisplayed': request.payload.isDisplayed,
         'isFeatured': request.payload.isFeatured
       }).then((merchItem) => {
-				if (merchItem) {
-					reply(merchItem).code(200);
-				} else {
-					reply().code(404);
-				}
+        if (merchItem) {
+          reply(merchItem).code(200);
+        } else {
+          reply().code(404);
+        }
       });
     });
   },

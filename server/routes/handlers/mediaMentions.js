@@ -34,14 +34,14 @@ let mediaMentions = {
         'date': request.payload.date,
         'linkUrl': request.payload.linkUrl,
         'title': request.payload.title,
-        'text': request.payload.bookingManagerPhone
+        'text': request.payload.text
       })
       .then((mediaMention) => {
         reply(mediaMention).code(200);
       });
   },
   update: (request, reply) => {
-    models.File.find({
+    models.MediaMention.find({
       'where': {
         'id': request.params.id
       }
@@ -51,7 +51,7 @@ let mediaMentions = {
         'date': request.payload.date,
         'linkUrl': request.payload.linkUrl,
         'title': request.payload.title,
-        'text': request.payload.bookingManagerPhone
+        'text': request.payload.text
       }).then((mediaMention) => {
 				if (mediaMention) {
 					reply(mediaMention).code(200);

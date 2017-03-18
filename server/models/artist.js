@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
         Artist.hasMany(models.AlbumRelease);
         Artist.hasOne(models.BioSection);
         Artist.hasOne(models.ContactList);
+        Artist.hasMany(models.DigitalDownload);
         Artist.hasMany(models.EmbeddableMedia);
         Artist.hasMany(models.File);
         Artist.hasMany(models.MediaMention);

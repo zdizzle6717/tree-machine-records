@@ -48,7 +48,7 @@ module.exports = [
       'validate': {
         'payload': {
           'ArtistId': Joi.number().required(),
-          'type': Joi.string().required(),
+          'type': Joi.string().valid('video', 'featuredTrack'),
           'title': Joi.string().required(),
           'linkUrl': Joi.string().required(),
           'embedUrl': Joi.string().required()
@@ -72,6 +72,9 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'id': Joi.optional(),
+					'createdAt': Joi.optional(),
+					'updatedAt': Joi.optional(),
 					'ArtistId': Joi.optional(),
           'type': Joi.string().required(),
           'title': Joi.string().required(),

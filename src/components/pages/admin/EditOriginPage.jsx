@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
 }
@@ -149,8 +150,8 @@ class EditOriginPage extends React.Component {
 								<Input type="text" name="stateProvince" value={this.state.origin.stateProvince} handleInputChange={this.handleInputChange} required={true}/>
 							</div>
 							<div className="form-group small-12 medium-4 columns">
-								<label className="required">State/Province Code</label>
-								<Input type="text" name="stateProvinceCode" value={this.state.origin.stateProvinceCode} handleInputChange={this.handleInputChange} required={true}/>
+								<label>State/Province Code</label>
+								<Input type="text" name="stateProvinceCode" value={this.state.origin.stateProvinceCode} handleInputChange={this.handleInputChange}/>
 							</div>
 						</div>
 					</Form>

@@ -50,7 +50,7 @@ module.exports = [
           'ArtistId': Joi.number().required(),
           'city': Joi.optional(),
           'stateProvince': Joi.string().required(),
-          'stateProviceCode': Joi.optional(),
+          'stateProvinceCode': Joi.optional(),
           'country': Joi.string().required(),
           'countryCode': Joi.string().required()
         }
@@ -73,10 +73,13 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'id': Joi.optional(),
+					'createdAt': Joi.optional(),
+					'updatedAt': Joi.optional(),
 					'ArtistId': Joi.optional(),
-          'city': Joi.string().required(),
+          'city': Joi.optional(),
           'stateProvince': Joi.string().required(),
-          'stateProviceCode': Joi.string().required(),
+          'stateProvinceCode': Joi.optional(),
           'country': Joi.string().required(),
           'countryCode': Joi.string().required()
         }

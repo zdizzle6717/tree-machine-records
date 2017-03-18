@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		'addAlert': AlertActions.addAlert,
 		'getArtists': ArtistActions.getAll
 	}, dispatch);
 }
@@ -132,33 +133,33 @@ class EditContactListPage extends React.Component {
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<label>Band Email</label>
-								<Input type="text" name="bandEmail" value={this.state.contactList.bandEmail} handleInputChange={this.handleInputChange} validate="email"/>
+								<Input type="text" name="bandEmail" value={this.state.contactList.bandEmail || ''} handleInputChange={this.handleInputChange} validate="email"/>
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<label>Band Phone</label>
-								<Input type="text" name="bandPhone" value={this.state.contactList.bandPhone} handleInputChange={this.handleInputChange} validate="foreignPhone"/>
+								<Input type="text" name="bandPhone" value={this.state.contactList.bandPhone || ''} handleInputChange={this.handleInputChange} validate="foreignPhone"/>
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<label>Band Mailing Address</label>
-								<Input type="text" name="bandMailingAddress" value={this.state.contactList.bandMailingAddress} handleInputChange={this.handleInputChange} />
+								<Input type="text" name="bandMailingAddress" value={this.state.contactList.bandMailingAddress || ''} handleInputChange={this.handleInputChange} />
 							</div>
 						</div>
 						<div className="row">
 							<div className="form-group small-12 medium-3 columns">
 								<label>Booking Manager Email</label>
-								<Input type="text" name="bookingManagerEmail" value={this.state.contactList.bookingManagerEmail} handleInputChange={this.handleInputChange} validate="email"/>
+								<Input type="text" name="bookingManagerEmail" value={this.state.contactList.bookingManagerEmail || ''} handleInputChange={this.handleInputChange} validate="email"/>
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<label>Booking Manager Phone</label>
-								<Input type="text" name="bookingManagerPhone" value={this.state.contactList.bookingManagerPhone} handleInputChange={this.handleInputChange} validate="foreignPhone"/>
+								<Input type="text" name="bookingManagerPhone" value={this.state.contactList.bookingManagerPhone || ''} handleInputChange={this.handleInputChange} validate="foreignPhone"/>
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<label className="required">General Manager Email</label>
-								<Input type="text" name="generalManagerEmail" value={this.state.contactList.generalManagerEmail} handleInputChange={this.handleInputChange} validate="email" required={true}/>
+								<Input type="text" name="generalManagerEmail" value={this.state.contactList.generalManagerEmail || ''} handleInputChange={this.handleInputChange} validate="email" required={true}/>
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<label>General Manager Phone</label>
-								<Input type="text" name="generalManagerPhone" value={this.state.contactList.generalManagerPhone} handleInputChange={this.handleInputChange} />
+								<Input type="text" name="generalManagerPhone" value={this.state.contactList.generalManagerPhone || ''} handleInputChange={this.handleInputChange} />
 							</div>
 						</div>
 					</Form>
