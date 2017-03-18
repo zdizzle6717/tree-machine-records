@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         AlbumRelease.belongsTo(models.Artist);
+        AlbumRelease.hasMany(models.DigitalDownload);
         AlbumRelease.hasMany(models.File);
         AlbumRelease.hasMany(models.MediaMention);
         AlbumRelease.hasMany(models.MerchItem);

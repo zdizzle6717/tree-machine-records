@@ -1,16 +1,17 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  let Song = sequelize.define('Song', {
+  let DigitalDownload = sequelize.define('DigitalDownload', {
     title: DataTypes.STRING,
-    fileName: DataTypes.STRING
+    fileName: DataTypes.STRING,
+    downloadCodes: DataTypes.ARRAY(DataTypes.TEXT)
   }, {
     classMethods: {
       associate: function(models) {
-        Song.hasOne(models.File);
-        Song.belongsTo(models.Artist);
+        DigitalDownload.hasOne(models.File);
+        DigitalDownload.belongsTo(models.AlbumRelease);
       }
     }
   });
-  return Song;
+  return DigitalDownload;
 };

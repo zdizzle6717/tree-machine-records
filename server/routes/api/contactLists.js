@@ -2,7 +2,6 @@
 
 let handlers = require('../handlers');
 let Joi = require('joi');
-let models = require('../../models');
 
 module.exports = [
   // Contact Lists

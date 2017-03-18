@@ -47,6 +47,8 @@ module.exports = [
       'notes': 'Create a new mediaMention',
       'validate': {
         'payload': {
+          'ArtistId': Joi.number(),
+          'AlbumReleaseId': Joi.optional(),
           'author': Joi.string(),
           'date': Joi.date(),
           'linkUrl': Joi.string(),
@@ -72,6 +74,8 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'ArtistId': Joi.optional(),
+          'AlbumReleaseId': Joi.optional(),
           'author': Joi.string(),
           'date': Joi.date(),
           'linkUrl': Joi.string(),

@@ -9,6 +9,7 @@ module.exports = []
 	.concat(require('./api/albumReleases'))
 	.concat(require('./api/bioSections'))
 	.concat(require('./api/contactLists'))
+	.concat(require('./api/digitalDownloads'))
 	.concat(require('./api/embeddableMedias'))
 	.concat(require('./api/files'))
 	.concat(require('./api/mediaMentions'))

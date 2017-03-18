@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  let Song = sequelize.define("Song", {
+  let Song = sequelize.define('Song', {
     title: DataTypes.STRING,
     fileName: DataTypes.STRING
   }, {

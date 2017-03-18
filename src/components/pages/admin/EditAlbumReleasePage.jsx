@@ -119,7 +119,7 @@ class EditAlbumReleasePage extends React.Component {
 				FileService.create({
 					'AlbumReleaseId': response.id,
 					'identifier': 'albumCover',
-					'imageUrl': `artists/${this.state.selectedArtist}/albumCovers/${this.state.albumRelease.Files[0].name}`,
+					'locationUrl': `artists/${this.state.selectedArtist}/albumCovers/${this.state.albumRelease.Files[0].name}`,
 					'name': this.state.albumRelease.Files[0].name,
 					'size': this.state.albumRelease.Files[0].size,
 					'type': this.state.albumRelease.Files[0].type
@@ -135,7 +135,7 @@ class EditAlbumReleasePage extends React.Component {
 					FileService.create({
 						'AlbumReleaseId': response.id,
 						'identifier': 'albumCover',
-						'imageUrl': `artists/${this.state.selectedArtist}/albumCovers/${this.state.albumRelease.Files[0].name}`,
+						'locationUrl': `artists/${this.state.selectedArtist}/albumCovers/${this.state.albumRelease.Files[0].name}`,
 						'name': this.state.albumRelease.Files[0].name,
 						'size': this.state.albumRelease.Files[0].size,
 						'type': this.state.albumRelease.Files[0].type

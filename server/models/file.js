@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   let File = sequelize.define("File", {
-    imageUrl: DataTypes.STRING,
+    locationUrl: DataTypes.STRING,
     label: DataTypes.STRING,
     name: DataTypes.STRING,
     size: DataTypes.INTEGER,
@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         File.belongsTo(models.AlbumRelease);
         File.belongsTo(models.Artist);
+        File.belongsTo(models.DigitalDownload);
         File.belongsTo(models.MerchItem);
         File.belongsTo(models.Song);
         File.belongsTo(models.User);

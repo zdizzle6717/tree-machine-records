@@ -12,6 +12,8 @@ import MerchItemActions from '../../../actions/MerchItemActions';
 import MerchListingRow from '../../pieces/MerchListingRow';
 
 // TODO: Add functionality to edit user
+// TODO: Fix featured song list to allow ordering
+// Add edit page for featured song list and featured album list
 
 const mapStateToProps = (state) => {
 	return {
@@ -103,18 +105,36 @@ class ProfilePage extends React.Component {
                     </div>
                     <div className="small-12 medium-3 columns">
 						<h3>Actions</h3>
-						<AccessControl access={['siteAdmin']}>
+						<AccessControl access={['siteAdmin']} customClasses="flex-column">
 							<Link key="create-discography" to="admin/discography/create">
 								<h5>Create Album Release</h5>
-							</Link>
-							<Link key="create-merch" to="admin/merch/create">
-								<h5>Create Merch</h5>
 							</Link>
 							<Link key="create-bio-section" to="admin/bio-section/create">
 								<h5>Create Bio Section</h5>
 							</Link>
+							<Link key="create-embeddable-media" to="admin/embeddable-media/create">
+								<h5>Create Embeddable Media</h5>
+							</Link>
+							<Link key="create-digital-download" to="admin/digital-download/create">
+								<h5>Create Digital Download</h5>
+							</Link>
 							<Link key="create-contact-list" to="admin/contact-list/create">
 								<h5>Create Contact List</h5>
+							</Link>
+							<Link key="create-media-mention" to="admin/media-mention/create">
+								<h5>Create Media Mention</h5>
+							</Link>
+							<Link key="create-merch" to="admin/merch/create">
+								<h5>Create Merch</h5>
+							</Link>
+							<Link key="create-origin" to="admin/origin/create">
+								<h5>Create Origin</h5>
+							</Link>
+							<Link key="create-social-link-list" to="admin/social-link-list/create">
+								<h5>Create Social Link List</h5>
+							</Link>
+							<Link key="create-song" to="admin/song/create">
+								<h5>Create Song</h5>
 							</Link>
 							<hr/>
 						</AccessControl>

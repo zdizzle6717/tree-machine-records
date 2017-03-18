@@ -12,8 +12,9 @@ import scrollTo from '../library/utilities/scrollTo';
 import {UserActions, checkAuthorization} from '../library/authentication';
 import {AlertActions} from '../library/alerts';
 import roleConfig from '../../roleConfig';
+import {googleAnalyticsKey} from '../../envVariables';
 import ReactGA from 'react-ga';
-ReactGA.initialize('UA-48987915-2');
+ReactGA.initialize(googleAnalyticsKey);
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);

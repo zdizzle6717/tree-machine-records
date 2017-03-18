@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import {Form, Input, TextArea, Select} from '../../../library/validations';
-import {handlers, uploadFiles} from '../../../library/utilities';
+import {handlers} from '../../../library/utilities';
 import {AlertActions} from '../../../library/alerts';
 import ArtistActions from '../../../actions/ArtistActions';
 import ContactListService from '../../../services/ContactListService';
@@ -81,7 +81,7 @@ class EditContactListPage extends React.Component {
 			'contactListNotFound': () => {
 				this.props.addAlert({
 					'title': 'Contact List Not Found',
-					'message': `A bio section with params ${this.props.params.contactListId} was not found.`,
+					'message': `A contact list with id ${this.props.params.contactListId} was not found.`,
 					'type': 'error',
 					'delay': 3000
 				});

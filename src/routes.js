@@ -22,9 +22,15 @@ import SiteMapPage from './components/pages/SiteMapPage';
 
 // Admin Pages
 import EditAlbumReleasePage from './components/pages/admin/EditAlbumReleasePage';
-import EditMerchPage from './components/pages/admin/EditMerchPage';
 import EditBioSectionPage from './components/pages/admin/EditBioSectionPage';
 import EditContactListPage from './components/pages/admin/EditContactListPage';
+import EditDigitalDownloadPage from './components/pages/admin/EditDigitalDownloadPage';
+import EditEmbeddableMediaPage from './components/pages/admin/EditEmbeddableMediaPage';
+import EditMediaMentionPage from './components/pages/admin/EditMediaMentionPage';
+import EditMerchItemPage from './components/pages/admin/EditMerchItemPage';
+import EditOriginPage from './components/pages/admin/EditOriginPage';
+import EditSocialLinkListPage from './components/pages/admin/EditSocialLinkListPage';
+import EditSongPage from './components/pages/admin/EditSongPage';
 
 // Artist Pages
 import ArtistCinematographyPage from './components/pages/artist/ArtistCinematographyPage';
@@ -42,14 +48,26 @@ const routes = (
 		<Route path="about" component={AboutPage}/>
 		<Route path="admin">
 			<IndexRoute component={ProfilePage}/>
-			<Route path="discography/create" component={EditAlbumReleasePage}/>
-			<Route path="discography/edit/:discographyParam" component={EditAlbumReleasePage}/>
-			<Route path="merch/create" component={EditMerchPage}/>
-			<Route path="merch/edit/:merchId" component={EditMerchPage}/>
 			<Route path="bio-section/create" component={EditBioSectionPage}/>
 			<Route path="bio-section/edit/:bioSectionId" component={EditBioSectionPage}/>
 			<Route path="contact-list/create" component={EditContactListPage}/>
 			<Route path="contact-list/edit/:contactListId" component={EditContactListPage}/>
+			<Route path="digital-download/create" component={EditDigitalDownloadPage}/>
+			<Route path="digital-download/edit/:digitalDownloadId" component={EditDigitalDownloadPage}/>
+			<Route path="discography/create" component={EditAlbumReleasePage}/>
+			<Route path="discography/edit/:discographyParam" component={EditAlbumReleasePage}/>
+			<Route path="embeddable-media/create" component={EditEmbeddableMediaPage}/>
+			<Route path="embeddable-media/edit/:embeddableMediaId" component={EditEmbeddableMediaPage}/>
+			<Route path="media-mention/create" component={EditMediaMentionPage}/>
+			<Route path="media-mention/edit/:mediaMentionId" component={EditMediaMentionPage}/>
+			<Route path="merch/create" component={EditMerchItemPage}/>
+			<Route path="merch/edit/:merchId" component={EditMerchItemPage}/>
+			<Route path="origin/create" component={EditOriginPage}/>
+			<Route path="origin/edit/:originId" component={EditOriginPage}/>
+			<Route path="social-link-list/create" component={EditSocialLinkListPage}/>
+			<Route path="social-link-list/edit/:socialLinkListId" component={EditSocialLinkListPage}/>
+			<Route path="song/create" component={EditSongPage}/>
+			<Route path="song/edit/:songId" component={EditSongPage}/>
 		</Route>
 		<Route path="archive" component={ArchivePage}/>
 		<Route path="artists">

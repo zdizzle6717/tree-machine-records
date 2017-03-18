@@ -72,6 +72,7 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'ArtistId': Joi.optional(),
           'type': Joi.string().required(),
           'title': Joi.string().required(),
           'linkUrl': Joi.string().required(),

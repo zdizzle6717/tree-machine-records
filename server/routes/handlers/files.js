@@ -16,7 +16,7 @@ let files = {
         'AlbumReleaseId': request.payload.AlbumReleaseId,
         'MerchItemId': request.payload.MerchItemId,
         'identifier': request.payload.identifier,
-        'imageUrl': request.payload.imageUrl,
+        'locationUrl': request.payload.locationUrl,
         'label': request.payload.label,
         'name': request.payload.name,
         'size': request.payload.size,
@@ -38,7 +38,7 @@ let files = {
             'ArtistId': request.payload.ArtistId,
             'AlbumReleaseId': request.payload.AlbumReleaseId,
             'identifier': request.payload.identifier,
-            'imageUrl': request.payload.imageUrl,
+            'locationUrl': request.payload.locationUrl,
             'label': request.payload.label,
             'name': request.payload.name,
             'size': request.payload.size,
@@ -98,9 +98,10 @@ let files = {
             return;
           }
 
+					// TODO: Double check that type is correct
           let successResponse = {
             'file': {
-              'name': data.file.hapi.filename,
+              'name': data.identifier === 'albumCover' ? data.file.hapi.filename : filename,
               'size': data.fileSize,
               'type': data.file.hapi.headers['content-type']
             },
@@ -174,6 +175,9 @@ let files = {
         reply(files).code(200);
       });
   },
+	// TODO: Get file by Id, then delete file from folder based on sourceUrl
+	// Be carefull not to delete parent folder(s)
+	// fs.unlink()
   delete: (request, reply) => {
     models.File.destroy({
         'where': {

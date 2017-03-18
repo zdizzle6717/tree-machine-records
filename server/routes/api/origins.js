@@ -73,6 +73,7 @@ module.exports = [
           'id': Joi.number().required()
         },
         'payload': {
+					'ArtistId': Joi.optional(),
           'city': Joi.string().required(),
           'stateProvince': Joi.string().required(),
           'stateProviceCode': Joi.string().required(),

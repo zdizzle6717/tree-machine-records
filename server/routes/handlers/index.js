@@ -5,6 +5,7 @@ module.exports = {
 	'albumReleases': require('./albumReleases'),
 	'bioSections': require('./bioSections'),
 	'contactLists': require('./contactLists'),
+	'digitalDownloads': require('./digitalDownloads'),
 	'embeddableMedias': require('./embeddableMedias'),
 	'files': require('./files'),
 	'mediaMentions': require('./mediaMentions'),

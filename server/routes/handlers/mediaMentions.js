@@ -28,6 +28,8 @@ let mediaMentions = {
   },
   create: (request, reply) => {
     models.MediaMention.create({
+        'ArtistId': request.payload.ArtistId,
+        'AlbumReleaseId': request.payload.AlbumReleaseId,
         'author': request.payload.author,
         'date': request.payload.date,
         'linkUrl': request.payload.linkUrl,

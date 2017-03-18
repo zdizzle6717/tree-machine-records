@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import {Form, Input, TextArea, Select} from '../../../library/validations';
-import {handlers, uploadFiles} from '../../../library/utilities';
+import {handlers} from '../../../library/utilities';
 import {AlertActions} from '../../../library/alerts';
 import ArtistActions from '../../../actions/ArtistActions';
 import BioSectionService from '../../../services/BioSectionService';
@@ -115,7 +115,7 @@ class EditBioSectionPage extends React.Component {
 			'bioSectionNotFound': () => {
 				this.props.addAlert({
 					'title': 'Bio Section Not Found',
-					'message': `A bio section with params ${this.props.params.bioSectionId} was not found.`,
+					'message': `A bio section with id ${this.props.params.bioSectionId} was not found.`,
 					'type': 'error',
 					'delay': 3000
 				});

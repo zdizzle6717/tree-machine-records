@@ -1,5 +1,4 @@
 // Text
-
 .text-small {
 	font-size: 80%;
 }
@@ -11,6 +10,7 @@
 .text-bold {
 	font-weight: 700 !important;
 }
+
 // Collapse
 .collapse {
 	padding: 0 !important;
@@ -19,7 +19,11 @@
 .collapse-margin {
 	margin: 0 !important;
 }
+
 // Miscellaneous
+.flex-column {
+	flex-direction: column;
+}
 .hover {
 	cursor: pointer;
 }
