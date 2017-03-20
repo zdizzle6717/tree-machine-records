@@ -1,6 +1,6 @@
 'use strict';
 
-import handlers from '../handlers';
+import * as handlers from '../handlers';
 import Joi from 'joi';
 
 module.exports = [
