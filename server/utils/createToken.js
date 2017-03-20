@@ -1,10 +1,10 @@
 'use strict';
 
-const jwt = require('jsonwebtoken');
-const env = require('../../envVariables');
-const roleConfig = require('../../roleConfig');
+import jwt from 'jsonwebtoken';
+import env from '../../envVariables';
+import roleConfig from '../../roleConfig';
 
-function createToken(user) {
+const createToken = (user) => {
   let scopes = [];
   roleConfig.forEach((role) => {
 	  if (user[role.name]) {
@@ -14,7 +14,7 @@ function createToken(user) {
 
 
   // Sign the JWT
-  return jwt.sign({ id: user.id, username: user.username, scope: scopes }, env.secret, { algorithm: 'HS256', expiresIn: "2h" } );
-}
+  return jwt.sign({ id: user.id, username: user.username, scope: scopes }, env.secret, { algorithm: 'HS256', expiresIn: '2h' } );
+};
 
-module.exports = createToken;
+export default createToken;

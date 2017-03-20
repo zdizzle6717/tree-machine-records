@@ -1,14 +1,15 @@
 'use strict';
 
-const models = require('../../models');
-const env = require('../../../envVariables.js');
-const Boom = require('boom');
-const createToken = require('../../utils/createToken');
-const userFunctions = require('../../utils/userFunctions');
-const nodemailer = require('nodemailer');
-const generator = require('xoauth2').createXOAuth2Generator(env.email.XOAuth2);
-const buildAccountActivation = require('../../emailTemplates/pendingAccountActivation');
-const buildRegistrationEmail = require('../../emailTemplates/registrationSuccess');
+import models from '../../models';
+import env from '../../../envVariables.js';
+import Boom from 'boom';
+import createToken from '../../utils/createToken';
+import userFunctions from '../../utils/userFunctions';
+import nodemailer from 'nodemailer';
+import buildAccountActivation from '../../emailTemplates/pendingAccountActivation';
+import buildRegistrationEmail from '../../emailTemplates/registrationSuccess';
+import xoauth2 from 'xoauth2';
+let generator = xoauth2.createXOAuth2Generator(env.email.XOAuth2);
 
 // listen for token updates
 // you probably want to store these to a db
@@ -134,4 +135,4 @@ let users = {
   }
 };
 
-module.exports = users;
+export default users;

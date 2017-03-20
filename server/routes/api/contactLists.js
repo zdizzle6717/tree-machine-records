@@ -1,7 +1,7 @@
 'use strict';
 
-let handlers = require('../handlers');
-let Joi = require('joi');
+import handlers from '../handlers';
+import Joi from 'joi';
 
 module.exports = [
   // Contact Lists

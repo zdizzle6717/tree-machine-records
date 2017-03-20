@@ -1,7 +1,6 @@
 'use strict';
 
-const models = require('../../models');
-
+import models from '../../models';
 
 // Song Route Configs
 let songs = {
@@ -116,7 +115,7 @@ let songs = {
         'fileName': request.payload.fileName
       })
       .then((song) => {
-				reply(song).code(200);
+        reply(song).code(200);
       });
   },
   update: (request, reply) => {
@@ -126,16 +125,16 @@ let songs = {
       }
     }).then((song) => {
       song.updateAttributes({
-				'ArtistId': request.payload.ArtistId,
+        'ArtistId': request.payload.ArtistId,
         'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
         'fileName': request.payload.fileName
       }).then((song) => {
-				if (song) {
-					reply(song).code(200);
-				} else {
-					reply().code(404);
-				}
+        if (song) {
+          reply(song).code(200);
+        } else {
+          reply().code(404);
+        }
       });
     });
   },
@@ -155,4 +154,4 @@ let songs = {
   }
 };
 
-module.exports = songs;
+export default songs;

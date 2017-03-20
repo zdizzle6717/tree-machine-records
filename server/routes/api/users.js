@@ -1,8 +1,8 @@
 'use strict';
 
-let handlers = require('../handlers');
-let Joi = require('joi');
-const userFunctions = require('../../utils/userFunctions');
+import handlers from '../handlers';
+import Joi from 'joi';
+import userFunctions from '../../utils/userFunctions';
 
 module.exports = [
   // Users

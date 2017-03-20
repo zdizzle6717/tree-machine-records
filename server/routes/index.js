@@ -1,9 +1,5 @@
 'use strict';
 
-let handlers = require('./handlers');
-let Joi = require('joi');
-let models = require('../models');
-
 module.exports = []
 	.concat(require('./api/artists'))
 	.concat(require('./api/albumReleases'))

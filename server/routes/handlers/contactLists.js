@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 import Boom from 'boom';
 
 // ContactList Route Configs
@@ -89,4 +89,4 @@ let contactLists = {
   }
 };
 
-module.exports = contactLists;
+export default contactLists;

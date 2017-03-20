@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 import Boom from 'boom';
 
 // SocialLinkList Route Configs
@@ -95,4 +95,4 @@ let socialLinkLists = {
   }
 };
 
-module.exports = socialLinkLists;
+export default socialLinkLists;

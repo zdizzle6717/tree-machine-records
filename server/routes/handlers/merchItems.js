@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 import Boom from 'boom';
 
 // MerchItem Route Configs
@@ -143,4 +143,4 @@ let merchItems = {
   }
 };
 
-module.exports = merchItems;
+export default merchItems;

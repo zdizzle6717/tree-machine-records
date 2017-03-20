@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 
 // EmbeddableMedia Route Configs
 let embeddableMedias = {
@@ -74,4 +74,4 @@ let embeddableMedias = {
   }
 };
 
-module.exports = embeddableMedias;
+export default embeddableMedias;

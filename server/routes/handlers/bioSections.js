@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 import Boom from 'boom';
 
 // BioSection Route Configs
@@ -81,4 +81,4 @@ let bioSections = {
   }
 };
 
-module.exports = bioSections;
+export default bioSections;

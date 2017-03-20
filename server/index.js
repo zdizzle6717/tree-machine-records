@@ -2,13 +2,14 @@
 
 require('babel-core/register');
 
-const Hapi = require('hapi');
-const Inert = require('inert');
-const Vision = require('vision');
-const HapiSwagger = require('hapi-swagger');
-const HapiAuthJwt = require('hapi-auth-jwt2');
-let models = require('./models');
-let env = require('../envVariables');
+import Hapi from 'hapi';
+import Inert from 'inert';
+import Vision from 'vision';
+import HapiSwagger from 'hapi-swagger';
+import HapiAuthJwt from 'hapi-auth-jwt2';
+import models from './models';
+import routes from './routes';
+import env from '../envVariables';
 
 // Create Server
 const server = new Hapi.Server();
@@ -65,6 +66,10 @@ server.register([
 
 // Register hapi-auth-jwt Plugin
 server.register(HapiAuthJwt, (err) => {
+	if (err) {
+		console.log(err);
+		return;
+	}
 	server.auth.strategy('jsonWebToken', 'jwt', {
 		key: env.secret,
 		validateFunc: validateUser,
@@ -75,7 +80,7 @@ server.register(HapiAuthJwt, (err) => {
 });
 
 // Routes
-server.route(require('./routes'));
+server.route(routes);
 
 models.sequelize.sync().then(function() {
     server.start((err) => {

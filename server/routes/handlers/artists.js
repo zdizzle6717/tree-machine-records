@@ -1,7 +1,7 @@
 'use strict';
 
-const models = require('../../models');
-const Boom = require('boom');
+import models from '../../models';
+import Boom from 'boom';
 
 // Artist Route Configs
 let artists = {
@@ -193,4 +193,4 @@ let artists = {
   }
 };
 
-module.exports = artists;
+export default artists;

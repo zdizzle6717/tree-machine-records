@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 import Boom from 'boom';
 
 // AlbumRelease Route Configs
@@ -223,4 +223,4 @@ let albumReleases = {
   }
 };
 
-module.exports = albumReleases;
+export default albumReleases;

@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 
 // MediaMention Route Configs
 let mediaMentions = {
@@ -77,4 +77,4 @@ let mediaMentions = {
   }
 };
 
-module.exports = mediaMentions;
+export default mediaMentions;

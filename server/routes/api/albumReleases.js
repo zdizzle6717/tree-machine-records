@@ -1,8 +1,7 @@
 'use strict';
 
-let handlers = require('../handlers');
-let Joi = require('joi');
-let models = require('../../models');
+import handlers from '../handlers';
+import Joi from 'joi';
 
 module.exports = [
   // Album Releases

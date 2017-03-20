@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 import Boom from 'boom';
 
 // Origin Route Configs
@@ -85,4 +85,4 @@ let origins = {
   }
 };
 
-module.exports = origins;
+export default origins;

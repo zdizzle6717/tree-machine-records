@@ -1,11 +1,11 @@
 'use strict';
 
-const models = require('../../models');
-const fse = require('fs-extra');
-const env = require('../../../envVariables.js');
-const Boom = require('boom');
-const im = require('imagemagick-stream');
-const moment = require('moment');
+import models from '../../models';
+import fse from 'fs-extra';
+import env from '../../../envVariables.js';
+import Boom from 'boom';
+import im from 'imagemagick-stream';
+import moment from 'moment';
 
 // File Upload Route Configs
 let files = {
@@ -194,4 +194,4 @@ let files = {
   }
 };
 
-module.exports = files;
+export default files;

@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../../models');
+import models from '../../models';
 
 // DigitalDownload Route Configs
 let digitalDownloads = {
@@ -72,4 +72,4 @@ let digitalDownloads = {
   }
 };
 
-module.exports = digitalDownloads;
+export default digitalDownloads;
