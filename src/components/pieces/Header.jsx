@@ -31,11 +31,14 @@ class Header extends React.Component {
 
 		this.state = {
 			'featuredSongs': [],
+			'showAccountMenu': false,
 			'showMobileMenu': false
 		}
 
 		this.toggleMenu = this.toggleMenu.bind(this);
+		this.toggleAccountMenu = this.toggleAccountMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
+		this.closeMenus = this.closeMenus.bind(this);
 		this.showAlert = this.showAlert.bind(this);
 		this.logout = this.logout.bind(this);
 	}
@@ -51,13 +54,27 @@ class Header extends React.Component {
 
 	toggleMenu() {
 		this.setState({
-			showMobileMenu: !this.state.showMobileMenu
+			'showMobileMenu': !this.state.showMobileMenu
+		});
+	}
+
+	toggleAccountMenu() {
+		console.log(this.state.showAccountMenu);
+		this.setState({
+			'showAccountMenu': !this.state.showAccountMenu
 		});
 	}
 
 	closeMenu() {
 		this.setState({
-			showMobileMenu: false
+			'showMobileMenu': false
+		});
+	}
+
+	closeMenus() {
+		this.setState({
+			'showMobileMenu': false,
+			'showAccountMenu': false
 		});
 	}
 
@@ -93,7 +110,7 @@ class Header extends React.Component {
 
 		let backdropClasses = classNames({
 			'menu-backdrop': true,
-			'show': this.state.showMobileMenu
+			'show': this.state.showMobileMenu || this.state.showAccountMenu
 		})
 
 		let scrollNavClasses = classNames({
@@ -106,16 +123,16 @@ class Header extends React.Component {
 			<header>
 				<div className={`top-nav ${this.props.hasScrolled ? 'scroll-active' : ''}`}>
 					<div className="home-link">
-						<Link key="home" to="/" className="desktop" activeClassName="active" onClick={this.closeMenu}>Home</Link>
-						<Link key="home-tablet" to="/" className="tablet" activeClassName="active" onClick={this.closeMenu}>Tree Machine Records</Link>
-						<Link key="home-mobile" to="/" className="mobile" activeClassName="active" onClick={this.closeMenu}>TM Records</Link>
+						<Link key="home" to="/" className="desktop" activeClassName="active" onClick={this.closeMenus}>Home</Link>
+						<Link key="home-tablet" to="/" className="tablet" activeClassName="active" onClick={this.closeMenus}>Tree Machine Records</Link>
+						<Link key="home-mobile" to="/" className="mobile" activeClassName="active" onClick={this.closeMenus}>TM Records</Link>
 					</div>
 					<div className={ this.props.hasScrolled ? 'menu-toggle hasScrolled' : 'menu-toggle'} onClick={this.toggleMenu}>
 						<i className="fa fa-bars"></i>
 					</div>
 					<Animation transitionName="slide-top" className="animation-wrapper" transitionEnter={true} transitionEnterTimeout={500} transitionLeave={true} transitionLeaveTimeout={500}>
-						<div className="menu-group" onClick={this.closeMenu}>
-							<ul className="main-menu">
+						<div className="menu-group">
+							<ul className="main-menu" onClick={this.closeMenus}>
 								<li className="">
 									<Link key="providers" to="/artists" className="menu-link" activeClassName="active">Artists</Link>
 								</li>
@@ -133,7 +150,21 @@ class Header extends React.Component {
 								{
 									this.props.isAuthenticated ?
 									<li className="login-link">
-										<a className="menu-link" onClick={this.logout}>Logout</a>
+										<a className="menu-link" onClick={this.toggleAccountMenu}>
+											{
+												this.state.showAccountMenu ?
+												<span className="fa fa-toggle-up"></span> :
+												<span className="fa fa-toggle-down"></span>
+											}
+										</a>
+										<ul className={this.state.showAccountMenu ? 'account-menu show': 'account-menu'}>
+											<li>
+												<Link key="profile" to="/profile" activeClassName="active" onClick={this.closeMenus}>Profile</Link>
+											</li>
+											<li className="account-link" onClick={this.closeMenus}>
+												<a onClick={this.logout}>Logout</a>
+											</li>
+										</ul>
 									</li> :
 									<li className="login-link">
 										<Link key="login" to="/login" className="menu-link" activeClassName="active">Login/Register</Link>
@@ -143,8 +174,8 @@ class Header extends React.Component {
 						</div>
 						{
 							this.state.showMobileMenu &&
-							<div className="menu-group-mobile" onClick={this.closeMenu}>
-								<ul className="main-menu">
+							<div className="menu-group-mobile">
+								<ul className="main-menu" onClick={this.closeMenus}>
 									<li className="">
 										<Link key="providers" to="/artists" className="menu-link" activeClassName="active">Artists</Link>
 									</li>
@@ -162,7 +193,21 @@ class Header extends React.Component {
 									{
 										this.props.isAuthenticated ?
 										<li className="login-link">
-											<a className="menu-link" onClick={this.logout}>Logout</a>
+											<a className="menu-link" onClick={this.toggleAccountMenu}>
+												{
+													this.state.showAccountMenu ?
+													<span className="fa fa-toggle-up"></span> :
+													<span className="fa fa-toggle-down"></span>
+												}
+											</a>
+											<ul className={this.state.showAccountMenu ? 'account-menu show': 'account-menu'}>
+												<li>
+													<Link key="profile" to="/profile" activeClassName="active">Profile</Link>
+												</li>
+												<li className="account-link">
+													<a onClick={this.logout}>Logout</a>
+												</li>
+											</ul>
 										</li> :
 										<li className="login-link">
 											<Link key="login" to="/login" className="menu-link" activeClassName="active">Login/Register</Link>
@@ -172,7 +217,7 @@ class Header extends React.Component {
 							</div>
 						}
 					</Animation>
-					<div className={backdropClasses} onClick={this.closeMenu}></div>
+					<div className={backdropClasses} onClick={this.closeMenus}></div>
 				</div>
 
 				<div className={scrollNavClasses}>
