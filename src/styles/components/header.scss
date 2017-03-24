@@ -10,6 +10,7 @@ header {
 		font-size: 1rem;
 		line-height: 16rem;
 		box-shadow: $shadow-3;
+		border-bottom: 2px solid $white;
 		z-index: 90;
 
 		&.scroll-active {
