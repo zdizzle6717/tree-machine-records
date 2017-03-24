@@ -4,7 +4,7 @@ import models from '../../models';
 import env from '../../../envVariables.js';
 import Boom from 'boom';
 import createToken from '../../utils/createToken';
-import userFunctions from '../../utils/userFunctions';
+import {getUserRoleFlags} from '../../utils/userFunctions';
 import nodemailer from 'nodemailer';
 import buildAccountActivation from '../../emailTemplates/pendingAccountActivation';
 import buildRegistrationEmail from '../../emailTemplates/registrationSuccess';
@@ -69,7 +69,7 @@ let users = {
 								'id': user.id,
 								'email': user.email,
 								'username': user.username,
-								'roleFlags': userFunctions.getUserRoleFlags(user),
+								'roleFlags': getUserRoleFlags(user),
 								'id_token': createToken(user)
 							}).code(201);
 						}
@@ -85,7 +85,7 @@ let users = {
       'id': request.pre.user.id,
       'email': request.pre.user.email,
       'username': request.pre.user.username,
-      'roleFlags': userFunctions.getUserRoleFlags(request.pre.user),
+      'roleFlags': getUserRoleFlags(request.pre.user),
       'id_token': createToken(request.pre.user)
     }).code(201);
   },
@@ -98,6 +98,57 @@ let users = {
       .then((users) => {
         reply(users).code(200);
       });
+  },
+	'search': (request, reply) => {
+    let searchByConfig;
+    let pageSize = request.payload.pageSize || 20;
+    let searchQuery = request.payload.searchQuery || '';
+    let offset = (request.payload.pageNumber - 1) * pageSize;
+    if (searchQuery) {
+      searchByConfig = request.payload.searchBy ? {
+        [request.payload.searchBy]: {
+          '$like': '%' + searchQuery + '%'
+        }
+      } : {
+        '$or': [{
+            'username': {
+              '$like': '%' + searchQuery + '%'
+            }
+          },
+          {
+            'email': {
+              '$like': '%' + searchQuery + '%'
+            }
+          },
+          {
+            'lastName': {
+              '$like': '%' + searchQuery + '%'
+            }
+          }
+        ]
+      };
+    } else {
+      searchByConfig = {};
+    }
+    models.User.findAndCountAll({
+      'where': searchByConfig,
+      'offset': offset,
+      'limit': pageSize
+    }).then((response) => {
+      let count = response.count;
+      let results = response.rows;
+      let totalPages = Math.ceil(count === 0 ? 1 : (count / pageSize));
+
+      reply({
+        'pagination': {
+          'pageNumber': request.payload.pageNumber,
+          'pageSize': pageSize,
+          'totalPages': totalPages,
+          'totalResults': count
+        },
+        'results': results
+      }).code(200);
+    });
   },
 	update: (request, reply) => {
     models.User.find({

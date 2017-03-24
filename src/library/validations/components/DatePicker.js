@@ -240,7 +240,7 @@ class DatePicker extends React.Component {
 		return (
 			<div className="validate-error-element date-picker">
 				<select className={validationClasses} type={this.props.type} name={`${this.props.name}Month`} value={this.state.month} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} disabled={this.props.disabled || !this.state.year}>
-					<option value="">---Month---</option>
+					<option value="">---Select---</option>
 					{
 						_monthOptions.map((month, i) =>
 							<option value={month} key={i}>{month}</option>
@@ -248,7 +248,7 @@ class DatePicker extends React.Component {
 					}
 				</select>
 				<select className={validationClasses} type={this.props.type} name={`${this.props.name}Day`} value={this.state.day} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} disabled={this.props.disabled || !this.state.year || !this.state.month}>
-					<option value="">--Day--</option>
+					<option value="">--Select--</option>
 					{
 						_dayOptions.map((day, i) =>
 							<option value={day} key={i}>{day}</option>
@@ -256,7 +256,7 @@ class DatePicker extends React.Component {
 					}
 				</select>
 				<select className={validationClasses} type={this.props.type} name={`${this.props.name}Year`} value={this.state.year} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} disabled={this.props.disabled}>
-					<option value="">--Year--</option>
+					<option value="">--Select--</option>
 					{
 						_yearOptions.map((year, i) =>
 							<option value={year} key={i}>{year}</option>

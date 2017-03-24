@@ -59,7 +59,6 @@ class Header extends React.Component {
 	}
 
 	toggleAccountMenu() {
-		console.log(this.state.showAccountMenu);
 		this.setState({
 			'showAccountMenu': !this.state.showAccountMenu
 		});

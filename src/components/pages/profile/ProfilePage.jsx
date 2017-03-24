@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 import Animation from 'react-addons-css-transition-group';
 import {UserActions, AccessControl as createAccessControl} from '../../../library/authentication';
+import {PaginationControls} from '../../../library/pagination';
 import roleConfig from '../../../../roleConfig';
 const AccessControl = createAccessControl(roleConfig);
 import MerchItemActions from '../../../actions/MerchItemActions';
@@ -25,7 +26,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-		'getUsers': UserActions.getAll,
+		'searchUsers': UserActions.search,
 		'getMerchItems': MerchItemActions.getAll,
 	}, dispatch);
 }
@@ -34,19 +35,38 @@ class ProfilePage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.state = {}
+        this.state = {
+			'userPagination': {}
+		}
 
 		this.removeMerchItem = this.removeMerchItem.bind(this);
+		this.searchUsers = this.searchUsers.bind(this);
+		this.handleUserPageChange = this.handleUserPageChange.bind(this);
     }
 
     componentDidMount() {
         document.title = "Tree Machine Records | Profile";
-		this.props.getUsers();
+		this.searchUsers(1);
 		this.props.getMerchItems();
     }
 
 	removeMerchItem(id) {
 		console.log ('Remove merch with ID ' + id);
+	}
+
+	searchUsers(pageNumber = 1) {
+		this.props.searchUsers({
+			'pageNumber': pageNumber,
+			'pageSize': 20
+		}).then((pagination) => {
+			this.setState({
+				'userPagination': pagination
+			});
+		});
+	}
+
+	handleUserPageChange(pageNumber) {
+		this.searchUsers(pageNumber);
 	}
 
     render() {
@@ -76,6 +96,7 @@ class ProfilePage extends React.Component {
 										this.props.users.map((user, i) => <li key={i}>{user.username} - {user.email}</li>)
 									}
 								</ul>
+								<PaginationControls pageNumber={this.state.userPagination.pageNumber} pageSize={this.state.userPagination.pageSize} totalPages={this.state.userPagination.totalPages} totalResults={this.state.userPagination.totalResults} handlePageChange={this.handlePageChange}></PaginationControls>
 							</div>
 						</AccessControl>
 						<AccessControl access={['recordStore']}>

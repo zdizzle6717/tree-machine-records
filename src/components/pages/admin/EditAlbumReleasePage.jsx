@@ -41,6 +41,7 @@ class EditAlbumReleasePage extends React.Component {
         }
 
 		this.handleArtistChange = this.handleArtistChange.bind(this);
+		this.handleDeleteFile = this.handleDeleteFile.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleFileUpload = this.handleFileUpload.bind(this);
@@ -81,6 +82,12 @@ class EditAlbumReleasePage extends React.Component {
 	handleInputChange(e) {
 		this.setState({
 			'albumRelease': handlers.updateInput(e, this.state.albumRelease)
+		});
+	}
+
+	handleDeleteFile(fileId) {
+		FileService.remove(fileId).then(() => {
+			this.showAlert('fileRemoved');
 		});
 	}
 
@@ -187,6 +194,14 @@ class EditAlbumReleasePage extends React.Component {
 					'type': 'success',
 					'delay': 3000
 				});
+			},
+			'fileRemoved': () => {
+				this.props.addAlert({
+					'title': 'File Deleted',
+					'message': `File was successfully deleted.`,
+					'type': 'info',
+					'delay': 3000
+				});
 			}
 		}
 
@@ -256,7 +271,7 @@ class EditAlbumReleasePage extends React.Component {
 						<div className="row">
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Album Cover</label>
-								<FileUpload name="albumCover" value={this.state.albumRelease.Files} handleFileUpload={this.handleFileUpload} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
+								<FileUpload name="albumCover" value={this.state.albumRelease.Files} handleFileUpload={this.handleFileUpload} handleDeleteFile={this.handleDeleteFile} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
 							</div>
 						</div>
 					</Form>

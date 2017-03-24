@@ -57,6 +57,7 @@ class EditMerchItemPage extends React.Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleFileUpload = this.handleFileUpload.bind(this);
+		this.handleDeleteFile = this.handleDeleteFile.bind(this);
 		this.uploadFiles = this.uploadFiles.bind(this);
 		this.showAlert = this.showAlert.bind(this);
     }
@@ -145,6 +146,12 @@ class EditMerchItemPage extends React.Component {
 		});
 	}
 
+	handleDeleteFile(fileId) {
+		FileService.remove(fileId).then(() => {
+			this.showAlert('fileRemoved');
+		});
+	}
+
 	handleSubmit(e) {
 		let merchItem = this.state.merchItem;
 		if (this.state.newMerchItem) {
@@ -215,6 +222,14 @@ class EditMerchItemPage extends React.Component {
 					'title': 'Merch Item Updated',
 					'message': `${this.state.merchItem.title} was updated successfully.`,
 					'type': 'success',
+					'delay': 3000
+				});
+			},
+			'fileRemoved': () => {
+				this.props.addAlert({
+					'title': 'File Deleted',
+					'message': `File was successfully deleted.`,
+					'type': 'info',
 					'delay': 3000
 				});
 			}
@@ -303,7 +318,7 @@ class EditMerchItemPage extends React.Component {
 						<div className="row">
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Product Images</label>
-								<FileUpload name="productImages" value={this.state.merchItem.Files} handleFileUpload={this.handleFileUpload} singleFile={false} maxFiles={10} required={1} disabled={!this.state.selectedArtist || !this.state.merchItem.sku}/>
+								<FileUpload name="productImages" value={this.state.merchItem.Files} handleFileUpload={this.handleFileUpload} handleDeleteFile={this.handleDeleteFile} maxFiles={10} required={1} disabled={!this.state.selectedArtist || !this.state.merchItem.sku}/>
 							</div>
 							<div className="form-group small-12 medium-3 columns">
 								<CheckBox name="isDisplayed" value={this.state.merchItem.isDisplayed} handleInputChange={this.handleCheckBoxChange} label="Display in store?"/>

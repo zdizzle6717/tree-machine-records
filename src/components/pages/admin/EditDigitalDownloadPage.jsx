@@ -43,6 +43,7 @@ class EditDigitalDownloadPage extends React.Component {
         }
 
 		this.handleArtistChange = this.handleArtistChange.bind(this);
+		this.handleDeleteFile = this.handleDeleteFile.bind(this);
 		this.handleDownloadCodeChange = this.handleDownloadCodeChange.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -97,6 +98,12 @@ class EditDigitalDownloadPage extends React.Component {
 			'digitalDownload': digitalDownload
 		});
 
+	}
+
+	handleDeleteFile(fileId) {
+		FileService.remove(fileId).then(() => {
+			this.showAlert('fileRemoved');
+		});
 	}
 
 	handleFileUpload(files) {
@@ -197,6 +204,14 @@ class EditDigitalDownloadPage extends React.Component {
 					'type': 'success',
 					'delay': 3000
 				});
+			},
+			'fileRemoved': () => {
+				this.props.addAlert({
+					'title': 'File Deleted',
+					'message': `File was successfully deleted.`,
+					'type': 'info',
+					'delay': 3000
+				});
 			}
 		}
 
@@ -245,7 +260,7 @@ class EditDigitalDownloadPage extends React.Component {
 						<div className="row">
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Digital Download File</label>
-								<FileUpload name="digitalDownloadFile" value={this.state.digitalDownload.File} handleFileUpload={this.handleFileUpload} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist || !this.state.digitalDownload.AlbumReleaseId}/>
+								<FileUpload name="digitalDownloadFile" value={this.state.digitalDownload.File} handleFileUpload={this.handleFileUpload} handleDeleteFile={this.handleDeleteFile} maxFiles={1} required={1} disabled={!this.state.selectedArtist || !this.state.digitalDownload.AlbumReleaseId}/>
 							</div>
 							<div className="form-group small-12 medium-6 columns">
 								<label>Download Codes (example: 'CODE123, CODE243, CODE543, etc.')</label>

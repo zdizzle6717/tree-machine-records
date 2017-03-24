@@ -90,7 +90,7 @@ let files = {
         }
 
         // Create the initial file to read from
-				let file = fse.createWriteStream(path);
+        let file = fse.createWriteStream(path);
         data.file.pipe(file);
         data.file.on('end', (err) => {
           if (err) {
@@ -98,7 +98,7 @@ let files = {
             return;
           }
 
-					// TODO: Double check that type is correct
+          // TODO: Double check that type is correct
           let successResponse = {
             'file': {
               'name': data.identifier === 'albumCover' ? data.file.hapi.filename : filename,
@@ -175,22 +175,39 @@ let files = {
         reply(files).code(200);
       });
   },
-	// TODO: Get file by Id, then delete file from folder based on sourceUrl
-	// Be carefull not to delete parent folder(s)
-	// fs.unlink()
+  // TODO: Get file by Id, then delete file from folder based on sourceUrl
+  // Be carefull not to delete parent folder(s)
+  // fs.unlink()
   delete: (request, reply) => {
-    models.File.destroy({
-        'where': {
-          'id': request.params.id
-        }
-      })
-      .then((file) => {
-        if (file) {
-          reply().code(200);
-        } else {
-          reply().code(404);
-        }
-      });
+    models.File.find({
+      'where': {
+        'id': request.params.id
+      }
+    }).then((file) => {
+      if (!file.locationUrl || file.locationUrl.slice(-1) === '/' || file.locationUrl.indexOf('.') < 0) {
+        reply(Boom.notAcceptable('File object is missing a proper locationUrl property'));
+      } else {
+				let locationUrl = __dirname + '/../../..' + env.uploadPath + file.locationUrl;
+        models.File.destroy({
+            'where': {
+              'id': request.params.id
+            }
+          })
+          .then((file) => {
+            if (file) {
+							fse.unlink(locationUrl, (err) => {
+								if (err) {
+									reply(Boom.badRequest('Error deleting file.'));
+									return;
+								}
+								reply().code(200);
+							});
+            } else {
+              reply().code(404);
+            }
+          });
+      }
+    });
   }
 };
 

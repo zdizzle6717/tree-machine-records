@@ -34,7 +34,7 @@ const _configureUser = (user) => {
 		console.log('Auth credentials changed.');
 		return user;
 	}
-}
+};
 
 export default {
 	get: (id) => {
@@ -44,14 +44,13 @@ export default {
 				dispatch(_returnResponse(UserConstants.GET_USER, user));
 				return user;
 			});
-		}
+		};
 	},
 	getAll: () => {
 		return (dispatch) => {
 			dispatch(_initiateRequest(UserConstants.INITIATE_USER_REQUEST));
 			return UserService.getAll().then((users) => {
 				dispatch(_returnResponse(UserConstants.GET_USERS, users));
-				return users;
 			});
 		};
 	},
@@ -62,7 +61,7 @@ export default {
 				dispatch(_returnResponse(UserConstants.GET_USERS, response.results));
 				return response.pagination;
 			});
-		}
+		};
 	},
 	create: (data) => {
 		return (dispatch) => {
@@ -104,7 +103,7 @@ export default {
 					'data': true
 				});
 			});
-		}
+		};
   },
   setUser: (user) => {
 		return (dispatch) => {
@@ -119,7 +118,7 @@ export default {
 					'data': true
 				});
 			});
-		}
+		};
   },
   logout: () => {
 		// TODO: This should make an api call that properly invalidates or deletes the existing token
@@ -133,14 +132,14 @@ export default {
 				'type': AuthenticationConstants.SET_AUTHENTICATION,
 				'data': false
 			});
-		}
+		};
   },
 	setRedirect: (route) => {
 		return (dispatch) => {
 			dispatch({
 				'type': RedirectConstants.SET_REDIRECT,
 				'data': route
-			})
-		}
+			});
+		};
 	}
-}
+};

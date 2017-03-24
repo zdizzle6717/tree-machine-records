@@ -77,6 +77,28 @@ module.exports = [
     }
   },
 	{
+    'method': 'POST',
+    'path': '/api/search/users',
+		'handler': handlers.users.search,
+    'config': {
+      'tags': ['api'],
+      'description': 'Return User/Player search results',
+      'notes': 'Return User/Player search results',
+      'validate': {
+        'payload': {
+          'maxResults': Joi.optional(),
+          'searchQuery': Joi.optional(),
+					'searchBy': Joi.optional(),
+					'pageNumber': Joi.number().required(),
+					'pageSize': Joi.optional()
+        }
+      },
+			'cors': {
+				'origin': ['*']
+			}
+    }
+  },
+	{
     'method': 'PUT',
     'path': '/api/users/{id}',
     'handler': handlers.users.update,

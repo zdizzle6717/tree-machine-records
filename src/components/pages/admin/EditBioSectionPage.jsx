@@ -71,7 +71,6 @@ class EditBioSectionPage extends React.Component {
 
 	removeParagraph(index, e) {
 		e.preventDefault();
-		console.log(index);
 		let bioSection = this.state.bioSection;
 		bioSection.content.splice(index, 1);
 		this.setState({
