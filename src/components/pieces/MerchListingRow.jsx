@@ -20,7 +20,6 @@ export default class MerchListingRow extends React.Component {
 	render() {
 		return (
 			<tr>
-				<td>{this.props.sku}</td>
 				<td>{this.props.catalogueNumber}</td>
 				<td>{this.props.title}</td>
 				<td>{this.props.artist}</td>
@@ -45,6 +44,5 @@ MerchListingRow.propTypes = {
 	'format': React.PropTypes.string.isRequired,
 	'id': React.PropTypes.number.isRequired,
 	'removeMerch': React.PropTypes.func.isRequired,
-	'sku': React.PropTypes.string.isRequired,
 	'title': React.PropTypes.string.isRequired
 }

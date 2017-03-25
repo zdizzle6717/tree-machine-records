@@ -1,0 +1,24 @@
+table {
+	border-collapse: collapse;
+
+	thead,
+	tbody {
+	    background: transparent;
+		border: none;
+
+		td {
+			padding: .1rem 1rem .125rem;
+		}
+
+		tr:nth-child(even) {
+		    background-color: transparent;
+		}
+
+		tr {
+			&:hover {
+				background-color: rgba(90, 145, 189, 0.06);
+			}
+		}
+	}
+
+}

@@ -60,7 +60,11 @@ let merchItems = {
           'limit': request.payload.pageSize,
           'include': [{
             'model': models.File
-          }]
+			}, {
+				'model': models.Artist
+			}, {
+				'model': models.AlbumRelease
+			}]
         }).then((results) => {
           reply({
             'pagination': {

@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		'searchUsers': UserActions.search,
+		'searchMerch': MerchItemActions.search,
 		'getMerchItems': MerchItemActions.getAll,
 	}, dispatch);
 }
@@ -36,18 +37,21 @@ class ProfilePage extends React.Component {
         super(props, context);
 
         this.state = {
-			'userPagination': {}
+			'merchPagination': {},
+			'userPagination': {},
 		}
 
 		this.removeMerchItem = this.removeMerchItem.bind(this);
+		this.searchMerch = this.searchMerch.bind(this);
 		this.searchUsers = this.searchUsers.bind(this);
+		this.handleMerchPageChange = this.handleMerchPageChange.bind(this);
 		this.handleUserPageChange = this.handleUserPageChange.bind(this);
     }
 
     componentDidMount() {
         document.title = "Tree Machine Records | Profile";
+		this.searchMerch(1);
 		this.searchUsers(1);
-		this.props.getMerchItems();
     }
 
 	removeMerchItem(id) {
@@ -57,12 +61,27 @@ class ProfilePage extends React.Component {
 	searchUsers(pageNumber = 1) {
 		this.props.searchUsers({
 			'pageNumber': pageNumber,
-			'pageSize': 20
+			'pageSize': 1
 		}).then((pagination) => {
 			this.setState({
 				'userPagination': pagination
 			});
 		});
+	}
+
+	searchMerch(pageNumber = 1) {
+		this.props.searchMerch({
+			'pageNumber': pageNumber,
+			'pageSize': 1
+		}).then((pagination) => {
+			this.setState({
+				'userPagination': pagination
+			});
+		});
+	}
+
+	handleMerchPageChange(pageNumber) {
+		this.searchMerch(pageNumber);
 	}
 
 	handleUserPageChange(pageNumber) {
@@ -88,24 +107,12 @@ class ProfilePage extends React.Component {
 						<h1>Dashboard</h1>
 						<Link key="digital-downloads" to="digital-downloads"><h3>Digital Downloads</h3></Link>
 						<hr/>
-						<AccessControl access={['siteAdmin']}>
-							<div className="small-12">
-								<h3>User List</h3>
-								<ul>
-									{
-										this.props.users.map((user, i) => <li key={i}>{user.username} - {user.email}</li>)
-									}
-								</ul>
-								<PaginationControls pageNumber={this.state.userPagination.pageNumber} pageSize={this.state.userPagination.pageSize} totalPages={this.state.userPagination.totalPages} totalResults={this.state.userPagination.totalResults} handlePageChange={this.handlePageChange}></PaginationControls>
-							</div>
-						</AccessControl>
 						<AccessControl access={['recordStore']}>
 							<div className="small-12">
 								<h3>Distribution Center</h3>
-								<table className="stack hover text-center">
+								<table className="stack text-center">
 						            <thead>
 						                <tr>
-											<th className="text-center" width="50">SKU</th>
 			                                <th className="text-center" width="150">Ctlg #</th>
 			                                <th className="text-center" width="250">Title</th>
 			                                <th className="text-center" width="250">Artist</th>
@@ -117,10 +124,22 @@ class ProfilePage extends React.Component {
 						            </thead>
 						            <tbody>
 										{
-											this.props.merchItems.map((item, i) => <MerchListingRow key={i} id={item.id} catalogueNumber={item.AlbumRelease.catalogueNumber} title={item.title} artist={item.AlbumRelease.Artist.name} price={item.price} removeMerch={this.removeMerchItem} format={item.format} sku={item.sku}></MerchListingRow>)
+											this.props.merchItems.map((item, i) => <MerchListingRow key={i} id={item.id} catalogueNumber={item.AlbumRelease.catalogueNumber} title={item.title} artist={item.Artist.name} price={item.price} removeMerch={this.removeMerchItem} format={item.format}></MerchListingRow>)
 										}
 									</tbody>
 								</table>
+								<PaginationControls pageNumber={this.state.merchPagination.pageNumber} pageSize={this.state.merchPagination.pageSize} totalPages={this.state.merchPagination.totalPages} totalResults={this.state.merchPagination.totalResults} handlePageChange={this.handleMerchPageChange}></PaginationControls>
+							</div>
+						</AccessControl>
+						<AccessControl access={['siteAdmin']}>
+							<div className="small-12">
+								<h3>User List</h3>
+								<ul>
+									{
+										this.props.users.map((user, i) => <li key={i}>{user.username} - {user.email}</li>)
+									}
+								</ul>
+								<PaginationControls pageNumber={this.state.userPagination.pageNumber} pageSize={this.state.userPagination.pageSize} totalPages={this.state.userPagination.totalPages} totalResults={this.state.userPagination.totalResults} handlePageChange={this.handleUserPageChange}></PaginationControls>
 							</div>
 						</AccessControl>
                     </div>
