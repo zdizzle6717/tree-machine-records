@@ -92,14 +92,14 @@ class EditMerchItemPage extends React.Component {
     }
 
 	handleArtistChange(e) {
-		let artistParam = e.target.value;
+		let artistId = e.target.value;
 		let merchItem = this.state.merchItem;
-		this.props.getArtist(artistParam).then((artist) => {
+		this.props.getArtist(artistId).then((artist) => {
 			merchItem.ArtistId = artist.id;
 			this.setState({
 				'albumReleases': artist.AlbumReleases,
 				'merchItem': merchItem,
-				'selectedArtist': artistParam
+				'selectedArtist': artistId
 			});
 		});
 	}
@@ -274,7 +274,7 @@ class EditMerchItemPage extends React.Component {
 									<option value="">--Select--</option>
 									{
 										this.props.artists.map((artist, i) =>
-											<option key={i} value={artist.param}>{artist.name}</option>
+											<option key={i} value={artist.id}>{artist.name}</option>
 										)
 									}
 								</Select>

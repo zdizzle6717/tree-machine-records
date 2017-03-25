@@ -45,6 +45,7 @@ class PhotographyListPage extends React.Component {
 					let data = {
 						'artistParam': artist.param,
 						'fileName': file.name,
+						'artistName': artist.name
 					}
 					photos.push(data);
 				}
@@ -63,7 +64,7 @@ class PhotographyListPage extends React.Component {
 					<div className="photo-select">
 						{
 							this.state.photos.map((photo, i) =>
-								<ImageTile key={i} id={1} imageUrl={`/images/artists/${photo.artistParam}/photos/${photo.fileName}`} internalLinkUrl={`/artists/${photo.artistParam}/photography`}/>
+								<ImageTile key={i} id={1} artistName={photo.artistName} imageUrl={`/images/artists/${photo.artistParam}/photos/${photo.fileName}`} internalLinkUrl={`/artists/${photo.artistParam}/photography`}/>
 							)
 						}
 					</div>

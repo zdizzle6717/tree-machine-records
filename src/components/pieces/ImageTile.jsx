@@ -10,9 +10,11 @@ export default class ImageTile extends React.Component {
 				{
 					this.props.internalLinkUrl ?
 					<Link to={this.props.internalLinkUrl} className="photo-artist">
+						<span className="title-overlay"><div>{this.props.artistName}</div></span>
 						<img src={this.props.imageUrl}/>
 					</Link> :
 					<a href={this.props.linkUrl} target="_blank" className="photos-artist">
+						<span className="title-overlay"><div>{this.props.artistName}</div></span>
 						<img src={this.props.imageUrl}/>
 					</a>
 				}
@@ -22,6 +24,7 @@ export default class ImageTile extends React.Component {
 }
 
 ImageTile.propTypes = {
+	artistName: React.PropTypes.string.isRequired,
 	imageUrl: React.PropTypes.string.isRequired,
 	linkUrl: React.PropTypes.string,
 	internalLinkUrl: React.PropTypes.string

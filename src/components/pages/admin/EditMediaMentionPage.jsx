@@ -141,7 +141,7 @@ class EditMediaMentionPage extends React.Component {
 								<label className="required">Title</label>
 								<Input type="text" name="title" value={this.state.mediaMention.title} handleInputChange={this.handleInputChange} required={true}/>
 							</div>
-							<div className="form-group small-12 medium-6 columns">
+							<div className="form-group small-12 medium-4 columns">
 								<label className="required">Artist</label>
 								<Select name="ArtistId" value={this.state.mediaMention.ArtistId} handleInputChange={this.handleArtistChange} required={true}>
 									<option value="">--Select--</option>
@@ -152,7 +152,7 @@ class EditMediaMentionPage extends React.Component {
 									}
 								</Select>
 							</div>
-							<div className="form-group small-12 medium-6 columns">
+							<div className="form-group small-12 medium-4 columns">
 								<label className="required">Album Release</label>
 								<Select name="AlbumReleaseId" value={this.state.mediaMention.AlbumReleaseId} handleInputChange={this.handleInputChange}>
 									<option value="">--Select--</option>
