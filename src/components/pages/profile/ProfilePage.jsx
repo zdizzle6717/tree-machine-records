@@ -27,8 +27,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		'searchUsers': UserActions.search,
-		'searchMerch': MerchItemActions.search,
-		'getMerchItems': MerchItemActions.getAll,
+		'searchMerch': MerchItemActions.search
 	}, dispatch);
 }
 
@@ -61,7 +60,7 @@ class ProfilePage extends React.Component {
 	searchUsers(pageNumber = 1) {
 		this.props.searchUsers({
 			'pageNumber': pageNumber,
-			'pageSize': 1
+			'pageSize': 10
 		}).then((pagination) => {
 			this.setState({
 				'userPagination': pagination
@@ -72,10 +71,10 @@ class ProfilePage extends React.Component {
 	searchMerch(pageNumber = 1) {
 		this.props.searchMerch({
 			'pageNumber': pageNumber,
-			'pageSize': 1
+			'pageSize': 10
 		}).then((pagination) => {
 			this.setState({
-				'userPagination': pagination
+				'merchPagination': pagination
 			});
 		});
 	}

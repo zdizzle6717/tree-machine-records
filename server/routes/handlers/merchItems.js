@@ -80,17 +80,17 @@ let merchItems = {
       'where': searchByConfig,
       'offset': offset,
       'limit': pageSize,
-			'include': [
-				{
-					'model': models.File
-				},
-				{
-					'model': models.Artist
-				},
-				{
-					'model': models.AlbumRelease
-				}
-			]
+		'include': [
+			{
+				'model': models.File
+			},
+			{
+				'model': models.Artist
+			},
+			{
+				'model': models.AlbumRelease
+			}
+		]
     }).then((response) => {
       let count = response.count;
       let results = response.rows;
