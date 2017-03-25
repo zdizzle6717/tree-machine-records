@@ -271,7 +271,7 @@ class EditAlbumReleasePage extends React.Component {
 						<div className="row">
 							<div className="form-group small-12 medium-6 columns">
 								<label className="required">Album Cover</label>
-								<FileUpload name="albumCover" value={this.state.albumRelease.Files} handleFileUpload={this.handleFileUpload} handleDeleteFile={this.handleDeleteFile} singleFile={false} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
+								<FileUpload name="albumCover" value={this.state.albumRelease.Files} handleFileUpload={this.handleFileUpload} handleDeleteFile={this.handleDeleteFile} maxFiles={1} required={1} disabled={!this.state.selectedArtist}/>
 							</div>
 						</div>
 					</Form>
