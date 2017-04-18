@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import scrollTo from '../../library/utilities/scrollTo';
 
 export default class ScrollToTopButton extends React.Component {
@@ -18,8 +19,8 @@ export default class ScrollToTopButton extends React.Component {
 }
 
 ScrollToTopButton.propTypes = {
-	to: React.PropTypes.number,
-	duration: React.PropTypes.number
+	to: PropTypes.number,
+	duration: PropTypes.number
 }
 
 ScrollToTopButton.defaultProps = {

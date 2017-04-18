@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import defaultValidations from '../constants/defaultValidations';
 import classNames from 'classnames';
 import FormActions from '../actions/FormActions';
@@ -269,15 +270,15 @@ class DatePicker extends React.Component {
 }
 
 DatePicker.propTypes = {
-	'name': React.PropTypes.string.isRequired,
-	'value': React.PropTypes.string,
-	'handleInputChange': React.PropTypes.func.isRequired,
-	'preserveState': React.PropTypes.bool,
-	'required': React.PropTypes.bool,
-	'disabled': React.PropTypes.bool,
-	'minYear': React.PropTypes.number,
-	'minDate': React.PropTypes.string,
-	'maxDate': React.PropTypes.string
+	'name': PropTypes.string.isRequired,
+	'value': PropTypes.string,
+	'handleInputChange': PropTypes.func.isRequired,
+	'preserveState': PropTypes.bool,
+	'required': PropTypes.bool,
+	'disabled': PropTypes.bool,
+	'minYear': PropTypes.number,
+	'minDate': PropTypes.string,
+	'maxDate': PropTypes.string
 }
 
 DatePicker.defaultProps = {

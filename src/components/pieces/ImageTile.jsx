@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 export default class ImageTile extends React.Component {
 	render() {
@@ -24,8 +25,8 @@ export default class ImageTile extends React.Component {
 }
 
 ImageTile.propTypes = {
-	artistName: React.PropTypes.string.isRequired,
-	imageUrl: React.PropTypes.string.isRequired,
-	linkUrl: React.PropTypes.string,
-	internalLinkUrl: React.PropTypes.string
+	artistName: PropTypes.string.isRequired,
+	imageUrl: PropTypes.string.isRequired,
+	linkUrl: PropTypes.string,
+	internalLinkUrl: PropTypes.string
 }

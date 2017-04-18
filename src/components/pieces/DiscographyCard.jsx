@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 import formatDate from '../../library/utilities/formatJSONDate';
 
 export default class DiscographyCard extends React.Component {
@@ -72,11 +73,11 @@ export default class DiscographyCard extends React.Component {
 }
 
 DiscographyCard.propTypes = {
-	artistParam: React.PropTypes.string.isRequired,
-	artistName: React.PropTypes.string.isRequired,
-	albumReleaseParam: React.PropTypes.string.isRequired,
-	catalogueNumber: React.PropTypes.string.isRequired,
-	files: React.PropTypes.array.isRequired,
-	releaseDate: React.PropTypes.string.isRequired,
-	title: React.PropTypes.string.isRequired
+	artistParam: PropTypes.string.isRequired,
+	artistName: PropTypes.string.isRequired,
+	albumReleaseParam: PropTypes.string.isRequired,
+	catalogueNumber: PropTypes.string.isRequired,
+	files: PropTypes.array.isRequired,
+	releaseDate: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired
 }

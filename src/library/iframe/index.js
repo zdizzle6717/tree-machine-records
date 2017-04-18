@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Iframe extends React.Component {
 	constructor(props) {
@@ -30,9 +31,9 @@ export default class Iframe extends React.Component {
 }
 
 Iframe.propTypes = {
-	'url': React.PropTypes.string.isRequired,
-	'width': React.PropTypes.string,
-	'height': React.PropTypes.string
+	'url': PropTypes.string.isRequired,
+	'width': PropTypes.string,
+	'height': PropTypes.string
 }
 
 Iframe.defaultProps = {

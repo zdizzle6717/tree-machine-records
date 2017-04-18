@@ -4,8 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import defaultValidations from '../constants/defaultValidations'
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import defaultValidations from '../constants/defaultValidations';
 import FormActions from '../actions/FormActions';
 import {getInput} from '../utilities';
 
@@ -154,11 +155,11 @@ class Select extends React.Component {
 }
 
 Select.propTypes = {
-	'name': React.PropTypes.string.isRequired,
-	'handleInputChange': React.PropTypes.func.isRequired,
-	'preserveState': React.PropTypes.bool,
-	'required': React.PropTypes.bool,
-	'disabled': React.PropTypes.bool
+	'name': PropTypes.string.isRequired,
+	'handleInputChange': PropTypes.func.isRequired,
+	'preserveState': PropTypes.bool,
+	'required': PropTypes.bool,
+	'disabled': PropTypes.bool
 }
 
 Select.defaultProps = {

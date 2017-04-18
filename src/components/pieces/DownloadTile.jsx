@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 export default class ImageTile extends React.Component {
 	constructor() {
@@ -42,7 +43,7 @@ export default class ImageTile extends React.Component {
 }
 
 ImageTile.propTypes = {
-	label: React.PropTypes.string,
-	imageUrl: React.PropTypes.string.isRequired,
-	downloadUrl: React.PropTypes.string.isRequired
+	label: PropTypes.string,
+	imageUrl: PropTypes.string.isRequired,
+	downloadUrl: PropTypes.string.isRequired
 }

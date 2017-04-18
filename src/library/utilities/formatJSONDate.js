@@ -5,9 +5,12 @@
 
 import moment from 'moment-timezone';
 
-const formatDate = (input, timezone = 'Etc/GMT', format = 'D MMM YYYY') => {
+const formatDate = (input, timezone = 'Etc/GMT', format = 'MMMM D, YYYY') => {
+	if (!input) {
+		console.log('formatJSONDate.js: Date is undefined');
+	}
 	let output = moment.tz(input, timezone).format(format);
 	return output;
-}
+};
 
 export default formatDate;

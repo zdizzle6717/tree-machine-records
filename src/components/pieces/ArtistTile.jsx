@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 export default class ArtistTile extends React.Component {
 	constructor() {
@@ -64,8 +65,8 @@ export default class ArtistTile extends React.Component {
 }
 
 ArtistTile.propTypes = {
-	files: React.PropTypes.array.isRequired,
-	name: React.PropTypes.string.isRequired,
-	param: React.PropTypes.string.isRequired,
-	current: React.PropTypes.bool.isRequired
+	files: PropTypes.array.isRequired,
+	name: PropTypes.string.isRequired,
+	param: PropTypes.string.isRequired,
+	current: PropTypes.bool.isRequired
 }

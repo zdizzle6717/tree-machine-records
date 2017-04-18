@@ -2,18 +2,28 @@
 
 module.exports = [
 	{
+		'name': 'admin',
+		'path': '/admin**',
+		'accessControl': ['sytemAdmin']
+	},
+	{
+		'name': 'artistDigitalDownloads',
+		'path': '/artists/*/digital-downloads',
+		'accessControl': ['sytemAdmin']
+	},
+	{
 		'name': 'digitalDownloads',
-		'path': 'digital-downloads',
+		'path': '/digital-downloads',
 		'accessControl': ['subscriber']
 	},
 	{
 		'name': 'editDiscography',
-		'path': 'edit-discography',
+		'path': '/edit-discography**',
 		'accessControl': ['siteAdmin']
 	},
 	{
 		'name': 'profile',
-		'path': 'profile',
+		'path': '/profile',
 		'accessControl': ['subscriber']
-	},
+	}
 ];

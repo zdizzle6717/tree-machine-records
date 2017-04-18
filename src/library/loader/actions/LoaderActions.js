@@ -7,14 +7,14 @@ export default {
 		return (dispatch) => {
 			dispatch({
 				'type': LoaderConstants.SHOW_LOADER
-			})
-		}
+			});
+		};
 	},
 	hideLoader: () => {
 		return (dispatch) => {
 			dispatch({
 				'type': LoaderConstants.HIDE_LOADER
-			})
-		}
+			});
+		};
 	}
 };

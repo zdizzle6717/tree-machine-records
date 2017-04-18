@@ -3,6 +3,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import checkAuthorization from '../utilities/checkAuthorization';
 
 export default function(roleConfig) {
@@ -36,19 +37,43 @@ export default function(roleConfig) {
 		}
 
 		render() {
-			return (
-				<span className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
-					{ this.state.authorized && !this.props.publicOnly && this.props.children }
-					{ !this.state.authorized && this.props.publicOnly && this.props.children }
-				</span>
-			)
+			if (this.state.authorized && !this.props.publicOnly || !this.state.authorized && this.props.publicOnly) {
+				if (this.props.element === 'div') {
+					return (
+						<div className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
+							{this.props.children}
+						</div>
+					)
+				} else if (this.props.element === 'li') {
+					return (
+						<li className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
+							{this.props.children}
+						</li>
+					)
+				} else if (this.props.element === 'td') {
+					return (
+						<td className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
+							{this.props.children}
+						</td>
+					)
+				} else {
+					return (
+						<span className={this.props.customClasses ? `access-control ${this.props.customClasses}` : 'access-control'}>
+							{this.props.children}
+						</span>
+					)
+				}
+			} else {
+				return null;
+			}
 		}
 	}
 
 	AccessControl.propTypes = {
-		'access': React.PropTypes.array,
-		'customClasses': React.PropTypes.string,
-		'publicOnly': React.PropTypes.bool
+		'access': PropTypes.array,
+		'customClasses': PropTypes.string,
+		'element': PropTypes.string,
+		'publicOnly': PropTypes.bool
 	}
 
 	AccessControl.defaultProps = {

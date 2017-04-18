@@ -112,10 +112,15 @@ header {
 					}
 
 					.account-menu {
+						border: 2px solid $white;
+					}
+
+					.account-menu,
+					.cart-summary {
 						display: none;
 						z-index: 10000;
 				    background: black;
-				    border-top: 1px solid $white;
+				    border-top: 2px solid $white;
 				    box-shadow: 0 2px 5px rgba(0,0,0,0.75);
 						position: fixed;
 						right: 0px;
@@ -135,7 +140,7 @@ header {
 								&.active,
 								&.hover {
 									border: none;
-	    						border-left: 4px solid white;
+	    						border-left: 4px solid $white;
 									text-decoration: none;
 								}
 							}
@@ -143,6 +148,56 @@ header {
 
 						&.show {
 							display: block;
+						}
+					}
+
+					.cart-summary {
+						flex-direction: column;
+						color: $white;
+    				padding: 15px;
+						max-width: 380px;
+				    height: calc(100% - 58px);
+				    overflow: auto;
+
+						.header {
+							position: relative;
+
+							.fa {
+								position: absolute;
+						    top: 0px;
+						    right: 0px;
+						    font-size: 1.5rem;
+							}
+
+						}
+
+						.body {
+							flex: 1;
+						}
+
+						table {
+							thead {
+								color: $white
+							}
+						}
+
+						.footer {
+							border-top: 1px solid white;
+					    padding-top: 15px;
+					    text-align: center;
+					    margin-top: 25px;
+
+							.button {
+								justify-content: center;
+
+								&:hover {
+									text-decoration: none;
+								}
+							}
+						}
+
+						&.show {
+							display: flex;
 						}
 					}
 				}
@@ -238,7 +293,7 @@ header {
 			left: 0;
 			width: 100%;
 			height: 58px;
-			color: white;
+			color: $white;
 			position: fixed;
 			background: $black;
 			box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.5);
@@ -420,6 +475,12 @@ header {
 								}
 							}
 						}
+
+						.cart-summary {
+							max-width: none;
+							width: 100%;
+							top: $nav-height - 2px;
+						}
 					}
 				}
 			}
@@ -451,6 +512,35 @@ header {
 		}
 	}
 }
+@media screen and (max-width: 580px) {
+	header {
+		.top-nav {
+			.animation-wrapper {
+				.menu-group-mobile {
+					.login-menu,
+					.main-menu {
+						li {
+							a {
+								justify-content: center;
+							}
+						}
+					}
+
+					.login-menu {
+						flex-direction: row;
+
+						// .mini-cart,
+						// .login-link {
+						// 	a {
+						// 		user-select: center;
+						// 	}
+						// }
+					}
+				}
+			}
+		}
+	}
+}
 @media screen and (max-width: 420px) {
 	header {
 		.top-nav {
@@ -468,19 +558,6 @@ header {
 
 				.mobile {
 					display: flex;
-				}
-			}
-
-			.animation-wrapper {
-				.menu-group-mobile {
-					.login-menu,
-					.main-menu {
-						li {
-							a {
-								justify-content: center;
-							}
-						}
-					}
 				}
 			}
 		}

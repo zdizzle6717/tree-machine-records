@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 export default class CountryTile extends React.Component {
 	constructor(props) {
@@ -42,7 +43,7 @@ export default class CountryTile extends React.Component {
 }
 
 CountryTile.propTypes = {
-	countryCode: React.PropTypes.string.isRequired,
-	imageFront: React.PropTypes.string.isRequired,
-	imageBack: React.PropTypes.string
+	countryCode: PropTypes.string.isRequired,
+	imageFront: PropTypes.string.isRequired,
+	imageBack: PropTypes.string
 }

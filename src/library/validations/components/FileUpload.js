@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import accepts from 'attr-accept';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import FormActions from '../actions/FormActions';
 import {addErrorMessage, removeErrorMessage, getInput, range} from '../utilities';
 
@@ -332,45 +333,48 @@ class FileUpload extends React.Component {
 						{this.props.required ? this.props.required : ''}</div>
 					<input type="file" name={this.props.name} id={this.props.name} onChange={this.validateFiles} onFocus={this.handleFocus} onBlur={this.handleBlur} accept={this.props.accept} multiple={this.props.multiple} disabled={this.props.disabled}/>
 				</div>
-				<div className="file-info">
-					<div className={fileContainerClasses}>
-						<button className="button info toggle-list" onClick={this.toggleFileList}>
-							{ this.state.showFileList ? <span className="fa fa-minus"></span> : <span className="fa fa-plus"></span>} { this.state.showFileList ? 'Hide File List' : 'Show File List'}
-						</button>
-						{
-							this.state.files.length < 1 && this.state.showFileList ?
-							<div className="help-text">Drag & drop files or click above to browse for files</div> :
-							<div className={fileListClasses}>
-								<table className="file-list-table">
-		 							<thead>
-		 								<tr>
-		 									<th>File Name</th>
-		 									<th>Type</th>
-		 									<th>Size</th>
-		 									<th className="remove-file-header">Remove?</th>
-		 									<th className="remove-file-header">Delete?</th>
-		 								</tr>
-		 							</thead>
-									<tbody>
-										{this.state.files.map((file, i) => <tr key={i} name="file.name">
-											<td>{file.name}</td>
-											<td>{file.type}</td>
-											<td>{(file.size / Math.pow(1024, 2)).toFixed(2)}MB</td>
-											<td className="remove-file"><span className="fa fa-minus" onClick={this.handleRemoveFile.bind(this, i)}></span></td>
-											{
-												file.id && this.props.handleDeleteFile &&
-												<td className="delete-file"><span className="fa fa-times" onClick={this.handleDeleteFile.bind(this, file, i)}></span></td>
-											}
-										</tr>)}
-									</tbody>
-		 						</table>
-								<div className={errorClasses}>
-									{this.state.errors.map((error, i) => <div key={i}>{error.message}</div>)}
+				{
+					!this.props.hideFileList &&
+					<div className="file-info">
+						<div className={fileContainerClasses}>
+							<button className="button info toggle-list" onClick={this.toggleFileList}>
+								{ this.state.showFileList ? <span className="fa fa-minus"></span> : <span className="fa fa-plus"></span>} { this.state.showFileList ? 'Hide File List' : 'Show File List'}
+							</button>
+							{
+								this.state.files.length < 1 && this.state.showFileList ?
+								<div className="help-text">Drag & drop files or click above to browse for files</div> :
+								<div className={fileListClasses}>
+									<table className="file-list-table">
+			 							<thead>
+			 								<tr>
+			 									<th>File Name</th>
+			 									<th>Type</th>
+			 									<th>Size</th>
+			 									<th className="remove-file-header">Remove?</th>
+			 									<th className="remove-file-header">Delete?</th>
+			 								</tr>
+			 							</thead>
+										<tbody>
+											{this.state.files.map((file, i) => <tr key={i} name="file.name">
+												<td>{file.name}</td>
+												<td>{file.type}</td>
+												<td>{(file.size / Math.pow(1024, 2)).toFixed(2)}MB</td>
+												<td className="remove-file"><span className="fa fa-minus" onClick={this.handleRemoveFile.bind(this, i)}></span></td>
+												{
+													file.id && this.props.handleDeleteFile &&
+													<td className="delete-file"><span className="fa fa-times" onClick={this.handleDeleteFile.bind(this, file, i)}></span></td>
+												}
+											</tr>)}
+										</tbody>
+			 						</table>
+									<div className={errorClasses}>
+										{this.state.errors.map((error, i) => <div key={i}>{error.message}</div>)}
+									</div>
 								</div>
-							</div>
-						}
+							}
+						</div>
 					</div>
-				</div>
+				}
 				<div className={errorClasses}>
 					{this.state.errors.map((error, i) => <div key={i}>{error.message}</div>)}
 				</div>
@@ -380,19 +384,20 @@ class FileUpload extends React.Component {
 }
 
 FileUpload.propTypes = {
-	'name': React.PropTypes.string.isRequired,
-	'fileName': React.PropTypes.string,
-	'handleFileUpload': React.PropTypes.func.isRequired,
-	'handleDeleteFile': React.PropTypes.func,
-	'accept': React.PropTypes.string,
-	'typeOfModel': React.PropTypes.string.isRequired,
-	'multiple': React.PropTypes.bool,
-	'maxFiles': React.PropTypes.number,
-	'minSize': React.PropTypes.number,
-	'maxSize': React.PropTypes.number,
-	'preserveState': React.PropTypes.bool,
-	'required': React.PropTypes.number,
-	'disabled': React.PropTypes.bool
+	'name': PropTypes.string.isRequired,
+	'fileName': PropTypes.string,
+	'handleFileUpload': PropTypes.func.isRequired,
+	'handleDeleteFile': PropTypes.func,
+	'hideFileList': PropTypes.bool,
+	'accept': PropTypes.string,
+	'typeOfModel': PropTypes.string.isRequired,
+	'multiple': PropTypes.bool,
+	'maxFiles': PropTypes.number,
+	'minSize': PropTypes.number,
+	'maxSize': PropTypes.number,
+	'preserveState': PropTypes.bool,
+	'required': PropTypes.number,
+	'disabled': PropTypes.bool
 }
 
 FileUpload.defaultProps = {

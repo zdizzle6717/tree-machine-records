@@ -1,26 +1,25 @@
 'use strict';
 
+// TODO: This should check for any of the flags, not all
+
 const checkAuthorization = (accessControl, user, roleConfig) => {
 	let userFlags = user.roleFlags || 0;
-	let accessFlags = 0;
-	accessControl.forEach((roleName) => {
-		roleConfig.forEach((role) => {
-			if (role.name === roleName) {
-				accessFlags += role.roleFlags;
+
+	const hasFlags = (flags, mask) => {
+		flags = parseInt(flags, 10);
+		mask = parseInt(mask, 10);
+
+		return (flags & mask) === mask;
+	};
+
+	return accessControl.some((accessLevel) => {
+		return roleConfig.some((role) => {
+			if (role.name === accessLevel) {
+				return hasFlags(userFlags, role.roleFlags);
 			}
 		});
 	});
 
-	let hasFlags = (flags, mask) => {
-		flags = parseInt(flags, 10);
-		mask = parseInt(mask, 10);
-
-		return (mask & flags) === mask;
-	};
-
-	let accessGranted = hasFlags(userFlags, accessFlags) && userFlags !== 0;
-
-	return accessGranted;
-}
+};
 
 export default checkAuthorization;

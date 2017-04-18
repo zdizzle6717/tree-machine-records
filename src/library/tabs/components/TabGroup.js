@@ -3,6 +3,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Animation from 'react-addons-css-transition-group';
+import PropTypes from 'prop-types';
 
 export default class TabGroup extends React.Component {
 	constructor(props) {
@@ -58,8 +59,8 @@ export default class TabGroup extends React.Component {
 }
 
 TabGroup.propTypes = {
-	'selected': React.PropTypes.number,
-	'formName': React.PropTypes.string
+	'selected': PropTypes.number,
+	'formName': PropTypes.string
 }
 
 TabGroup.defaultProps = {

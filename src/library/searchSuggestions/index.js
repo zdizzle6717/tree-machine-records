@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import {Input} from '../../library/validations';
 import {scrollUp, scrollDown} from '../utilities/scrollHelpers';
+import PropTypes from 'prop-types';
 
 export default function(Service, method) {
 	let _keyChart = {
@@ -235,14 +236,14 @@ export default function(Service, method) {
 	}
 
 	SearchSuggestions.propTypes = {
-		'displayKeys': React.PropTypes.array.isRequired,
-		'handleInputChange': React.PropTypes.func.isRequired,
-		'maxResults': React.PropTypes.number,
-		'minCharacters': React.PropTypes.number,
-		'name': React.PropTypes.string.isRequired,
-		'required': React.PropTypes.bool,
-		'rowCount': React.PropTypes.number,
-		'validate': React.PropTypes.string
+		'displayKeys': PropTypes.array.isRequired,
+		'handleInputChange': PropTypes.func.isRequired,
+		'maxResults': PropTypes.number,
+		'minCharacters': PropTypes.number,
+		'name': PropTypes.string.isRequired,
+		'required': PropTypes.bool,
+		'rowCount': PropTypes.number,
+		'validate': PropTypes.string
 	}
 
 	SearchSuggestions.defaultProps = {

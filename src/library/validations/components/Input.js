@@ -4,15 +4,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import defaultValidations from '../constants/defaultValidations'
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import defaultValidations from '../constants/defaultValidations';
 import FormActions from '../actions/FormActions';
 import {addErrorMessage, removeErrorMessage, getInput} from '../utilities';
+
+//TODO: Make sure input gets set to dirty on first character change/user input
 
 const mapStateToProps = (state) => {
 	return {
 		'forms': state.forms
-	}
+	};
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -186,7 +189,7 @@ class Input extends React.Component {
 
 		return (
 			<div className="validate-error-element">
-				<input className={validationClasses} type={this.props.type} name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} min={this.props.min} max={this.props.max} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} autoComplete={this.props.autoComplete} disabled={this.props.disabled}/>
+				<input className={validationClasses} type={this.props.type} name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} min={this.props.min} max={this.props.max} minLength={this.props.minlength} maxLength={this.props.maxlength} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} autoComplete={this.props.autoComplete} disabled={this.props.disabled}/>
 				<div className="validate-errors">
 					{
 						this.state.errors.map((error, i) =>
@@ -200,18 +203,20 @@ class Input extends React.Component {
 }
 
 Input.propTypes = {
-	'autoComplete': React.PropTypes.string,
-	'type': React.PropTypes.string.isRequired,
-	'name': React.PropTypes.string.isRequired,
-	'placeholder': React.PropTypes.string,
-	'min': React.PropTypes.number,
-	'max': React.PropTypes.number,
-	'validate': React.PropTypes.string,
-	'handleInputChange': React.PropTypes.func.isRequired,
-	'preserveState': React.PropTypes.bool,
-	'required': React.PropTypes.bool,
-	'disabled': React.PropTypes.bool,
-	'inputMatch': React.PropTypes.string
+	'autoComplete': PropTypes.string,
+	'type': PropTypes.string.isRequired,
+	'name': PropTypes.string.isRequired,
+	'placeholder': PropTypes.string,
+	'min': PropTypes.number,
+	'minlength': PropTypes.number,
+	'maxlength': PropTypes.number,
+	'max': PropTypes.number,
+	'validate': PropTypes.string,
+	'handleInputChange': PropTypes.func.isRequired,
+	'preserveState': PropTypes.bool,
+	'required': PropTypes.bool,
+	'disabled': PropTypes.bool,
+	'inputMatch': PropTypes.string
 }
 
 Input.defaultProps = {

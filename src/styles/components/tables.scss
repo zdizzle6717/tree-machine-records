@@ -5,6 +5,7 @@ table {
 	tbody {
 	    background: transparent;
 		border: none;
+		overflow-y: auto;
 
 		td {
 			padding: .1rem 1rem .125rem;

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 export default class PaginationControls extends React.Component {
 	constructor() {
@@ -81,9 +82,9 @@ export default class PaginationControls extends React.Component {
 };
 
 PaginationControls.propTypes = {
-	'pageNumber': React.PropTypes.number,
-	'pageSize': React.PropTypes.number,
-	'totalPages': React.PropTypes.number,
-	'totalResults': React.PropTypes.number,
-	'handlePageChange': React.PropTypes.func
+	'pageNumber': PropTypes.number,
+	'pageSize': PropTypes.number,
+	'totalPages': PropTypes.number,
+	'totalResults': PropTypes.number,
+	'handlePageChange': PropTypes.func
 }

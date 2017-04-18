@@ -1,7 +1,8 @@
 'use strict';
 
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
+import {browserHistory, Link} from 'react-router';
+import PropTypes from 'prop-types';
 
 export default class BreadCrumbs extends React.Component {
 	// TODO: This is garbage. Find a better solution.
@@ -46,14 +47,16 @@ export default class BreadCrumbs extends React.Component {
 	render() {
 		return (
 			<ul className="breadCrumbs">
-				{ this.state.breadCrumbs.length > 1 && this.state.breadCrumbs.map((crumb) =>
-					<li><Link className="crumb" key={crumb.key} to={crumb.pathname} activeClassName="active">{crumb.key}</Link></li>
-				) }
+				{
+					this.state.breadCrumbs.length > 1 && this.state.breadCrumbs.map((crumb) =>
+						<li><Link className="crumb" key={crumb.key} to={crumb.pathname} activeClassName="active">{crumb.key}</Link></li>
+					)
+				}
 			</ul>
 		)
 	}
 }
 
 BreadCrumbs.propTypes = {
-	'totalCrumbs': React.PropTypes.number.isRequired,
+	'totalCrumbs': PropTypes.number.isRequired,
 }

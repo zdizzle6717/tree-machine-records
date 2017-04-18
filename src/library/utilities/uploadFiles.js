@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-export default function(files, apiRoute = '/files', path = '', moreInfo) {
+export default function(files, apiRoute = '/files/add', path = '', moreInfo) {
 	let promises = [];
 	files.forEach((file) => {
 		let data = new FormData();

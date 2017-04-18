@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router';
 import Animation from 'react-addons-css-transition-group';
+import PropTypes from 'prop-types';
 import formatDate from '../../library/utilities/formatJSONDate';
 import OverlayActions from '../../actions/OverlayActions';
 
@@ -252,13 +253,13 @@ class SideBar extends React.Component {
 }
 
 SideBar.propTypes = {
-	'featuredImage': React.PropTypes.string,
-	'showSpotlight': React.PropTypes.bool,
-	'siteWideFeaturedImage': React.PropTypes.bool,
-	'socialLinks': React.PropTypes.object,
-	'contacts': React.PropTypes.object,
-	'artistName': React.PropTypes.string,
-	'artistParam': React.PropTypes.string
+	'featuredImage': PropTypes.string,
+	'showSpotlight': PropTypes.bool,
+	'siteWideFeaturedImage': PropTypes.bool,
+	'socialLinks': PropTypes.object,
+	'contacts': PropTypes.object,
+	'artistName': PropTypes.string,
+	'artistParam': PropTypes.string
 }
 
 SideBar.defaultProps = {

@@ -9,7 +9,9 @@ import {UserActions, AccessControl as createAccessControl} from '../../../librar
 import {PaginationControls} from '../../../library/pagination';
 import roleConfig from '../../../../roleConfig';
 const AccessControl = createAccessControl(roleConfig);
+import CartActions from '../../../actions/CartActions';
 import MerchItemActions from '../../../actions/MerchItemActions';
+import MerchItemService from '../../../services/MerchItemService';
 import MerchListingRow from '../../pieces/MerchListingRow';
 
 // TODO: Add functionality to edit user
@@ -18,6 +20,7 @@ import MerchListingRow from '../../pieces/MerchListingRow';
 
 const mapStateToProps = (state) => {
 	return {
+		'cartItems': state.cartItems,
 		'user': state.user,
 		'users': state.users,
 		'merchItems': state.merchItems
@@ -26,6 +29,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		'updateTotal': CartActions.updateTotal,
+		'addToCart': CartActions.add,
 		'searchUsers': UserActions.search,
 		'searchMerch': MerchItemActions.search
 	}, dispatch);
@@ -40,6 +45,7 @@ class ProfilePage extends React.Component {
 			'userPagination': {},
 		}
 
+		this.addToCart = this.addToCart.bind(this);
 		this.removeMerchItem = this.removeMerchItem.bind(this);
 		this.searchMerch = this.searchMerch.bind(this);
 		this.searchUsers = this.searchUsers.bind(this);
@@ -53,8 +59,18 @@ class ProfilePage extends React.Component {
 		this.searchUsers(1);
     }
 
+	addToCart(itemId, qty) {
+		MerchItemService.get(itemId).then((merchItem) => {
+			this.props.addToCart(merchItem, qty);
+			// TODO: Check if this needs a set timeout
+			setTimeout(() => {
+				this.props.updateTotal(this.props.cartItems);
+			});
+		});
+	}
+
 	removeMerchItem(id) {
-		console.log ('Remove merch with ID ' + id);
+		console.log('Delete merch with ID ' + id);
 	}
 
 	searchUsers(pageNumber = 1) {
@@ -89,23 +105,33 @@ class ProfilePage extends React.Component {
 
     render() {
         return (
-            <div className="content-wrapper artist-page">
+            <div className="content-wrapper">
                 <div className="row">
-                    <div className="small-12 medium-3 columns">
-						<h3>Username</h3>
-						<h5>{this.props.user.username}</h5>
-						<hr/>
-						<h3>Name</h3>
-						<h5>Zack Anselm</h5>
-						<hr/>
-						<h3>Email</h3>
-						<h5>{this.props.user.email}</h5>
-						<hr/>
-                    </div>
-                    <div className="small-12 medium-6 columns">
+                    <div className="small-12 medium-9 columns">
 						<h1>Dashboard</h1>
-						<Link key="digital-downloads" to="digital-downloads"><h3>Digital Downloads</h3></Link>
 						<hr/>
+						<div className="row">
+							<div className="small-2 medium-4 columns">
+								<h3>Username</h3>
+								<h5>{this.props.user.username}</h5>
+							</div>
+							<div className="small-2 medium-4 columns">
+								<h3>Name</h3>
+								<h5>Zack Anselm</h5>
+							</div>
+							<div className="small-2 medium-4 columns">
+								<h3>Email</h3>
+								<h5>{this.props.user.email}</h5>
+							</div>
+	                    </div>
+						<hr/>
+						<AccessControl access={['subscriber']}>
+							<h3>Digital Downloads</h3>
+							<h4>
+								<Link key="digital-downloads" to="digital-downloads">Search by Artist</Link>
+							</h4>
+							<hr/>
+						</AccessControl>
 						<AccessControl access={['recordStore']}>
 							<div className="small-12">
 								<h3>Distribution Center</h3>
@@ -123,12 +149,13 @@ class ProfilePage extends React.Component {
 						            </thead>
 						            <tbody>
 										{
-											this.props.merchItems.map((item, i) => <MerchListingRow key={i} id={item.id} catalogueNumber={item.AlbumRelease.catalogueNumber} title={item.title} artist={item.Artist.name} price={item.price} removeMerch={this.removeMerchItem} format={item.format}></MerchListingRow>)
+											this.props.merchItems.map((item, i) => <MerchListingRow key={i} id={item.id} catalogueNumber={item.AlbumRelease.catalogueNumber} title={item.title} artist={item.Artist.name} price={item.price} removeMerch={this.removeMerchItem} addToCart={this.addToCart} format={item.format}></MerchListingRow>)
 										}
 									</tbody>
 								</table>
 								<PaginationControls pageNumber={this.state.merchPagination.pageNumber} pageSize={this.state.merchPagination.pageSize} totalPages={this.state.merchPagination.totalPages} totalResults={this.state.merchPagination.totalResults} handlePageChange={this.handleMerchPageChange}></PaginationControls>
 							</div>
+							<hr/>
 						</AccessControl>
 						<AccessControl access={['siteAdmin']}>
 							<div className="small-12">
@@ -140,6 +167,7 @@ class ProfilePage extends React.Component {
 								</ul>
 								<PaginationControls pageNumber={this.state.userPagination.pageNumber} pageSize={this.state.userPagination.pageSize} totalPages={this.state.userPagination.totalPages} totalResults={this.state.userPagination.totalResults} handlePageChange={this.handleUserPageChange}></PaginationControls>
 							</div>
+							<hr/>
 						</AccessControl>
                     </div>
                     <div className="small-12 medium-3 columns">

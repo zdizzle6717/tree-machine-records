@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Tab extends React.Component {
 	constructor() {
@@ -25,7 +26,7 @@ export default class Tab extends React.Component {
 }
 
 Tab.propTypes = {
-	'title': React.PropTypes.string.isRequired,
-	'name': React.PropTypes.string.isRequired,
-	'errorCount': React.PropTypes.number
+	'title': PropTypes.string.isRequired,
+	'name': PropTypes.string.isRequired,
+	'errorCount': PropTypes.number
 }

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 import roleConfig from '../../../roleConfig';
 import createAccessControl from '../../library/authentication/components/AccessControl';
 const AccessControl = createAccessControl(roleConfig);
@@ -14,7 +15,8 @@ export default class MerchListingRow extends React.Component {
 	}
 
 	addToCart() {
-		console.log(this.props.id + ' added to cart');
+		let qty = 1;
+		this.props.addToCart(this.props.id, qty);
 	}
 
 	render() {
@@ -39,10 +41,11 @@ export default class MerchListingRow extends React.Component {
 }
 
 MerchListingRow.propTypes = {
-	'artist': React.PropTypes.string,
-	'catalogueNumber': React.PropTypes.string,
-	'format': React.PropTypes.string.isRequired,
-	'id': React.PropTypes.number.isRequired,
-	'removeMerch': React.PropTypes.func.isRequired,
-	'title': React.PropTypes.string.isRequired
+	'artist': PropTypes.string,
+	'addToCart': PropTypes.func,
+	'catalogueNumber': PropTypes.string,
+	'format': PropTypes.string.isRequired,
+	'id': PropTypes.number.isRequired,
+	'removeMerch': PropTypes.func.isRequired,
+	'title': PropTypes.string.isRequired
 }

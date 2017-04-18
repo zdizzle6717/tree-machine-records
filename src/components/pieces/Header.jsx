@@ -7,9 +7,11 @@ import axios from 'axios';
 import classNames from 'classnames';
 import Animation from 'react-addons-css-transition-group';
 import AudioPlayer from 'react-responsive-audio-player';
+import PropTypes from 'prop-types';
 import AlertActions from '../../library/alerts/actions/AlertActions';
 import { Link, browserHistory } from 'react-router';
 import UserActions from '../../library/authentication/actions/UserActions';
+import CartSummary from './CartSummary';
 
 const mapStateToProps = (state) => {
 	return {
@@ -146,6 +148,7 @@ class Header extends React.Component {
 								</li>
 							</ul>
 							<ul className="login-menu">
+								<CartSummary></CartSummary>
 								{
 									this.props.isAuthenticated ?
 									<li className="login-link">
@@ -189,6 +192,7 @@ class Header extends React.Component {
 									</li>
 								</ul>
 								<ul className="login-menu">
+									<CartSummary></CartSummary>
 									{
 										this.props.isAuthenticated ?
 										<li className="login-link">
@@ -238,8 +242,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-	'logoUrl': React.PropTypes.string,
-	'hasScrolled': React.PropTypes.bool
+	'logoUrl': PropTypes.string,
+	'hasScrolled': PropTypes.bool
 }
 
 Header.defaultProps = {

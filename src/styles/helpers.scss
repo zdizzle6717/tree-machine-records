@@ -20,11 +20,16 @@
 	margin: 0 !important;
 }
 
+.small-12 {
+	overflow-y: auto;
+}
+
 // Miscellaneous
 .flex-column {
 	flex-direction: column;
 }
-.hover {
+.hover,
+.pointer {
 	cursor: pointer;
 }
 

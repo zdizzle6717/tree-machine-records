@@ -28,7 +28,7 @@ module.exports = [
 	},
 	{
 		'name': 'siteAdmin',
-		'roleFlags': 15,
+		'roleFlags': 31,
 		'homeState': '/admin',
 	}
 ];

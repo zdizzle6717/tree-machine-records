@@ -31,12 +31,12 @@ const users = (state = [], action) => {
 		default:
 			return state;
 	}
-}
+};
 
 const isAuthenticated = (state = false, action) => {
 	switch (action.type) {
 		case AuthenticationConstants.SET_AUTHENTICATION:
-			return action.data
+			return action.data;
 		default:
 			return state;
 	}
@@ -45,11 +45,11 @@ const isAuthenticated = (state = false, action) => {
 const redirectRoute = (state = false, action) => {
 	switch (action.type) {
 		case RedirectConstants.SET_REDIRECT:
-			return action.data
+			return action.data;
 		default:
 			return state;
 	}
-}
+};
 
 export {
 	user,

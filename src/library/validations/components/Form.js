@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import FormActions from '../actions/FormActions';
 
 const mapStateToProps = (state) => {
@@ -66,7 +67,7 @@ class Form extends React.Component {
 							this.props.submitButton &&
 							<div className="row">
 								<div className="form-group small-12 columns text-right">
-									<button className="button info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !formIsValid}>{this.props.submitText}</button>
+									<button className="button right info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !formIsValid}>{this.props.submitText}</button>
 								</div>
 							</div>
 						}
@@ -77,7 +78,7 @@ class Form extends React.Component {
 							this.props.submitButton &&
 							<div className="row">
 								<div className="form-group small-12 columns text-right">
-									<button className="button info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !formIsValid}>{this.props.submitText}</button>
+									<button className="button right info" onClick={this.handleSubmit} disabled={this.props.validity !== undefined ? !this.props.validity : !formIsValid}>{this.props.submitText}</button>
 								</div>
 							</div>
 						}
@@ -90,14 +91,14 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-	name: React.PropTypes.string.isRequired,
-	handleSubmit: React.PropTypes.func,
-	submitButton: React.PropTypes.bool,
-	submitText: React.PropTypes.string,
-	isParent: React.PropTypes.bool,
-	childForms: React.PropTypes.array,
-	validity: React.PropTypes.bool,
-	customClass: React.PropTypes.string
+	name: PropTypes.string.isRequired,
+	handleSubmit: PropTypes.func,
+	submitButton: PropTypes.bool,
+	submitText: PropTypes.string,
+	isParent: PropTypes.bool,
+	childForms: PropTypes.array,
+	validity: PropTypes.bool,
+	customClass: PropTypes.string
 }
 
 Form.defaultProps = {

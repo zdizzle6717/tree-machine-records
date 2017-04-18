@@ -42,6 +42,12 @@ import ArtistPhotographyPage from './components/pages/artist/ArtistPhotographyPa
 // Profile Pages
 import ProfilePage from './components/pages/profile/ProfilePage';
 
+// Store Pages
+import CartPage from './components/pages/store/CartPage';
+import CheckoutPage from './components/pages/store/CheckoutPage';
+import OrderSuccessPage from './components/pages/store/OrderSuccessPage';
+import StorePage from './components/pages/store/StorePage';
+
 const routes = (
 	<Route path="/" component={Layout}>
 		<IndexRoute component={IndexPage}/>
@@ -94,6 +100,12 @@ const routes = (
 		<Route path="register" component={RegistrationPage}/>
 		<Route path="search" component={SearchPage}/>
 		<Route path="site-map" component={SiteMapPage}/>
+		<Route path="store">
+			<IndexRoute component={StorePage}/>
+			<Route path="cart" component={CartPage}/>
+			<Route path="checkout" component={CheckoutPage}/>
+			<Route path="order-success" component={OrderSuccessPage}/>
+		</Route>
 		<Route path="*" component={NotFoundPage}/>
 	</Route>
 );

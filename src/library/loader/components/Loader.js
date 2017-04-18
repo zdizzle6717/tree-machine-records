@@ -4,12 +4,13 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 const mapStateToProps = (state) => {
 	return {
 		'loader': state.loader
-	}
-}
+	};
+};
 
 class Loader extends React.Component {
 	constructor() {
@@ -52,7 +53,7 @@ class Loader extends React.Component {
 }
 
 Loader.propTypes = {
-	'type': React.PropTypes.string
+	'type': PropTypes.string
 }
 
 Loader.defaultProps = {

@@ -28,6 +28,7 @@ const _configureUser = (user) => {
 			}
 		});
 		if (!user.roleConfig) {
+			console.log('Oops! Make sure that the roleConfig on the UI and API have matching values.');
 			throw new Error('Oops! Make sure that the roleConfig on the UI and API have matching values.');
 		}
 		sessionStorage.setItem('user', JSON.stringify(user));
@@ -51,6 +52,7 @@ export default {
 			dispatch(_initiateRequest(UserConstants.INITIATE_USER_REQUEST));
 			return UserService.getAll().then((users) => {
 				dispatch(_returnResponse(UserConstants.GET_USERS, users));
+				return users;
 			});
 		};
 	},
@@ -68,7 +70,8 @@ export default {
 			dispatch(_initiateRequest(UserConstants.INITIATE_USER_REQUEST));
 			return UserService.create(data).then((user) => {
 				user = _configureUser(user);
-				dispatch(_returnResponse(UserConstants.CREATE_USER, user));
+				// dispatch(_returnResponse(UserConstants.CREATE_USER, user));
+				return user;
 			});
 		};
 	},
@@ -78,6 +81,7 @@ export default {
 			return UserService.update(id, data).then((user) => {
 				user = _configureUser(user);
 				dispatch(_returnResponse(UserConstants.UPDATE_USER, user));
+				return user;
 			});
 		};
 	},
@@ -86,6 +90,7 @@ export default {
 			dispatch(_initiateRequest(UserConstants.INITIATE_USER_REQUEST, id));
 			return UserService.remove(id).then((response) => {
 				dispatch(_returnResponse(UserConstants.REMOVE_USER, id));
+				return response;
 			});
 		};
 	},
@@ -102,6 +107,7 @@ export default {
 					'type': AuthenticationConstants.SET_AUTHENTICATION,
 					'data': true
 				});
+				return user;
 			});
 		};
   },
@@ -117,6 +123,7 @@ export default {
 					'type': AuthenticationConstants.SET_AUTHENTICATION,
 					'data': true
 				});
+				return user;
 			});
 		};
   },
