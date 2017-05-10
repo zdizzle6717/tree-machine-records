@@ -3,23 +3,27 @@ let axios = require('axios');
 
 export default {
 	authenticate: (credentials) => {
-		let args = {
-			'method': 'POST',
-			'url': '/users/authenticate',
-			'auth': {
-				'username': credentials.username,
-				'password': credentials.password
-			},
-			'data': credentials
-		};
-
-		return axios(args)
+		return axios.post('/users/authenticate', credentials)
+			.then(function(response) {
+				return response.data;
+			});
+	},
+	authenticateFromToken: (data) => {
+		return axios.post('/users/getMe/' + data.id_token, {
+			'rememberMe': data.rememberMe
+		})
 			.then(function(response) {
 				return response.data;
 			});
 	},
 	create: (credentials) => {
 		return axios.post('/users', credentials)
+			.then(function(response) {
+				return response.data;
+			});
+	},
+	remove: (id) => {
+		return axios.delete('/users/' + id)
 			.then(function(response) {
 				return response.data;
 			});

@@ -11,6 +11,7 @@ module.exports = []
 	.concat(require('./api/mediaMentions'))
 	.concat(require('./api/merchItems'))
 	.concat(require('./api/origins'))
+	.concat(require('./api/priceOptions'))
 	.concat(require('./api/socialLinkLists'))
 	.concat(require('./api/songs'))
 	.concat(require('./api/users'));

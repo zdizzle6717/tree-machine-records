@@ -12,11 +12,11 @@ export default function(files, apiRoute = '/files/add', path = '', moreInfo) {
 				}
 			};
 		data.append('file', file);
-		data.set('path', path);
-		data.set('fileSize', file.size);
+		data.append('path', path);
+		data.append('fileSize', file.size);
 		if (moreInfo) {
 			for (let prop in moreInfo) {
-				data.set(prop, moreInfo[prop]);
+				data.append(prop, moreInfo[prop]);
 			}
 		}
 		promises.push(axios.post(apiRoute, data, config));

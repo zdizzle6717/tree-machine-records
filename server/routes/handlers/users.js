@@ -4,36 +4,40 @@ import models from '../../models';
 import env from '../../../envVariables.js';
 import Boom from 'boom';
 import createToken from '../../utils/createToken';
-import {getUserRoleFlags} from '../../utils/userFunctions';
+import {getUserRoleFlags, hashPassword} from '../../utils/userFunctions';
 import nodemailer from 'nodemailer';
 import buildAccountActivation from '../../emailTemplates/pendingAccountActivation';
 import buildRegistrationEmail from '../../emailTemplates/registrationSuccess';
-import xoauth2 from 'xoauth2';
-let generator = xoauth2.createXOAuth2Generator(env.email.XOAuth2);
+import roleConfig from '../../../roleConfig';
 
-// listen for token updates
-// you probably want to store these to a db
-generator.on('token', (token) => {
-	console.log(token);
-});
 
 let transporter = nodemailer.createTransport(({
-  'service': 'Gmail',
-  'auth': {
-    'xoauth2': generator
-  }
+	'service': 'Gmail',
+	'auth': {
+		'type': 'OAuth2',
+		'clientId': env.email.OAuth2.clientId,
+		'clientSecret': env.email.OAuth2.clientSecret
+	}
 }));
 
 // App users
 let users = {
   create: (request, reply) => {
-    userFunctions.hashPassword(request.payload.password, (err, hash) => {
-      models.User.create({
-          'email': request.payload.email,
-          'username': request.payload.username,
-          'password': hash,
-          [request.payload.role]: request.payload.role === 'artist' || request.payload.role === 'recordLabel' ? false : true
-        })
+    hashPassword(request.payload.password, (err, hash) => {
+			let userConfig = {
+        'email': request.payload.email,
+        'username': request.payload.username,
+        'firstName': request.payload.firstName,
+        'lastName': request.payload.lastName,
+        'password': hash
+      };
+			roleConfig.forEach((role) => {
+				if (role.name !== 'public') {
+					userConfig[role.name] = false;
+				}
+			});
+			userConfig[request.payload.role] = true;
+      models.User.create(userConfig)
         .then((user) => {
 					let newUserMailConfig;
 					if (request.payload.role === 'artist' || request.payload.role === 'recordLabel') {
@@ -47,7 +51,11 @@ let users = {
 							'from': env.email.user,
 							'to': env.email.user,
 							'subject': 'New Artist/Label Account Request',
-							'html': buildAccountActivation(user)
+							'html': buildAccountActivation(user),
+							'auth': {
+								'user': env.email.user,
+								'refreshToken': env.email.OAuth2.refreshToken
+							}
 						}, () => {
 							console.log('Account Application: CCd to admin');
 						});
@@ -56,7 +64,11 @@ let users = {
 	            'from': env.email.user,
 	            'to': user.email,
 	            'subject': `Welcome to Tree Machine Records!`,
-	            'html': buildRegistrationEmail(user)
+	            'html': buildRegistrationEmail(user),
+							'auth': {
+								'user': env.email.user,
+								'refreshToken': env.email.OAuth2.refreshToken
+							}
 	          };
 					}
 					transporter.sendMail(newUserMailConfig, (error, info) => {
@@ -69,6 +81,8 @@ let users = {
 								'id': user.id,
 								'email': user.email,
 								'username': user.username,
+								'firstName': user.firstName,
+								'lastName': user.lastName,
 								'roleFlags': getUserRoleFlags(user),
 								'id_token': createToken(user)
 							}).code(201);
@@ -85,6 +99,8 @@ let users = {
       'id': request.pre.user.id,
       'email': request.pre.user.email,
       'username': request.pre.user.username,
+			'firstName': request.pre.user.firstName,
+      'lastName': request.pre.user.lastName,
       'roleFlags': getUserRoleFlags(request.pre.user),
       'id_token': createToken(request.pre.user)
     }).code(201);

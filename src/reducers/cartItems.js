@@ -15,6 +15,15 @@ const updateSessionCart = (newCartItems) => {
 	sessionStorage.setItem('cartItems', JSON.stringify(newCartItems));
 };
 
+const cartIsActive = (state = 'hide', action) => {
+	switch (action.type) {
+		case CartItemConstants.TOGGLE:
+			return action.data;
+		default:
+			return state;
+	}
+};
+
 const cartItems = (state = [], action) => {
 	let cartItems, newItem, index;
 	switch (action.type) {
@@ -58,6 +67,7 @@ const cartTotal = (state = 0.00, action) => {
 };
 
 export {
+	cartIsActive,
 	cartItems,
 	cartTotal
 };

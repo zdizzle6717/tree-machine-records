@@ -2,22 +2,22 @@
 
 module.exports = function(sequelize, DataTypes) {
   let AlbumRelease = sequelize.define("AlbumRelease", {
-    caption: DataTypes.STRING,
-    catalogueNumber: {
-			type: DataTypes.STRING,
-			unique: true
+    'caption': DataTypes.STRING,
+    'catalogueNumber': {
+			'type': DataTypes.STRING,
+			'unique': true
 		},
-    iTunesUrl: DataTypes.STRING,
-    param: {
-      type: DataTypes.STRING,
-      unique: true
+    'iTunesUrl': DataTypes.STRING,
+    'param': {
+      'type': DataTypes.STRING,
+      'unique': true
     },
-    releaseDate: DataTypes.DATEONLY,
-    spotifyUrl: DataTypes.STRING,
-    summary: DataTypes.TEXT,
-    title: DataTypes.STRING
+    'releaseDate': DataTypes.DATEONLY,
+    'spotifyUrl': DataTypes.STRING,
+    'summary': DataTypes.TEXT,
+    'title': DataTypes.STRING
   }, {
-    classMethods: {
+    'classMethods': {
       associate: function(models) {
         AlbumRelease.belongsTo(models.Artist);
         AlbumRelease.hasMany(models.DigitalDownload);

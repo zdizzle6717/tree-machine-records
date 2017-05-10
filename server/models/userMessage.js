@@ -1,9 +1,9 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var UserMessage = sequelize.define('UserMessage', {
-    status: DataTypes.STRING,
+    'status': DataTypes.STRING,
   }, {
-    classMethods: {
+    'classMethods': {
       associate: function(models) {
         UserMessage.belongsTo(models.User);
       }

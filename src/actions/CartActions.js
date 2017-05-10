@@ -3,6 +3,14 @@
 import CartItemConstants from '../constants/CartItemConstants';
 
 export default {
+	toggle: (showHide) => {
+		return (dispatch) => {
+			dispatch({
+				'type': CartItemConstants.TOGGLE,
+				'data': showHide
+			});
+		};
+	},
 	add: (cartItem, qty) => {
 		let data = {
 			'merchItem': cartItem,

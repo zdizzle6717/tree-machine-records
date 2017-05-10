@@ -21,6 +21,8 @@ module.exports = [
         'payload': {
           'username': Joi.string().alphanum().min(2).max(300).required(),
           'email': Joi.string().email().required(),
+          'firstName': Joi.string().required(),
+          'lastName': Joi.string().required(),
           'password': Joi.string().required(),
           'role': Joi.string().required()
         }

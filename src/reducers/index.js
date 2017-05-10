@@ -4,7 +4,7 @@ import {combineReducers} from 'redux';
 import {routerReducer as routing} from 'react-router-redux';
 import {albumRelease, albumReleases} from './albumReleases';
 import {artist, artists} from './artists';
-import {cartItems, cartTotal} from './cartItems';
+import {cartIsActive, cartItems, cartTotal} from './cartItems';
 import {merchItem, merchItems} from './merchItems';
 import {overlay} from './overlay';
 import {alerts} from '../library/alerts';
@@ -18,6 +18,7 @@ export default combineReducers({
 	artists,
 	albumRelease,
 	albumReleases,
+	cartIsActive, 
 	cartItems,
 	cartTotal,
 	merchItem,

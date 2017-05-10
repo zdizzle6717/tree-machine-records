@@ -2,7 +2,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import { Link, browserHistory } from 'react-router';
+import {Link} from 'react-router-dom';
 
 export default class Header extends React.Component {
 	constructor() {

@@ -15,7 +15,10 @@ let merchItems = {
           },
           {
             'model': models.File
-          }
+          },
+					{
+						'model': models.PriceOption
+					}
         ]
       })
       .then((merchItem) => {
@@ -34,7 +37,9 @@ let merchItems = {
             'include': [{
               'model': models.Artist,
               'attributes': ['name']
-            }]
+            }, {
+							'model': models.PriceOption
+						}]
           },
           {
             'model': models.File
@@ -89,7 +94,10 @@ let merchItems = {
 			},
 			{
 				'model': models.AlbumRelease
-			}
+			},
+			{
+				'model': models.PriceOption
+			},
 		]
     }).then((response) => {
       let count = response.count;
@@ -116,11 +124,10 @@ let merchItems = {
         'ArtistId': request.payload.ArtistId,
         'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
-        'price': request.payload.price,
         'shortDescription': request.payload.shortDescription,
         'description': request.payload.description,
         'sku': request.payload.sku,
-        'qty': request.payload.qty,
+        'stockQty': request.payload.stockQty,
         'format': request.payload.format,
         'isDisplayed': request.payload.isDisplayed,
         'isFeatured': request.payload.isFeatured
@@ -143,11 +150,10 @@ let merchItems = {
 				'ArtistId': request.payload.ArtistId,
         'AlbumReleaseId': request.payload.AlbumReleaseId,
         'title': request.payload.title,
-        'price': request.payload.price,
         'shortDescription': request.payload.shortDescription,
         'description': request.payload.description,
         'sku': request.payload.sku,
-        'qty': request.payload.qty,
+        'stockQty': request.payload.stockQty,
         'format': request.payload.format,
         'isDisplayed': request.payload.isDisplayed,
         'isFeatured': request.payload.isFeatured

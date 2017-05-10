@@ -22,8 +22,8 @@ module.exports = [
 		'accessControl': ['siteAdmin']
 	},
 	{
-		'name': 'profile',
-		'path': '/profile',
+		'name': 'dashboard',
+		'path': '/dashboard',
 		'accessControl': ['subscriber']
 	}
 ];

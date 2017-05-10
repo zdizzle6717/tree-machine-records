@@ -9,7 +9,7 @@ import Animation from 'react-addons-css-transition-group';
 import AudioPlayer from 'react-responsive-audio-player';
 import PropTypes from 'prop-types';
 import AlertActions from '../../library/alerts/actions/AlertActions';
-import { Link, browserHistory } from 'react-router';
+import {withRouter, Link} from 'react-router-dom';
 import UserActions from '../../library/authentication/actions/UserActions';
 import CartSummary from './CartSummary';
 
@@ -82,7 +82,7 @@ class Header extends React.Component {
 	logout() {
 		this.props.logout();
 		this.showAlert('logoutSuccess');
-		browserHistory.push('/');
+		this.props.history.push('/');
 	}
 
 	showAlert(selector) {
@@ -161,7 +161,7 @@ class Header extends React.Component {
 										</a>
 										<ul className={this.state.showAccountMenu ? 'account-menu show': 'account-menu'}>
 											<li>
-												<Link key="profile" to="/profile" activeClassName="active" onClick={this.closeMenus}>Profile</Link>
+												<Link key="dashboard" to="/dashboard" activeClassName="active" onClick={this.closeMenus}>Dashboard</Link>
 											</li>
 											<li className="account-link" onClick={this.closeMenus}>
 												<a onClick={this.logout}>Logout</a>
@@ -205,7 +205,7 @@ class Header extends React.Component {
 											</a>
 											<ul className={this.state.showAccountMenu ? 'account-menu show': 'account-menu'}>
 												<li>
-													<Link key="profile" to="/profile" activeClassName="active">Profile</Link>
+													<Link key="dashboard" to="/dashboard" activeClassName="active">Dashboard</Link>
 												</li>
 												<li className="account-link">
 													<a onClick={this.logout}>Logout</a>
@@ -251,4 +251,4 @@ Header.defaultProps = {
 	'hasScrolled': false
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

@@ -9,22 +9,22 @@ module.exports = [
 	{
 		'name': 'subscriber',
 		'roleFlags': 1,
-		'homeState': '/profile',
+		'homeState': '/dashboard',
 	},
 	{
 		'name': 'artist',
 		'roleFlags': 2,
-		'homeState': '/profile',
+		'homeState': '/dashboard',
 	},
 	{
 		'name': 'recordStore',
 		'roleFlags': 4,
-		'homeState': '/profile',
+		'homeState': '/dashboard',
 	},
 	{
 		'name': 'recordLabel',
 		'roleFlags': 12,
-		'homeState': '/profile',
+		'homeState': '/dashboard',
 	},
 	{
 		'name': 'siteAdmin',

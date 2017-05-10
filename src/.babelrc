@@ -1,12 +1,18 @@
 {
-  "presets": ["react", "es2015"],
+	"presets": [{
+			"plugins": ["transform-runtime"]
+		},
+		{
+			"passPerPreset": false,
+			"presets": ["react", "es2015", "stage-1"]
+		}
+	],
 	"env": {
-    "production": {
-      "plugins": [
-        "transform-react-constant-elements",
-        "transform-react-inline-elements",
+		"production": {
+			"plugins": [
+				"transform-react-inline-elements",
 				"transform-react-remove-prop-types"
-      ]
-    }
-  }
+			]
+		}
+	}
 }

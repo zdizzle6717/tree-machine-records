@@ -10,8 +10,9 @@ import files from './files';
 import mediaMentions from './mediaMentions';
 import merchItems from './merchItems';
 import origins from './origins';
+import priceOptions from './priceOptions';
 import socialLinkLists from './socialLinkLists';
 import songs from './songs';
 import users from './users';
 
-export { artists, albumReleases, bioSections, contactLists, digitalDownloads, embeddableMedias, files, mediaMentions, merchItems, origins, socialLinkLists, songs, users };
+export { artists, albumReleases, bioSections, contactLists, digitalDownloads, embeddableMedias, files, mediaMentions, merchItems, origins, priceOptions, socialLinkLists, songs, users };

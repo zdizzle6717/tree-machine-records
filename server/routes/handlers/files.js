@@ -53,8 +53,6 @@ let files = {
     });
   },
   add: (request, reply) => {
-    let counter = 0;
-    let tick = 0;
     let data = request.payload;
     if (!data.path || !data.fileSize) {
       reply(Boom.badRequest(`A 'path' and 'fileSize' attribute must be appended to the FormData object`));
@@ -112,6 +110,8 @@ let files = {
           };
 
           if (resizeArray) {
+						// TODO: Test that the count is working
+						let count = 0;
             resizeArray.forEach((resizeConfig) => {
               let read = fse.createReadStream(path);
               let resizePath = location + resizeConfig.name;
@@ -126,24 +126,12 @@ let files = {
                 // Set file folder permissions and owners/groups just for safe measure
                 fse.chownSync(location, env.serverUID, env.serverGID);
                 fse.chmodSync(location, '0775');
-                counter++;
+                count++;
+								if (count >= resizeArray.length) {
+									reply(JSON.stringify(successResponse)).code(200);
+								}
               });
             });
-
-            // This continuously checks for all files to be created (since on 'end' happens async)
-            // TODO: Find a better way (RxJs???)
-            let waiter = setInterval(() => {
-              tick++;
-              if (counter >= resizeArray.length) {
-                clearInterval(waiter);
-                reply(JSON.stringify(successResponse)).code(200);
-              }
-              // Breakout if this takes more than 5 minutes
-              if (tick > 100 * 10 * 60 * 5) {
-                clearInterval(waiter);
-                reply(Boom.clientTimeout('Something when wrong while resizing and saving images'));
-              }
-            }, 100);
           } else {
             // Set file folder permissions and owners/groups just for safe measure
             fse.chown(location, env.serverUID, env.serverGID, (err) => {
@@ -175,9 +163,8 @@ let files = {
         reply(files).code(200);
       });
   },
-  // TODO: Get file by Id, then delete file from folder based on sourceUrl
   // Be carefull not to delete parent folder(s)
-  // fs.unlink()
+  // fse.unlink()
   delete: (request, reply) => {
     models.File.find({
       'where': {

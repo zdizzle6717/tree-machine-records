@@ -1,9 +1,9 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var FeaturedSongList = sequelize.define('FeaturedSongList', {
-    songIds: DataTypes.ARRAY(DataTypes.INTEGER)
+    'songIds': DataTypes.ARRAY(DataTypes.INTEGER)
   }, {
-    classMethods: {}
+    'classMethods': {}
   });
   return FeaturedSongList;
 };

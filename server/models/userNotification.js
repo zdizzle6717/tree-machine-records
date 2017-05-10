@@ -1,24 +1,24 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var UserNotification = sequelize.define('UserNotification', {
-    type: {
-      type: DataTypes.STRING,
+    'type': {
+      'type': DataTypes.STRING,
     },
-    status: {
-      type: DataTypes.STRING,
-      defaultValue: 'unRead'
+    'status': {
+      'type': DataTypes.STRING,
+      'defaultValue': 'unRead'
     },
-    fromId: {
-      type: DataTypes.INTEGER
+    'fromId': {
+      'type': DataTypes.INTEGER
     },
-    fromName: {
-      type: DataTypes.STRING
+    'fromName': {
+      'type': DataTypes.STRING
     },
-    fromUsername: {
-      type: DataTypes.STRING
+    'fromUsername': {
+      'type': DataTypes.STRING
     }
   }, {
-    classMethods: {
+    'classMethods': {
       associate: function(models) {
         UserNotification.belongsTo(models.User);
       }

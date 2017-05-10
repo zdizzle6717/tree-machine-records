@@ -2,17 +2,17 @@
 
 module.exports = function(sequelize, DataTypes) {
   let File = sequelize.define("File", {
-    locationUrl: DataTypes.STRING,
-    label: DataTypes.STRING,
-    name: DataTypes.STRING,
-    size: DataTypes.INTEGER,
-    type: DataTypes.STRING,
-    identifier: {
-      type: DataTypes.STRING,
-      defaultValue: 'default'
+    'locationUrl': DataTypes.STRING,
+    'label': DataTypes.STRING,
+    'name': DataTypes.STRING,
+    'size': DataTypes.INTEGER,
+    'type': DataTypes.STRING,
+    'identifier': {
+      'type': DataTypes.STRING,
+      'defaultValue': 'default'
     }
   }, {
-    classMethods: {
+    'classMethods': {
       associate: function(models) {
         File.belongsTo(models.AlbumRelease);
         File.belongsTo(models.Artist);

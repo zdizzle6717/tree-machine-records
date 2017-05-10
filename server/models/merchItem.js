@@ -2,25 +2,30 @@
 module.exports = function(sequelize, DataTypes) {
   var MerchItem = sequelize.define('MerchItem', {
 	  // TODO: Added properties for Merch
-    title: DataTypes.STRING,
-    price: DataTypes.STRING,
-    shortDescription: DataTypes.STRING,
-    description: DataTypes.STRING,
-    sku: {
-			type: DataTypes.STRING,
-			unique: true
+    'title': DataTypes.STRING,
+    'shortDescription': DataTypes.STRING,
+    'description': DataTypes.STRING,
+    'sku': {
+			'type': DataTypes.STRING,
+			'unique': true
 		},
-    qty: DataTypes.INTEGER,
-    format: DataTypes.STRING,
-    isDisplayed: DataTypes.BOOLEAN,
-    isFeatured: DataTypes.BOOLEAN
+    'stockQty': DataTypes.INTEGER,
+    'format': DataTypes.STRING,
+    'isDisplayed': DataTypes.BOOLEAN,
+    'isFeatured': DataTypes.BOOLEAN
   }, {
-    classMethods: {
+    'classMethods': {
         associate: function(models) {
             MerchItem.hasMany(models.File);
+            MerchItem.hasMany(models.PriceOption);
             MerchItem.belongsTo(models.Artist);
             MerchItem.belongsTo(models.AlbumRelease);
         }
+    },
+		'getterMethods': {
+      isInStock: function() {
+        return this.stockQty > 0;
+      }
     }
   });
   return MerchItem;

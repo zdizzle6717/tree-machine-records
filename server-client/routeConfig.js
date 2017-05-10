@@ -50,8 +50,8 @@ export default [
 		'view': 'playlist'
 	},
 	{
-		'route': '/profile*',
-		'view': 'profile'
+		'route': '/dashboard*',
+		'view': 'dashboard'
 	},
 	{
 		'route': '/register',

@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import roleConfig from '../../../roleConfig';
 import createAccessControl from '../../library/authentication/components/AccessControl';
@@ -14,8 +14,8 @@ export default class MerchListingRow extends React.Component {
 		this.addToCart = this.addToCart.bind(this);
 	}
 
-	addToCart() {
-		let qty = 1;
+	addToCart(e) {
+		let qty = e.target.value;
 		this.props.addToCart(this.props.id, qty);
 	}
 
@@ -27,14 +27,30 @@ export default class MerchListingRow extends React.Component {
 				<td>{this.props.artist}</td>
 				<td>{this.props.format}</td>
 				<td>{this.props.price}</td>
-				<td><a onClick={this.addToCart}>Add to Cart</a></td>
-				<td className="text-center">
-					<div className="action-buttons">
-						<AccessControl access={['siteAdmin']}>
-							<Link key="merchEdit" to={`/admin/merch/edit/${this.props.id}`} className="action"><i className="fa fa-pencil-square-o"></i></Link>
-						</AccessControl>
-					</div>
+				<td>{this.props.stockQty}</td>
+				<td>
+					{
+						this.props.isInStock ?
+						<div className="cart-num-items">
+							<select onChange={this.addToCart}>
+								<option value={0}>0</option>
+								{
+									this.props.priceOptions.filter(option => option.numItems < this.props.stockQty).map((option, i) =>
+										<option key={i} value={option.numItems}>{option.numItems} - ({option.basePrice} / piece)</option>
+									)
+								}
+							</select>
+						</div> :
+						<span className="color-alert">Out of stock</span>
+					}
 				</td>
+				<AccessControl access={['siteAdmin']}>
+					<td className="text-center">
+						<div className="action-buttons">
+							<Link key="merchEdit" to={`/admin/merch/edit/${this.props.id}`} className="action"><i className="fa fa-pencil-square-o"></i></Link>
+						</div>
+					</td>
+				</AccessControl>
 			</tr>
 		)
 	}
@@ -47,5 +63,10 @@ MerchListingRow.propTypes = {
 	'format': PropTypes.string.isRequired,
 	'id': PropTypes.number.isRequired,
 	'removeMerch': PropTypes.func.isRequired,
-	'title': PropTypes.string.isRequired
+	'title': PropTypes.string.isRequired,
+	'priceOptions': React.PropTypes.arrayOf(React.PropTypes.shape({
+		'id': React.PropTypes.number,
+		'basePrice': React.PropTypes.number.isRequired,
+		'numItems': React.PropTypes.number.isRequired,
+   })).isRequired
 }

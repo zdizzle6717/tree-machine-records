@@ -2,14 +2,14 @@
 
 module.exports = function(sequelize, DataTypes) {
   let Artist = sequelize.define("Artist", {
-    name: DataTypes.STRING,
-    param: {
-      type: DataTypes.STRING,
-      unique: true
+    'name': DataTypes.STRING,
+    'param': {
+      'type': DataTypes.STRING,
+      'unique': true
     },
-    isCurrent: DataTypes.BOOLEAN
+    'isCurrent': DataTypes.BOOLEAN
   }, {
-    classMethods: {
+    'classMethods': {
       associate: function(models) {
         Artist.hasMany(models.AlbumRelease);
         Artist.hasOne(models.BioSection);
