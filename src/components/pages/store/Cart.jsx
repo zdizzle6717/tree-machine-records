@@ -5,18 +5,16 @@ import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {CSSTransitionGroup as Animation} from 'react-transition-group';
-import CartActions from '../../../actions/CartActions';
+import {CartActions} from '../../../library/cart';
 
 const mapStateToProps = (state) => {
 	return {
-		'cartTotal': state.cartTotal,
-		'cartItems': state.cartItems
+		'cartItems': state.cartItems,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-		'updateOrderTotal': CartActions.updateTotal,
 		'addItem': CartActions.add,
 		'removeItem': CartActions.remove
 	}, dispatch);
@@ -34,12 +32,8 @@ class Cart extends React.Component {
         document.title = "Tree Machine Records | Cart";
     }
 
-	removeItem(item, qty) {
-		this.props.removeItem(item.merchItem.id, qty);
-		// TODO: Check if this needs a set timeout
-		setTimeout(() => {
-			this.props.updateOrderTotal(this.props.cartItems);
-		});
+	removeItem(itemId) {
+		this.props.removeItem(itemId);
 	}
 
     render() {
@@ -69,7 +63,7 @@ class Cart extends React.Component {
 											<td>${item.merchItem.price}</td>
 											<td>({item.cartQty})</td>
 											<td>{(item.cartQty * item.merchItem.price).toFixed(2)}</td>
-											<td onClick={this.removeItem.bind(this, item, item.cartQty)}><span className="fa fa-minus"></span></td>
+											<td onClick={this.removeItem.bind(this, item.id)}><span className="fa fa-minus"></span></td>
 										</tr>
 									)
 								}
@@ -77,7 +71,7 @@ class Cart extends React.Component {
 						</table>
 						<hr />
 						<div className="small-12 columns text-right">
-							Order Total: {this.props.cartTotal}
+							Order Total: ${this.getOrderTotal.call(this, this.props.cartItems)}
 						</div>
 						<Link to="store/checkout" className="button">
 							Go to Checkout

@@ -6,7 +6,7 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import rootReducer from './reducers';
 
 const loggerMiddleware = createLogger();
-let store, storedUser, preLoadedState;
+let store, storedUser, storedCart, cartQtyPlaceholders, preLoadedState;
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -28,7 +28,11 @@ function safelyParse(input) {
 if(typeof(Storage) !== 'undefined' && typeof(window) !== 'undefined') {
 	storedUser = JSON.parse(sessionStorage.getItem('user'));
 	storedUser = storedUser ? storedUser : {};
-	preLoadedState = Object.assign(safelyParse(window.__PRELOADED_STATE__), {'user': storedUser, 'isAuthenticated': !!storedUser.roleConfig});
+	storedCart = JSON.parse(sessionStorage.getItem('cartItems'));
+	storedCart = storedCart ? storedCart : [];
+	cartQtyPlaceholders = JSON.parse(sessionStorage.getItem('cartQuantities'));
+	cartQtyPlaceholders = cartQtyPlaceholders ? cartQtyPlaceholders : {};
+	preLoadedState = Object.assign(safelyParse(window.__PRELOADED_STATE__), {'user': storedUser, 'isAuthenticated': !!storedUser.roleConfig, 'cartItems': storedCart, 'cartQtyPlaceholders': cartQtyPlaceholders});
 }
 
 if (process.env.NODE_ENV === 'production') {

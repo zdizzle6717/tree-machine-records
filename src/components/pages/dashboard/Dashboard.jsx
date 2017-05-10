@@ -9,7 +9,7 @@ import {UserActions, AccessControl as createAccessControl} from '../../../librar
 import {PaginationControls} from '../../../library/pagination';
 import roleConfig from '../../../../roleConfig';
 const AccessControl = createAccessControl(roleConfig);
-import CartActions from '../../../actions/CartActions';
+import {CartActions} from '../../../library/cart';
 import MerchItemActions from '../../../actions/MerchItemActions';
 import MerchItemService from '../../../services/MerchItemService';
 import MerchListingRow from '../../pieces/MerchListingRow';
@@ -29,7 +29,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-		'updateTotal': CartActions.updateTotal,
 		'addToCart': CartActions.add,
 		'searchUsers': UserActions.search,
 		'searchMerch': MerchItemActions.search
@@ -60,12 +59,9 @@ class Dashboard extends React.Component {
     }
 
 	addToCart(itemId, qty) {
+		// TODO: Check if this API call is necessary
 		MerchItemService.get(itemId).then((merchItem) => {
 			this.props.addToCart(merchItem, qty);
-			// TODO: Check if this needs a set timeout
-			setTimeout(() => {
-				this.props.updateTotal(this.props.cartItems);
-			});
 		});
 	}
 

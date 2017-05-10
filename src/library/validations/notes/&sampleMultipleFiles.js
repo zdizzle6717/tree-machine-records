@@ -43,12 +43,12 @@ function handleSubmit(e) {
 	if (this.state.newContact) {
 		ContactActions.createContact(contact).then(() => {
 			this.showAlert('contactCreated');
-			this.props.history.push('/contacts');
+			browserHistory.push('/contacts');
 		});
 	} else {
 		ContactActions.updateContact(contact.id, contact).then(() => {
 			this.showAlert('contactUpdated');
-			this.props.history.push('/contacts');
+			browserHistory.push('/contacts');
 		});
 	}
 }
