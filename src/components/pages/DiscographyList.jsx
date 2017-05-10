@@ -3,7 +3,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import SideBar from '../pieces/SideBar';
 import { Form, Input } from '../../library/validations';
 import PaginationControls from '../../library/pagination/components/PaginationControls';

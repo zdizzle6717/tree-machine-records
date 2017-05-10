@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import classNames from 'classnames';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import AudioPlayer from 'react-responsive-audio-player';
 import PropTypes from 'prop-types';
 import AlertActions from '../../library/alerts/actions/AlertActions';

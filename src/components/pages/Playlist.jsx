@@ -3,7 +3,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import SideBar from '../pieces/SideBar';
 import roleConfig from '../../../roleConfig';
 import {AccessControl as createAccessControl} from '../../library/authentication';

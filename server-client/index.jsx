@@ -9,12 +9,12 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import createSagaMiddleware from 'redux-saga';
-const sagaMiddleware = createSagaMiddleware();
+// import createSagaMiddleware from 'redux-saga';
+// const sagaMiddleware = createSagaMiddleware();
 import envVariables from '../envVariables';
 import routeConfig from './routeConfig';
 import rootReducer from '../src/reducers';
-import rootSaga from '../src/sagas';
+// import rootSaga from '../src/sagas';
 import Layout from '../src/components/Layout';
 import routes from '../src/routes';
 
@@ -40,12 +40,12 @@ for (let i in routeConfig) {
 			rootReducer,
 			initialState,
 			applyMiddleware(
-				thunkMiddleware,
-				sagaMiddleware
+				thunkMiddleware
+				// sagaMiddleware
 			)
 		);
 
-		sagaMiddleware.run(rootSaga),
+		// sagaMiddleware.run(rootSaga);
 
 		routes.some(route => {
 			const match = matchPath(req.url, route);

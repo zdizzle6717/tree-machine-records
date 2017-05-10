@@ -4,7 +4,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import formatDate from '../../library/utilities/formatJSONDate';
 import SideBar from '../pieces/SideBar';
 import AlbumReleaseActions from '../../actions/AlbumReleaseActions';

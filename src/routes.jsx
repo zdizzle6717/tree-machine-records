@@ -69,7 +69,7 @@ let routes = [
 	},
 	{
 		'path': '/digital-downloads',
-		'component': DownloadsList,
+		'component': DownloadList,
 		'exact': true
 	},
 	{
@@ -276,7 +276,7 @@ let routes = [
 	},
 	{
 		'path': '/store/order-success',
-		'component': Order Success
+		'component': OrderSuccess
 	},
 
 	// If no route matches, return NotFound component

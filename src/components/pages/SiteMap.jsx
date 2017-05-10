@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import SideBar from '../pieces/SideBar';
 
 export default class SiteMap extends React.Component {

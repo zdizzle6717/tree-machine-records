@@ -4,7 +4,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import CartActions from '../../../actions/CartActions';
 
 const mapStateToProps = (state) => {

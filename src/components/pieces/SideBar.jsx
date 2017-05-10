@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Animation from 'react-addons-css-transition-group';
+import {CSSTransitionGroup as Animation} from 'react-transition-group';
 import PropTypes from 'prop-types';
 import formatDate from '../../library/utilities/formatJSONDate';
 import OverlayActions from '../../actions/OverlayActions';

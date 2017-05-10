@@ -1,7 +1,7 @@
 'use strict';
 
 import Boom from 'boom';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import models from '../models';
 import roleConfig from '../../roleConfig';
 

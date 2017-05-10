@@ -77,10 +77,10 @@ server.register(HapiAuthJwt, (err) => {
 			algorithms: ['HS256']
 		}
 	});
-});
 
-// Routes
-server.route(routes);
+	// Routes
+	server.route(routes);
+});
 
 models.sequelize.sync().then(function() {
     server.start((err) => {

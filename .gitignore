@@ -52,4 +52,6 @@ server/config
 babel_cache*
 
 # Environment
-*envVariables.js
+envVariables.js
+server/databaseConfig.js
+compiled-server/databaseConfig.js

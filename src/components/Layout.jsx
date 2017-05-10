@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
 	}, dispatch);
 }
 
-let = _viewListener;
+let _viewListener;
 
 class Layout extends React.Component {
 	constructor() {
