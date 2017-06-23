@@ -155,9 +155,7 @@ class Layout extends React.Component {
 			// Opportunity to add a loader of graphical display
 			return (
 				<div>
-					<header>
-						<TopNav/>
-					</header>
+					<Header hasScrolled={this.state.hasScrolled} logoUrl={this.state.miniLogoUrl}/>
 				</div>
 			)
 		}
@@ -168,4 +166,4 @@ class Layout extends React.Component {
 	}
 }
 
-export default connect(null, mapDispatchToProps)(Layout);
+export default withRouter(connect(null, mapDispatchToProps)(Layout));

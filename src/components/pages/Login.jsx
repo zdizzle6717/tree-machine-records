@@ -134,7 +134,7 @@ class Login extends React.Component {
 							</div>
 						</Form>
 						<div className="form-group small-12">
-							Don't have an account? <Link key="register" to="/register" activeClassName="active" onClick={this.closeMenu}>Register/Sign Up</Link>
+							Don't have an account? <Link key="register" to="/register"  onClick={this.closeMenu}>Register/Sign Up</Link>
 						</div>
 						<div className="form-group small-12 text-center push-top">
 							{

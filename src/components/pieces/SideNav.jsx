@@ -30,19 +30,19 @@ export default class SideNav extends React.Component {
 		return (
 			<div className={sideNavClasses}>
 			    <div className="nav-controls">
-			        <Link key={1} to="/search" className="row" activeClassName="active">
+			        <Link key={1} to="/search" className="row" >
 			            <span className="fa fa-search fa-2x"></span>
 			        </Link>
-			        <Link key={2} to="/playlist" className="row" activeClassName="active">
+			        <Link key={2} to="/playlist" className="row" >
 			            <span className="fa fa-headphones fa-2x"></span>
 			        </Link>
-			        <Link key={3} to="/photography" className="row" activeClassName="active">
+			        <Link key={3} to="/photography" className="row" >
 			            <span className="fa fa-camera fa-2x"></span>
 			        </Link>
-			        <Link key={4} to="/cinematography" className="row" activeClassName="active">
+			        <Link key={4} to="/cinematography" className="row" >
 			            <span className="fa fa-video-camera fa-2x"></span>
 			        </Link>
-			        <Link key={5} to="/digital-downloads" className="row" activeClassName="active">
+			        <Link key={5} to="/digital-downloads" className="row" >
 			            <span className="fa fa-download fa-2x"></span>
 			        </Link>
 			        <div className="row" onClick={this.toggleSideNav}>

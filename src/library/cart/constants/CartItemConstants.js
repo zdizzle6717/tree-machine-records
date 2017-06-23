@@ -7,6 +7,7 @@ export default keyMirror({
 	CLEAR_CART: null,
 	TOGGLE: null,
 	UPDATE_CART_ITEM: null,
+	UPDATE_STOCK: null,
 	REMOVE_CART_ITEM: null,
 	UPDATE_CART_TOTAL: null
 });

@@ -145,7 +145,7 @@ let routes = [
 		'exact': true
 	},
 	{
-		'path': '/profile',
+		'path': '/dashboard',
 		'component': Dashboard,
 		'exact': true
 	},

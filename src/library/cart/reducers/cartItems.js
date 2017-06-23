@@ -51,6 +51,15 @@ const cartItems = (state = [], action) => {
 			}
 			updateSessionCart(cartItems);
 			return cartItems;
+		case CartItemConstants.UPDATE_STOCK:
+			cartItems = [...state];
+			index = cartItems.findIndex((item) => item.product.id === action.data.id);
+			if (index < 0) {
+				return state;
+			} else {
+				cartItems[index].outOfStock = action.data.outOfStock;
+			}
+			return cartItems;
 		case CartItemConstants.REMOVE_CART_ITEM:
 			cartItems = [...state];
 			index = state.findIndex((cartItem) => cartItem.product.id === action.id);

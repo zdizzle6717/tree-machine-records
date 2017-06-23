@@ -11,12 +11,12 @@ export default class MerchListingRow extends React.Component {
 	constructor() {
 		super();
 
-		this.addToCart = this.addToCart.bind(this);
+		this.updateCart = this.updateCart.bind(this);
 	}
 
-	addToCart(e) {
+	updateCart(e) {
 		let qty = e.target.value;
-		this.props.addToCart(this.props.id, qty);
+		this.props.updateCart(product, this.props.id);
 	}
 
 	render() {
@@ -30,9 +30,9 @@ export default class MerchListingRow extends React.Component {
 				<td>{this.props.stockQty}</td>
 				<td>
 					{
-						this.props.isInStock ?
+						this.props.stockQty > 0 ?
 						<div className="cart-num-items">
-							<select onChange={this.addToCart}>
+							<select onChange={this.updateCart}>
 								<option value={0}>0</option>
 								{
 									this.props.priceOptions.filter(option => option.numItems < this.props.stockQty).map((option, i) =>
@@ -58,7 +58,7 @@ export default class MerchListingRow extends React.Component {
 
 MerchListingRow.propTypes = {
 	'artist': PropTypes.string,
-	'addToCart': PropTypes.func,
+	'updateCart': PropTypes.func,
 	'catalogueNumber': PropTypes.string,
 	'format': PropTypes.string.isRequired,
 	'id': PropTypes.number.isRequired,

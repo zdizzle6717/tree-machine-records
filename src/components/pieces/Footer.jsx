@@ -19,9 +19,9 @@ export default class Header extends React.Component {
 			    <div className="row expanded">
 			        <div className="small-12 medium-7 columns">
 			            <ul className="menu">
-							<li><Link key="archive" to="/archive" activeClassName="active">Archive</Link></li>
-							<li><Link key="siteMap" to="/site-map" activeClassName="active">Site Map</Link></li>
-							<li><Link key="about" to="/about" activeClassName="active">About/Contact</Link></li>
+							<li><Link key="archive" to="/archive" >Archive</Link></li>
+							<li><Link key="siteMap" to="/site-map" >Site Map</Link></li>
+							<li><Link key="about" to="/about" >About/Contact</Link></li>
 			            </ul>
 			        </div>
 			        <div className="small-12 medium-5 columns">

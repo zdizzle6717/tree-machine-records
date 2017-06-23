@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {CSSTransitionGroup as Animation} from 'react-transition-group';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {CartActions} from '../../library/cart';
 
@@ -38,10 +39,6 @@ class CartSummary extends React.Component {
 			let storedItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
 			storedItems.forEach((item) => {
 				this.props.addToCart(item.product, item.cartQty);
-			});
-			// TODO: Check if this needs a set timeout
-			setTimeout(() => {
-				this.props.updateOrderTotal(this.props.cartItems);
 			});
 		}
 	}
@@ -77,11 +74,11 @@ class CartSummary extends React.Component {
 
 		return (
 			<li className="mini-cart">
-				<a className="menu-link cart-button" onClick={this.toggleCart}><span className="fa fa-shopping-cart"></span></a>
+				<a className="menu-link cart-button" onClick={this.toggleCart.bind(this)}><span className="fa fa-shopping-cart"></span></a>
 				<div className={this.props.cartIsActive ? 'cart-summary show' : 'cart-summary'} >
 					<div className="header">
 						<h2>Cart Summary</h2>
-						<span className="fa fa-times-circle-o pointer" onClick={this.toggleCart.bind(this, 'hide')}></span>
+						<span className="fa fa-times-circle-o pointer" onClick={this.toggleCart.bind(this, false)}></span>
 					</div>
 					<div className="body">
 						{
@@ -117,7 +114,7 @@ class CartSummary extends React.Component {
 						<Link to="store/checkout" className="button">Go To Checkout</Link>
 					</div>
 				</div>
-				<div className={backdropClasses} onClick={this.toggleCart.bind(this, 'hide')}></div>
+				<div className={backdropClasses} onClick={this.toggleCart.bind(this, false)}></div>
 			</li>
 		)
 	}

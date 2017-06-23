@@ -124,9 +124,9 @@ class Header extends React.Component {
 			<header>
 				<div className={`top-nav ${this.props.hasScrolled ? 'scroll-active' : ''}`}>
 					<div className="home-link">
-						<Link key="home" to="/" className="desktop" activeClassName="active" onClick={this.closeMenus}>Home</Link>
-						<Link key="home-tablet" to="/" className="tablet" activeClassName="active" onClick={this.closeMenus}>Tree Machine Records</Link>
-						<Link key="home-mobile" to="/" className="mobile" activeClassName="active" onClick={this.closeMenus}>TM Records</Link>
+						<Link key="home" to="/" className="desktop"  onClick={this.closeMenus}>Home</Link>
+						<Link key="home-tablet" to="/" className="tablet"  onClick={this.closeMenus}>Tree Machine Records</Link>
+						<Link key="home-mobile" to="/" className="mobile"  onClick={this.closeMenus}>TM Records</Link>
 					</div>
 					<div className={ this.props.hasScrolled ? 'menu-toggle hasScrolled' : 'menu-toggle'} onClick={this.toggleMenu}>
 						<i className="fa fa-bars"></i>
@@ -135,13 +135,13 @@ class Header extends React.Component {
 						<div className="menu-group">
 							<ul className="main-menu" onClick={this.closeMenus}>
 								<li className="">
-									<Link key="providers" to="/artists" className="menu-link" activeClassName="active">Artists</Link>
+									<Link key="providers" to="/artists" className="menu-link" >Artists</Link>
 								</li>
 								<li className="">
-									<Link key="countries" to="/countries" className="menu-link" activeClassName="active">Origins</Link>
+									<Link key="countries" to="/countries" className="menu-link" >Origins</Link>
 								</li>
 								<li className="">
-									<Link key="discography" to="/discography" className="menu-link" activeClassName="active">Discography</Link>
+									<Link key="discography" to="/discography" className="menu-link" >Discography</Link>
 								</li>
 								<li className="">
 									<a href="https://www.store.treemachinerecords.com/" target="_blank">Shop</a>
@@ -161,7 +161,7 @@ class Header extends React.Component {
 										</a>
 										<ul className={this.state.showAccountMenu ? 'account-menu show': 'account-menu'}>
 											<li>
-												<Link key="dashboard" to="/dashboard" activeClassName="active" onClick={this.closeMenus}>Dashboard</Link>
+												<Link key="dashboard" to="/dashboard"  onClick={this.closeMenus}>Dashboard</Link>
 											</li>
 											<li className="account-link" onClick={this.closeMenus}>
 												<a onClick={this.logout}>Logout</a>
@@ -169,7 +169,7 @@ class Header extends React.Component {
 										</ul>
 									</li> :
 									<li className="login-link">
-										<Link key="login" to="/login" className="menu-link" activeClassName="active">Login/Register</Link>
+										<Link key="login" to="/login" className="menu-link" >Login/Register</Link>
 									</li>
 								}
 							</ul>
@@ -179,13 +179,13 @@ class Header extends React.Component {
 							<div className="menu-group-mobile">
 								<ul className="main-menu" onClick={this.closeMenus}>
 									<li className="">
-										<Link key="providers" to="/artists" className="menu-link" activeClassName="active">Artists</Link>
+										<Link key="providers" to="/artists" className="menu-link" >Artists</Link>
 									</li>
 									<li className="">
-										<Link key="countries" to="/countries" className="menu-link" activeClassName="active">Map</Link>
+										<Link key="countries" to="/countries" className="menu-link" >Map</Link>
 									</li>
 									<li className="">
-										<Link key="discography" to="/discography" className="menu-link" activeClassName="active">Discography</Link>
+										<Link key="discography" to="/discography" className="menu-link" >Discography</Link>
 									</li>
 									<li className="">
 										<a href="https://www.store.treemachinerecords.com/" target="_blank">Shop</a>
@@ -205,7 +205,7 @@ class Header extends React.Component {
 											</a>
 											<ul className={this.state.showAccountMenu ? 'account-menu show': 'account-menu'}>
 												<li>
-													<Link key="dashboard" to="/dashboard" activeClassName="active">Dashboard</Link>
+													<Link key="dashboard" to="/dashboard" >Dashboard</Link>
 												</li>
 												<li className="account-link">
 													<a onClick={this.logout}>Logout</a>
@@ -213,7 +213,7 @@ class Header extends React.Component {
 											</ul>
 										</li> :
 										<li className="login-link">
-											<Link key="login" to="/login" className="menu-link" activeClassName="active">Login/Register</Link>
+											<Link key="login" to="/login" className="menu-link" >Login/Register</Link>
 										</li>
 									}
 								</ul>
@@ -227,9 +227,9 @@ class Header extends React.Component {
 				    <div className="columns bottom small-12 medium-12 large-9">
 				        <div className="small-7 medium-5 section-1 home-link">
 				            <div className="mini-logo hover">
-								<Link key="home" to="/" activeClassName="active" onClick={this.closeMenu}><img src={this.props.logoUrl}/></Link>
+								<Link key="home" to="/"  onClick={this.closeMenu}><img src={this.props.logoUrl}/></Link>
 				            </div>
-							<h4 className="hover home-text"><Link key="home" to="/" activeClassName="active">Tree Machine Records</Link></h4>
+							<h4 className="hover home-text"><Link key="home" to="/" >Tree Machine Records</Link></h4>
 				        </div>
 				        <div className="small-5 medium-7 section-2">
 				            <AudioPlayer playlist={playlist} hideBackSkip={false} />

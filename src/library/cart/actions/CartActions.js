@@ -43,6 +43,18 @@ export default {
 			});
 		};
 	},
+	updateStock: (productId, outOfStock) => {
+		let data = {
+			'id': productId,
+			'outOfStock': outOfStock
+		};
+		return (dispatch) => {
+			dispatch({
+				'type': CartItemConstants.UPDATE_STOCK,
+				'data': data
+			});
+		};
+	},
 	remove: (itemId) => {
 		return (dispatch) => {
 			dispatch({

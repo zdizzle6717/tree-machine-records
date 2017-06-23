@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-		'addToCart': CartActions.add,
+		'updateCart': CartActions.update,
 		'searchUsers': UserActions.search,
 		'searchMerch': MerchItemActions.search
 	}, dispatch);
@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
 			'userPagination': {},
 		}
 
-		this.addToCart = this.addToCart.bind(this);
+		this.updateCart = this.updateCart.bind(this);
 		this.removeMerchItem = this.removeMerchItem.bind(this);
 		this.searchMerch = this.searchMerch.bind(this);
 		this.searchUsers = this.searchUsers.bind(this);
@@ -58,10 +58,10 @@ class Dashboard extends React.Component {
 		this.searchUsers(1);
     }
 
-	addToCart(itemId, qty) {
+	updateCart(itemId, qty) {
 		// TODO: Check if this API call is necessary
 		MerchItemService.get(itemId).then((merchItem) => {
-			this.props.addToCart(merchItem, qty);
+			this.props.updateCart(merchItem, qty);
 		});
 	}
 
@@ -148,7 +148,7 @@ class Dashboard extends React.Component {
 						            </thead>
 						            <tbody>
 										{
-											this.props.merchItems.map((item, i) => <MerchListingRow key={i} id={item.id} catalogueNumber={item.AlbumRelease.catalogueNumber} title={item.title} artist={item.Artist.name} price={item.price} removeMerch={this.removeMerchItem} addToCart={this.addToCart} format={item.format} priceOptions={item.PriceOptions}></MerchListingRow>)
+											this.props.merchItems.map((item, i) => <MerchListingRow key={i} id={item.id} catalogueNumber={item.AlbumRelease.catalogueNumber} title={item.title} artist={item.Artist.name} price={item.price} removeMerch={this.removeMerchItem} updateCart={this.updateCart} format={item.format} priceOptions={item.PriceOptions}></MerchListingRow>)
 										}
 									</tbody>
 								</table>

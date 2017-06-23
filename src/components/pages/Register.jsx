@@ -150,7 +150,7 @@ class Register extends React.Component {
 							</div>
 						</Form>
 						<div className="form-group small-12">
-							Already have an account? <Link key="login" to="/login" activeClassName="active" onClick={this.closeMenu}>Go to Login</Link>
+							Already have an account? <Link key="login" to="/login"  onClick={this.closeMenu}>Go to Login</Link>
 						</div>
 					</div>
 				</div>

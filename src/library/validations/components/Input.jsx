@@ -210,7 +210,7 @@ class Input extends React.Component {
 
 		return (
 			<div className="validate-error-element">
-				<input className={validationClasses} type={this.props.type} name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} min={this.props.min} max={this.props.max} minLength={this.props.minlength} maxLength={this.props.maxlength} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} autoComplete={this.props.autoComplete} disabled={this.props.disabled}/>
+				<input className={validationClasses} type={this.props.type} name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} step={this.props.step} min={this.props.min} max={this.props.max} minLength={this.props.minlength} maxLength={this.props.maxlength} onChange={this.validateInput} onMouseDown={this.handleMouseDown} onFocus={this.handleFocus} onBlur={this.handleBlur} autoComplete={this.props.autoComplete} disabled={this.props.disabled}/>
 				<div className="validate-errors">
 					{
 						this.state.errors.map((error, i) =>
@@ -232,6 +232,7 @@ Input.propTypes = {
 	'minlength': PropTypes.number,
 	'maxlength': PropTypes.number,
 	'max': PropTypes.number,
+	'step': PropTypes.string,
 	'validate': PropTypes.string,
 	'handleInputChange': PropTypes.func.isRequired,
 	'preserveState': PropTypes.bool,
@@ -242,7 +243,8 @@ Input.propTypes = {
 
 Input.defaultProps = {
 	'autoComplete': 'on',
-	'preserveState': false
+	'preserveState': false,
+	'step': '1'
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Input));

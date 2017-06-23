@@ -32,6 +32,14 @@ class Cart extends React.Component {
         document.title = "Tree Machine Records | Cart";
     }
 
+	getOrderTotal(items) {
+		let total = 0;
+		items.forEach((item) => {
+			total += parseInt(item.product.price, 10) * parseInt(item.cartQty, 10);
+		});
+		return total;
+	}
+
 	removeItem(itemId) {
 		this.props.removeItem(itemId);
 	}

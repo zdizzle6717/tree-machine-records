@@ -47,6 +47,7 @@ const initInterceptors = (history, baseUrl = 'http://localhost:8000/api/', timeo
 	}, (error) => {
 		if (error.response) {
 			if (error.response.status == 401 || error.response.data.statusCode == 401) {
+				store.dispatch(UserActions.setRedirect(window.location.pathname));
 				store.dispatch(UserActions.logout());
 				store.dispatch(AlertActions.addAlert({
 					title: 'Not Authorized',
